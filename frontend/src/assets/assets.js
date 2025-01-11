@@ -54,6 +54,10 @@ import p_img50 from './52.jpg'
 import p_img51 from './53.jpg'
 import p_img52 from './54.jpg'
 import video1 from './1.mp4'
+import videowysiwyg from './video1.mp4'
+import videogeneral from './video2.mp4'
+import videofish from './video3.mp4'
+import video4 from './video4.mp4'
 
 
 import logo from './logo_reefmaster.png'
@@ -101,7 +105,11 @@ export const assets = {
     p_img12,
     p_img13,
     logo_hd,
-    video1
+    video1,
+    videowysiwyg,
+    videogeneral,
+    videofish,
+    video4
 }
 
 export const products = [

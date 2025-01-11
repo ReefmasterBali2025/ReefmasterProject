@@ -12,7 +12,7 @@ const Hero = () => {
               <div className="shop-img">
               <video
                     className="w-full h-48 object-cover hover:scale-110 transition ease-in-out duration-300"
-                    src={assets.video1}
+                    src={assets.videowysiwyg}
                     autoPlay
                     muted
                     loop
@@ -31,7 +31,13 @@ const Hero = () => {
           <div className="w-full sm:w-1/2 md:w-1/3 px-4 mb-6">
             <div className="shop bg-white shadow rounded-lg overflow-hidden">
               <div className="shop-img">
-              <img src={assets.p_img12} alt="" className="w-full h-48 object-cover" />
+              <video
+                    className="w-full h-48 object-cover hover:scale-110 transition ease-in-out duration-300"
+                    src={assets.videogeneral}
+                    autoPlay
+                    muted
+                    loop
+                />
               </div>
               <div className="shop-body p-4 text-center">
                 <h3 className="text-lg font-bold mb-2">Stock List<br />Collection</h3>
@@ -46,7 +52,13 @@ const Hero = () => {
           <div className="w-full sm:w-1/2 md:w-1/3 px-4 mb-6">
             <div className="shop bg-white shadow rounded-lg overflow-hidden">
               <div className="shop-img">
-              <img src={assets.p_img13} alt="" className="w-full h-48 object-cover" />
+              <video
+                    className="w-full h-48 object-cover hover:scale-110 transition ease-in-out duration-300"
+                    src={assets.videofish}
+                    autoPlay
+                    muted
+                    loop
+                />
               </div>
               <div className="shop-body p-4 text-center">
                 <h3 className="text-lg font-bold mb-2">Fish<br />Collection</h3>
