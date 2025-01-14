@@ -9,7 +9,7 @@ import ProductItem from '../components/ProductItem';
 import '../index.css'
 
 // Komponen utama untuk menampilkan koleksi produk
-const Collection = () => {
+const WYSIWYGCollectionOnly = () => {
     // Mengambil data dari ShopContext menggunakan useContext
     const { products, search, showSearch } = useContext(ShopContext);
 
@@ -19,9 +19,9 @@ const Collection = () => {
     const [subCategory, setSubCategory] = useState([]);
     const [sortType, setSortType] = useState('relevant');
 
-    const [currentPage, setCurrentPage] = useState(1); // Halaman aktif
-    const ITEMS_PER_PAGE = 30; // Jumlah item per halaman
-    const totalPages = Math.ceil(filterProducts.length / ITEMS_PER_PAGE); // Hitung total halaman
+    const [currentPage, setCurrentPage] = useState(1);
+    const ITEMS_PER_PAGE = 30;
+    const totalPages = Math.ceil(filterProducts.length / ITEMS_PER_PAGE);
 
     const toggleCategory = (e) => {
         const value = e.target.value;
@@ -40,6 +40,9 @@ const Collection = () => {
     // Fungsi untuk memperbarui produk yang difilter
     const updateFilteredAndSortedProducts = () => {
         let productsCopy = products.slice();
+
+        // Filter untuk hanya produk dengan type: "WYSIWYG"
+        productsCopy = productsCopy.filter((item) => item.type === "WYSIWYG");
 
         // Filter berdasarkan pencarian
         if (showSearch && search) {
@@ -75,14 +78,13 @@ const Collection = () => {
 
     useEffect(() => {
         updateFilteredAndSortedProducts();
-        setCurrentPage(1); // Reset ke halaman pertama jika filter berubah
+        setCurrentPage(1);
     }, [category, subCategory, sortType, showSearch, search]);
 
     useEffect(() => {
-        setFilterProducts(products);
+        updateFilteredAndSortedProducts();
     }, [products]);
 
-    // Produk yang akan ditampilkan pada halaman saat ini
     const currentProducts = filterProducts.slice(
         (currentPage - 1) * ITEMS_PER_PAGE,
         currentPage * ITEMS_PER_PAGE
@@ -95,7 +97,6 @@ const Collection = () => {
     const handlePrevPage = () => {
         if (currentPage > 1) setCurrentPage(currentPage - 1);
     };
-
     return (
         <div className='flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-10 pt-10 border-t my-10'>
             {/* Bagian kiri untuk filter */}
@@ -141,17 +142,7 @@ const Collection = () => {
                     <p className='mb-3 text-sm font-medium'>TYPE</p>
                     <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
                         {/* Daftar subkategori */}
-                        {/* {['WYSIWG Hard Coral', 'WYSIWG Soft Coral', 'WYSIWG Anemone', 'General Hard Coral', 'General Soft Coral', 'Fish'].map((type) => (
-                            <p key={type} className='flex gap-2'>
-                                <input
-                                    className='w-3'
-                                    type='checkbox'
-                                    value={type}
-                                    onChange={toggleSubCategory}
-                                />
-                                {type}
-                            </p>
-                        ))} */}
+
 
                         <p className='flex gap-2'>
                             <input
@@ -180,33 +171,7 @@ const Collection = () => {
                             />
                             WYSIWYG Anemone
                         </p>
-                        <p className='flex gap-2'>
-                            <input
-                                className='w-3'
-                                type='checkbox'
-                                value={'General Hard Coral'}
-                                onChange={toggleSubCategory}
-                            />
-                            General Hard Coral
-                        </p>
-                        <p className='flex gap-2'>
-                            <input
-                                className='w-3'
-                                type='checkbox'
-                                value={'General Soft Coral'}
-                                onChange={toggleSubCategory}
-                            />
-                            General Soft Coral
-                        </p>
-                        <p className='flex gap-2'>
-                            <input
-                                className='w-3'
-                                type='checkbox'
-                                value={'Fish'}
-                                onChange={toggleSubCategory}
-                            />
-                            Fish
-                        </p>
+
                     </div>
                 </div>
             </div>
@@ -230,8 +195,8 @@ const Collection = () => {
                         <p>No Items Found</p>
                     </div>
                 ) : (
-                        <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 img-gallery lg:grid-cols-5 gap-4 gap-y-6'>
-                            {currentProducts.map((item, index) => (
+                    <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 img-gallery lg:grid-cols-5 gap-4 gap-y-6'>
+                        {currentProducts.map((item, index) => (
                             <ProductItem
                                 key={index}
                                 name={item.name}
@@ -269,4 +234,4 @@ const Collection = () => {
 
 };
 
-export default Collection;
+export default WYSIWYGCollectionOnly;

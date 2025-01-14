@@ -9,7 +9,7 @@ import ProductItem from '../components/ProductItem';
 import '../index.css'
 
 // Komponen utama untuk menampilkan koleksi produk
-const Collection = () => {
+const GeneralCollectionOnly = () => {
     // Mengambil data dari ShopContext menggunakan useContext
     const { products, search, showSearch } = useContext(ShopContext);
 
@@ -40,6 +40,8 @@ const Collection = () => {
     // Fungsi untuk memperbarui produk yang difilter
     const updateFilteredAndSortedProducts = () => {
         let productsCopy = products.slice();
+
+        productsCopy = productsCopy.filter((item) => item.type == "General")
 
         // Filter berdasarkan pencarian
         if (showSearch && search) {
@@ -141,45 +143,7 @@ const Collection = () => {
                     <p className='mb-3 text-sm font-medium'>TYPE</p>
                     <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
                         {/* Daftar subkategori */}
-                        {/* {['WYSIWG Hard Coral', 'WYSIWG Soft Coral', 'WYSIWG Anemone', 'General Hard Coral', 'General Soft Coral', 'Fish'].map((type) => (
-                            <p key={type} className='flex gap-2'>
-                                <input
-                                    className='w-3'
-                                    type='checkbox'
-                                    value={type}
-                                    onChange={toggleSubCategory}
-                                />
-                                {type}
-                            </p>
-                        ))} */}
 
-                        <p className='flex gap-2'>
-                            <input
-                                className='w-3'
-                                type='checkbox'
-                                value={'WYSIWYG Hard Coral'}
-                                onChange={toggleSubCategory}
-                            />
-                            WYSIWYG Hard Coral
-                        </p>
-                        <p className='flex gap-2'>
-                            <input
-                                className='w-3'
-                                type='checkbox'
-                                value={'WYSIWYG Soft Coral'}
-                                onChange={toggleSubCategory}
-                            />
-                            WYSIWYG Soft Coral
-                        </p>
-                        <p className='flex gap-2'>
-                            <input
-                                className='w-3'
-                                type='checkbox'
-                                value={'WYSIWYG Anemone'}
-                                onChange={toggleSubCategory}
-                            />
-                            WYSIWYG Anemone
-                        </p>
                         <p className='flex gap-2'>
                             <input
                                 className='w-3'
@@ -198,15 +162,7 @@ const Collection = () => {
                             />
                             General Soft Coral
                         </p>
-                        <p className='flex gap-2'>
-                            <input
-                                className='w-3'
-                                type='checkbox'
-                                value={'Fish'}
-                                onChange={toggleSubCategory}
-                            />
-                            Fish
-                        </p>
+
                     </div>
                 </div>
             </div>
@@ -230,8 +186,8 @@ const Collection = () => {
                         <p>No Items Found</p>
                     </div>
                 ) : (
-                        <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 img-gallery lg:grid-cols-5 gap-4 gap-y-6'>
-                            {currentProducts.map((item, index) => (
+                    <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 img-gallery lg:grid-cols-5 gap-4 gap-y-6'>
+                        {currentProducts.map((item, index) => (
                             <ProductItem
                                 key={index}
                                 name={item.name}
@@ -269,4 +225,4 @@ const Collection = () => {
 
 };
 
-export default Collection;
+export default GeneralCollectionOnly;
