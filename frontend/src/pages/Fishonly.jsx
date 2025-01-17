@@ -8,7 +8,7 @@ import Title from '../components/Title';
 import ProductItem from '../components/ProductItem';
 
 // Komponen utama untuk menampilkan koleksi produk
-const Collection = () => {
+const Fish = () => {
     // Mengambil data dari ShopContext menggunakan useContext
     const { products, search, showSearch } = useContext(ShopContext);
 
@@ -81,7 +81,6 @@ const Collection = () => {
 
 
     return (
-        <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] ">
         <div className='flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-10 pt-10 border-t my-10'>
             {/* Bagian kiri untuk filter */}
             <div className='min-w-32 md:w-[0.1px] w-full'>
@@ -96,42 +95,47 @@ const Collection = () => {
                     />
                 </p>
 
-                Filter kategori
+                {/* Filter kategori
                 <div className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} md:block`}>
                     <p className='mb-3 text-sm font-medium'>CATEGORIES</p>
-                    <div className='relative text-sm font-light text-gray-700'>
-                        {/* Dropdown list */}
-                        <select
-                            className='border border-gray-300 rounded-lg px-4 py-2 w-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500'
-                            onChange={(e) => toggleCategory(e.target.value)}
-                        >
-                            <option value="">Select Category</option>
-                            {['Culture', 'Wild'].map((category) => (
-                                <option key={category} value={category}>
-                                    {category}
-                                </option>
-                            ))}
-                        </select>
+                    <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
+                        <p className='flex gap-2'>
+                            <input
+                                className='w-3'
+                                type='checkbox'
+                                value={'Culture'}
+                                onChange={toggleCategory}
+                            />
+                            Culture
+                        </p>
+                        <p className='flex gap-2'>
+                            <input
+                                className='w-3'
+                                type='checkbox'
+                                value={'Wild'}
+                                onChange={toggleCategory}
+                            />
+                            Wild
+                        </p>
                     </div>
-                </div>
-
+                </div> */}
 
                 {/* Filter subkategori */}
                 <div className={`border border-gray-300 pl-5 py-3 mt-6 my-5 ${showFilter ? '' : 'hidden'} md:block`}>
                     <p className='mb-3 text-sm font-medium'>TYPE</p>
-                    <div className='relative text-sm font-light text-gray-700'>
-                {/* Dropdown list */}
-                        <select
-                        className='border border-gray-300 rounded-lg px-4 py-2 w-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500'
-                        onChange={(e) => toggleSubCategory(e.target.value)}
-                        >
-                        <option value="">Select Type</option>
-                            {['WYSIWYG Hard Coral', 'WYSIWYG Soft Coral', 'WYSIWYG Anemone', 'General Hard Coral', 'General Soft Coral', 'Fish', 'Invertebrate'].map((type) => (
-                        <option key={type} value={type}>
-                            {type}
-                        </option>
-                    ))}
-                        </select>
+                    <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
+                        {/* Daftar subkategori */}
+                        {['Fish','Invertebrate'].map((type) => (
+                            <p key={type} className='flex gap-2'>
+                                <input
+                                    className='w-3'
+                                    type='checkbox'
+                                    value={type}
+                                    onChange={toggleSubCategory}
+                                />
+                                {type}
+                            </p>
+                        ))}
                     </div>
                 </div>
             </div>
@@ -171,9 +175,8 @@ const Collection = () => {
                 )}
             </div>
         </div>
-        </div>
     );
 
 };
 
-export default Collection;
+export default Fish;

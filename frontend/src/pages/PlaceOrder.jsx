@@ -11,6 +11,7 @@ const PlaceOrder = () => {
     const { navigate } = useContext(ShopContext);
 
     return (
+        <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] ">
         <div className='flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t'>
             {/* ----------------- Left Side ------------------- */}
             <div className='flex flex-col gap-4 w-full sm:max-w-[480px]'>
@@ -76,6 +77,7 @@ const PlaceOrder = () => {
             </div>
 
 
+        </div>
         </div>
     )
 }

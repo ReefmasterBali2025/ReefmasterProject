@@ -12,10 +12,15 @@ import Orders from './pages/Orders'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import SearchBar from './components/SearchBar'
+import WYSIWYG from './pages/WYSIWYGonly'
+import General from './pages/Generalonly'
+import Fish from './pages/Fishonly'
+import Cites from './pages/Cites'
+
 
 const App = () => {
   return (
-    <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] ">
+    <div >
 
       <Navbar />
       <SearchBar />
@@ -29,6 +34,10 @@ const App = () => {
         <Route path='/login' element={<Login />} />
         <Route path='/place-order' element={<PlaceOrder />} />
         <Route path='/orders' element={<Orders />} />
+        <Route path='/WYSIWYG_Only' element={<WYSIWYG />} />
+        <Route path='/Stocklist_Only' element={<General />} />
+        <Route path='/Fish&Invert' element={<Fish />} />
+        <Route path='/cites' element={<Cites />} />
       </Routes>
       <Footer />
     </div>
