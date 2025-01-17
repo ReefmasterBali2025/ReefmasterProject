@@ -112,10 +112,11 @@ export const products = [
         price: 100,
         image: [p_img1],
         category: "Culture",
-        subCategory: "WYSIWG Hard Coral",
+        subCategory: "WYSIWYG Hard Coral",
         sizes: ["S", "M", "L"],
         date: 1716634345448,
-        bestseller: true
+        bestseller: true,
+        type: "WYSIWYG"
     },
     {
         _id: "aaaab",
@@ -124,10 +125,11 @@ export const products = [
         price: 200,
         image: [p_img2_1, p_img2_2, p_img2_3, p_img2_4],
         category: "Culture",
-        subCategory: "WYSIWG Hard Coral",
+        subCategory: "WYSIWYG Hard Coral",
         sizes: ["M", "L", "XL"],
         date: 1716621345448,
-        bestseller: true
+        bestseller: true,
+        type: "WYSIWYG"
     },
     {
         _id: "aaaac",
@@ -136,10 +138,11 @@ export const products = [
         price: 220,
         image: [p_img3],
         category: "Culture",
-        subCategory: "WYSIWG Hard Coral",
+        subCategory: "WYSIWYG Hard Coral",
         sizes: ["S", "L", "XL"],
         date: 1716234545448,
-        bestseller: true
+        bestseller: true,
+        type: "WYSIWYG"
     },
     {
         _id: "aaaad",
@@ -148,10 +151,11 @@ export const products = [
         price: 110,
         image: [p_img4],
         category: "Culture",
-        subCategory: "WYSIWG Hard Coral",
+        subCategory: "WYSIWYG Hard Coral",
         sizes: ["S", "M", "XXL"],
         date: 1716621345448,
-        bestseller: true
+        bestseller: true,
+        type: "WYSIWYG"
     },
     {
         _id: "aaaae",
@@ -160,10 +164,11 @@ export const products = [
         price: 130,
         image: [p_img5],
         category: "Culture",
-        subCategory: "WYSIWG Hard Coral",
+        subCategory: "WYSIWYG Hard Coral",
         sizes: ["M", "L", "XL"],
         date: 1716622345448,
-        bestseller: true
+        bestseller: true,
+        type: "WYSIWYG"
     },
     {
         _id: "aaaaf",
@@ -172,10 +177,11 @@ export const products = [
         price: 140,
         image: [p_img6],
         category: "Culture",
-        subCategory: "WYSIWG Hard Coral",
+        subCategory: "WYSIWYG Hard Coral",
         sizes: ["S", "L", "XL"],
         date: 1716623423448,
-        bestseller: true
+        bestseller: true,
+        type: "WYSIWYG"
     },
     {
         _id: "aaaag",
@@ -184,10 +190,11 @@ export const products = [
         price: 190,
         image: [p_img7],
         category: "Culture",
-        subCategory: "WYSIWG Hard Coral",
+        subCategory: "WYSIWYG Hard Coral",
         sizes: ["S", "L", "XL"],
         date: 1716621542448,
-        bestseller: false
+        bestseller: false,
+        type: "WYSIWYG"
     },
     {
         _id: "aaaah",
@@ -199,7 +206,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716622345448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaaai",
@@ -211,7 +219,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["M", "L", "XL"],
         date: 1716621235448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaaaj",
@@ -223,7 +232,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "L", "XL"],
         date: 1716622235448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaaak",
@@ -235,7 +245,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L"],
         date: 1716623345448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaaal",
@@ -247,7 +258,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716624445448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaaam",
@@ -259,7 +271,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716625545448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaaan",
@@ -271,7 +284,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716626645448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaaao",
@@ -283,7 +297,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716627745448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaaap",
@@ -295,7 +310,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716628845448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaaaq",
@@ -307,7 +323,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716629945448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaaar",
@@ -319,7 +336,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716631045448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaaas",
@@ -331,7 +349,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716632145448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaaat",
@@ -343,7 +362,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716633245448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaaau",
@@ -355,7 +375,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716634345448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaaav",
@@ -367,7 +388,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716635445448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaaaw",
@@ -379,7 +401,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716636545448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaaax",
@@ -391,7 +414,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716637645448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaaay",
@@ -403,7 +427,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716638745448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaaaz",
@@ -415,7 +440,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716639845448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaaba",
@@ -427,7 +453,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716640945448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaabb",
@@ -439,7 +466,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716642045448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaabc",
@@ -451,7 +479,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716643145448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaabd",
@@ -463,7 +492,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716644245448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaabe",
@@ -475,7 +505,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716645345448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaabf",
@@ -487,7 +518,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716646445448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaabg",
@@ -499,7 +531,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716647545448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaabh",
@@ -511,7 +544,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716648645448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaabi",
@@ -523,7 +557,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716649745448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaabj",
@@ -535,7 +570,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716650845448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaabk",
@@ -547,7 +583,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716651945448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaabl",
@@ -559,7 +596,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716653045448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaabm",
@@ -571,7 +609,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716654145448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaabn",
@@ -583,7 +622,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716655245448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaabo",
@@ -595,7 +635,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716656345448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaabp",
@@ -607,7 +648,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716657445448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaabq",
@@ -619,7 +661,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716658545448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaabr",
@@ -631,7 +674,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716659645448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaabs",
@@ -643,7 +687,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716660745448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaabt",
@@ -655,7 +700,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716661845448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaabu",
@@ -667,7 +713,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716662945448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaabv",
@@ -679,7 +726,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716664045448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaabw",
@@ -691,7 +739,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716665145448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaabx",
@@ -702,7 +751,9 @@ export const products = [
         category: "Wild",
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
-        date: 1716666245448, bestseller: false
+        date: 1716666245448,
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaaby",
@@ -714,7 +765,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716667345448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     },
     {
         _id: "aaabz",
@@ -726,7 +778,8 @@ export const products = [
         subCategory: "General Hard Coral",
         sizes: ["S", "M", "L", "XL"],
         date: 1716668445448,
-        bestseller: false
+        bestseller: false,
+        type: "General"
     }
 
 ]

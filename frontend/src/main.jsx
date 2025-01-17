@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import './style.css'
+// import './style.css'
 import './font-awesome.min.css'
 import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'

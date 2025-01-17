@@ -8,7 +8,6 @@ import Title from '../components/Title';
 import ProductItem from '../components/ProductItem';
 import '../index.css'
 
-
 // Komponen utama untuk menampilkan koleksi produk
 const Collection = () => {
     // Mengambil data dari ShopContext menggunakan useContext
@@ -110,20 +109,20 @@ const Collection = () => {
     return (
         <div className='flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-10 pt-10 border-t my-10'>
             {/* Bagian kiri untuk filter */}
-            <div className=' w-full block  px-5  bg-white shadow-md z-0 md:hidden'>
+            <div className='min-w-32 md:w-[12%] w-full'>
                 <p
                     onClick={() => setShowFilter(!showFilter)}
-                    className='my-2 text-xl flex items-center gap-2 cursor-pointer'
+                    className='my-2 text-xl flex items-center gap-2'
                 >
                     FILTERS
                     <img
-                        className={`h-3 lg:hidden ${showFilter ? 'rotate-90' : ''} `}
+                        className={`h-3 md:hidden ${showFilter ? 'rotate-90' : ''} cursor-pointer`}
                         src={assets.dropdown_icon}
                     />
                 </p>
 
                 {/* Filter kategori */}
-                <div className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} lg:block`}>
+                <div className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} md:block`}>
                     <p className='mb-3 text-sm font-medium'>CATEGORIES</p>
                     <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
                         <p className='flex gap-2'>
@@ -148,14 +147,14 @@ const Collection = () => {
                 </div>
 
                 {/* Filter subkategori */}
-                <div className={`border border-gray-300 pl-5 py-3 mt-6 my-5 ${showFilter ? '' : 'hidden'} lg:block`}>
+                <div className={`border border-gray-300 pl-5 py-3 mt-6 my-5 ${showFilter ? '' : 'hidden'} md:block`}>
                     <p className='mb-3 text-sm font-medium' onClick={() => setShowFilter(!showFilter)}>TYPE<img
                         className={`h-3 md:hidden ${showFilter ? 'rotate-90' : ''} cursor-pointer`}
                         src={assets.dropdown_icon}
                     /></p>
                     <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
                         {/* Daftar subkategori */}
-                        {['WYSIWYG Hard Coral', 'WYSIWYG Soft Coral', 'WYSIWYG Anemone', 'General Hard Coral', 'General Soft Coral', 'Fish'].map((type) => (
+                        {/* {['WYSIWG Hard Coral', 'WYSIWG Soft Coral', 'WYSIWG Anemone', 'General Hard Coral', 'General Soft Coral', 'Fish'].map((type) => (
                             <p key={type} className='flex gap-2'>
                                 <input
                                     className='w-3'
@@ -165,24 +164,35 @@ const Collection = () => {
                                 />
                                 {type}
                             </p>
-                        ))}
+                        ))} */}
 
-
+                        <select
+                            onChange={handleSubCategoryChange}
+                            className="border-2 border-gray-300 text-sm px-2 py-1 mr-4 rounded-md"
+                        >
+                            <option value="">All Sub-Categories</option>
+                            <option value="WYSIWYG Hard Coral">WYSIWYG Hard Coral</option>
+                            <option value="WYSIWYG Soft Coral">WYSIWYG Soft Coral</option>
+                            <option value="WYSIWYG Anemone">WYSIWYG Anemone</option>
+                            <option value="General Hard Coral">General Hard Coral</option>
+                            <option value="General Soft Coral">General Soft Coral</option>
+                            <option value="Fish">Fish</option>
+                        </select>
                     </div>
                 </div>
             </div>
 
             {/* Bagian kanan untuk produk */}
-            <div className='flex-1 md:w-3/4 w-full '>
-                <div className='grid grid-cols-[2fr_1fr] md:grid-cols-1 xl:flex xl:justify-between text-base sm:text-2xl mb-4'>
+            <div className='flex-1 md:w-3/4 w-full'>
+                <div className='flex justify-between text-base sm:text-2xl mb-4'>
                     <Title text1={'ALL'} text2={'COLLECTIONS'} />
-                    <div className='flex gap-2 flex-wrap'>
-                        <div className='md:flex justify-center items-center hidden  '>
-                            <p className='text-sm mr-3 font-medium'>Categories </p>
+                    <div className='flex bg-blue-200'>
+                        <div className='flex justify-center items-center bg-red-100'>
+                            <p className='text-sm mx-3 font-medium'>Categories </p>
                             <p className='text-sm mr-3'> : </p>
                             <select
                                 onChange={CategoryChange}
-                                className="border-2 border-gray-300 text-sm px-2 py-1 rounded-md"
+                                className="border-2 border-gray-300 text-sm px-2 py-1 mr-4 rounded-md"
                             >
                                 <option value="">All Categories</option>
                                 <option value="Culture">Culturel</option>
@@ -191,12 +201,12 @@ const Collection = () => {
                             </select>
                         </div>
 
-                        <div className='md:flex justify-center items-center hidden'>
-                            <p className='text-sm mr-3 font-medium'>Type </p>
+                        <div className='flex justify-center items-center bg-red-100'>
+                            <p className='text-sm mx-3 font-medium'>Type </p>
                             <p className='text-sm mr-3'> : </p>
                             <select
                                 onChange={handleSubCategoryChange}
-                                className="border-2 border-gray-300 text-sm px-2 py-1 rounded-md"
+                                className="border-2 border-gray-300 text-sm px-2 py-1 mr-4 rounded-md"
                             >
                                 <option value="">All Sub-Categories</option>
                                 <option value="WYSIWYG Hard Coral">WYSIWYG Hard Coral</option>
@@ -207,19 +217,15 @@ const Collection = () => {
                                 <option value="Fish">Fish</option>
                             </select>
                         </div>
-                        <div className='flex justify-center items-center '>
-                            <p className='text-sm mr-3 font-medium'>Sort</p>
-                            <p className='text-sm mr-3'> : </p>
-                            <select
-                                onChange={(e) => setSortType(e.target.value)}
-                                className='border-2 border-gray-300 text-sm px-1 py-1 mr-4 rounded-md'
-                            >
-                                <option value="relevant">Sort by: Relevant</option>
-                                <option value="low-high">Sort by: Low to High</option>
-                                <option value="high-low">Sort by: High to Low</option>
-                            </select>
-                        </div>
 
+                        <select
+                            onChange={(e) => setSortType(e.target.value)}
+                            className='border-2 border-gray-300 text-sm px-2'
+                        >
+                            <option value="relevant">Sort by: Relevant</option>
+                            <option value="low-high">Sort by: Low to High</option>
+                            <option value="high-low">Sort by: High to Low</option>
+                        </select>
                     </div>
 
                 </div>
@@ -229,8 +235,8 @@ const Collection = () => {
                         <p>No Items Found</p>
                     </div>
                 ) : (
-                        <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 img-gallery lg:grid-cols-5 gap-4 gap-y-6'>
-                            {currentProducts.map((item, index) => (
+                    <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 img-gallery lg:grid-cols-5 gap-4 gap-y-6'>
+                        {currentProducts.map((item, index) => (
                             <ProductItem
                                 key={index}
                                 name={item.name}
@@ -262,9 +268,8 @@ const Collection = () => {
                 </div>
             </div>
 
-            {/* <Footer /> */}
-        </div>
 
+        </div>
     );
 
 };
