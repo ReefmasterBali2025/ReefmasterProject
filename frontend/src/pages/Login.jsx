@@ -1,12 +1,18 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
     const [currentState, setCurrentState] = useState('Sign Up'); // untuk mengatur tampilan awal apakah sign up atau login
 
+    const navigate = useNavigate();
+
     const onSubmitHandler = async (event) => {
         event.preventDefault();
+
+        navigate('/home');
     }
+
 
 
     return (
