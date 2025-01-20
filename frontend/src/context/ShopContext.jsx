@@ -27,16 +27,10 @@ const ShopContextProvider = (props) => {
         let cartData = structuredClone(cartItems);
 
         if (cartData[itemId]) {
-            if (cartData[itemId][size]) {
-                cartData[itemId][size] += quantity; // Tambah jumlah pada ukuran yang sudah ada
-            } else {
-                cartData[itemId][size] = quantity; // Buat entri ukuran baru
-            }
+            cartData[itemId][size] = (cartData[itemId][size] || 0) + quantity;
         } else {
-            cartData[itemId] = {};
-            cartData[itemId][size] = quantity; // Buat entri item dan ukuran baru
+            cartData[itemId] = { [size]: quantity };
         }
-
         setCartItems(cartData);
     };
 

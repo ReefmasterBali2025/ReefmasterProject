@@ -14,13 +14,6 @@ const ProductItem = ({ id, image, name, price, description }) => {
                     src={image[0]}
                     alt={name}
                 />
-                 {/* <video
-                    className="w-full h-40 object-cover hover:scale-110 transition ease-in-out duration-300"
-                    src={image[0]}
-                    autoPlay
-                    muted
-                    loop
-                /> */}
             </div>
             <p className='pt-3 pb-1 text-left pl-4 text-lg'>{name}</p>
 
