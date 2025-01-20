@@ -261,6 +261,7 @@ const Collection = () => {
 
 
             </div>
+        </div>
             );
 
 };
