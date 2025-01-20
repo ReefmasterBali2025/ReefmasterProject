@@ -4,7 +4,7 @@ const Cites = () => {
     return (
         <div className="h-full bg-white text-black flex flex-col py-14">
             {/* Main Content */}
-            <div className="flex flex-1">
+            <div className="flex flex-1 ">
                 {/* Sidebar - Guidance */}
                 <aside className="w-1/4 bg-gray-200 p-4 border-r border-gray-300">
                     <h2 className="text-lg font-bold mb-4">Guidance</h2>
