@@ -32,7 +32,8 @@ const Cart = () => {
     }, [cartItems]); // Efek ini dijalankan ulang setiap kali `cartItems` berubah
 
     return (
-        <div className='border-t pt-14'>
+        <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] ">
+        <div className='border-t pt-20'>
             {/* Bagian header */}
             <h2 className='text-2xl mb-3 '>
                 <Title text1={'YOUR'} text2={'CART'} /> {/* Menampilkan judul dengan komponen Title */}
@@ -112,6 +113,7 @@ const Cart = () => {
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     );
 };

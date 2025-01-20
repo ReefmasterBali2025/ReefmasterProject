@@ -54,6 +54,11 @@ import p_img50 from './52.jpg'
 import p_img51 from './53.jpg'
 import p_img52 from './54.jpg'
 import video1 from './1.mp4'
+import videowysiwyg from './video1.mp4'
+import videogeneral from './video2.mp4'
+import videofish from './video3.mp4'
+import video4 from './video4.mp4'
+import videologin1 from './videologin1.mp4'
 
 
 import logo from './logo_reefmaster.png'
@@ -76,6 +81,8 @@ import stripe_logo from './stripe_logo.png'
 import cross_icon from './cross_icon.png'
 import go_shop from './go_shop.png'
 import logo_hd from './logo_hd.png'
+import fotofarm1 from './fotofarm1.jpeg'
+
 
 export const assets = {
     logo,
@@ -101,7 +108,13 @@ export const assets = {
     p_img12,
     p_img13,
     logo_hd,
-    video1
+    video1,
+    videowysiwyg,
+    videogeneral,
+    videofish,
+    video4,
+    fotofarm1,
+    videologin1
 }
 
 export const products = [

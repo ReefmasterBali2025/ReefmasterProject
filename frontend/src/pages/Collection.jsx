@@ -97,51 +97,47 @@ const Collection = () => {
     };
 
     return (
-        <div className='flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-10 pt-10 border-t my-10'>
-            {/* Bagian kiri untuk filter */}
-            <div className='min-w-32 md:w-[12%] w-full'>
-                <p
-                    onClick={() => setShowFilter(!showFilter)}
-                    className='my-2 text-xl flex items-center gap-2'
-                >
-                    FILTERS
-                    <img
-                        className={`h-3 md:hidden ${showFilter ? 'rotate-90' : ''} cursor-pointer`}
-                        src={assets.dropdown_icon}
-                    />
-                </p>
+        <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] ">
+            <div className='flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-10 pt-10 border-t my-10'>
+                {/* Bagian kiri untuk filter */}
+                <div className='min-w-32 md:w-[12%] w-full'>
+                    <p
+                        onClick={() => setShowFilter(!showFilter)}
+                        className='my-2 text-xl flex items-center gap-2'
+                    >
+                        FILTERS
+                        <img
+                            className={`h-3 md:hidden ${showFilter ? 'rotate-90' : ''} cursor-pointer`}
+                            src={assets.dropdown_icon}
+                        />
+                    </p>
 
-                {/* Filter kategori */}
-                <div className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} md:block`}>
-                    <p className='mb-3 text-sm font-medium'>CATEGORIES</p>
-                    <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
-                        <p className='flex gap-2'>
-                            <input
-                                className='w-3'
-                                type='checkbox'
-                                value={'Culture'}
-                                onChange={toggleCategory}
-                            />
-                            Culture
-                        </p>
-                        <p className='flex gap-2'>
-                            <input
-                                className='w-3'
-                                type='checkbox'
-                                value={'Wild'}
-                                onChange={toggleCategory}
-                            />
-                            Wild
-                        </p>
+                    Filter kategori
+                    <div className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} md:block`}>
+                        <p className='mb-3 text-sm font-medium'>CATEGORIES</p>
+                        <div className='relative text-sm font-light text-gray-700'>
+                            {/* Dropdown list */}
+                            <select
+                                className='border border-gray-300 rounded-lg px-4 py-2 w-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500'
+                                onChange={(e) => toggleCategory(e.target.value)}
+                            >
+                                <option value="">Select Category</option>
+                                {['Culture', 'Wild'].map((category) => (
+                                    <option key={category} value={category}>
+                                        {category}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
                     </div>
-                </div>
 
-                {/* Filter subkategori */}
-                <div className={`border border-gray-300 pl-5 py-3 mt-6 my-5 ${showFilter ? '' : 'hidden'} md:block`}>
-                    <p className='mb-3 text-sm font-medium'>TYPE</p>
-                    <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
-                        {/* Daftar subkategori */}
-                        {/* {['WYSIWG Hard Coral', 'WYSIWG Soft Coral', 'WYSIWG Anemone', 'General Hard Coral', 'General Soft Coral', 'Fish'].map((type) => (
+
+                    {/* Filter subkategori */}
+                    <div className={`border border-gray-300 pl-5 py-3 mt-6 my-5 ${showFilter ? '' : 'hidden'} md:block`}>
+                        <p className='mb-3 text-sm font-medium'>TYPE</p>
+                        <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
+                            {/* Daftar subkategori */}
+                            {/* {['WYSIWG Hard Coral', 'WYSIWG Soft Coral', 'WYSIWG Anemone', 'General Hard Coral', 'General Soft Coral', 'Fish'].map((type) => (
                             <p key={type} className='flex gap-2'>
                                 <input
                                     className='w-3'
@@ -153,120 +149,120 @@ const Collection = () => {
                             </p>
                         ))} */}
 
-                        <p className='flex gap-2'>
-                            <input
-                                className='w-3'
-                                type='checkbox'
-                                value={'WYSIWYG Hard Coral'}
-                                onChange={toggleSubCategory}
-                            />
-                            WYSIWYG Hard Coral
-                        </p>
-                        <p className='flex gap-2'>
-                            <input
-                                className='w-3'
-                                type='checkbox'
-                                value={'WYSIWYG Soft Coral'}
-                                onChange={toggleSubCategory}
-                            />
-                            WYSIWYG Soft Coral
-                        </p>
-                        <p className='flex gap-2'>
-                            <input
-                                className='w-3'
-                                type='checkbox'
-                                value={'WYSIWYG Anemone'}
-                                onChange={toggleSubCategory}
-                            />
-                            WYSIWYG Anemone
-                        </p>
-                        <p className='flex gap-2'>
-                            <input
-                                className='w-3'
-                                type='checkbox'
-                                value={'General Hard Coral'}
-                                onChange={toggleSubCategory}
-                            />
-                            General Hard Coral
-                        </p>
-                        <p className='flex gap-2'>
-                            <input
-                                className='w-3'
-                                type='checkbox'
-                                value={'General Soft Coral'}
-                                onChange={toggleSubCategory}
-                            />
-                            General Soft Coral
-                        </p>
-                        <p className='flex gap-2'>
-                            <input
-                                className='w-3'
-                                type='checkbox'
-                                value={'Fish'}
-                                onChange={toggleSubCategory}
-                            />
-                            Fish
-                        </p>
+                            <p className='flex gap-2'>
+                                <input
+                                    className='w-3'
+                                    type='checkbox'
+                                    value={'WYSIWYG Hard Coral'}
+                                    onChange={toggleSubCategory}
+                                />
+                                WYSIWYG Hard Coral
+                            </p>
+                            <p className='flex gap-2'>
+                                <input
+                                    className='w-3'
+                                    type='checkbox'
+                                    value={'WYSIWYG Soft Coral'}
+                                    onChange={toggleSubCategory}
+                                />
+                                WYSIWYG Soft Coral
+                            </p>
+                            <p className='flex gap-2'>
+                                <input
+                                    className='w-3'
+                                    type='checkbox'
+                                    value={'WYSIWYG Anemone'}
+                                    onChange={toggleSubCategory}
+                                />
+                                WYSIWYG Anemone
+                            </p>
+                            <p className='flex gap-2'>
+                                <input
+                                    className='w-3'
+                                    type='checkbox'
+                                    value={'General Hard Coral'}
+                                    onChange={toggleSubCategory}
+                                />
+                                General Hard Coral
+                            </p>
+                            <p className='flex gap-2'>
+                                <input
+                                    className='w-3'
+                                    type='checkbox'
+                                    value={'General Soft Coral'}
+                                    onChange={toggleSubCategory}
+                                />
+                                General Soft Coral
+                            </p>
+                            <p className='flex gap-2'>
+                                <input
+                                    className='w-3'
+                                    type='checkbox'
+                                    value={'Fish'}
+                                    onChange={toggleSubCategory}
+                                />
+                                Fish
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            {/* Bagian kanan untuk produk */}
-            <div className='flex-1 md:w-3/4 w-full'>
-                <div className='flex justify-between text-base sm:text-2xl mb-4'>
-                    <Title text1={'ALL'} text2={'COLLECTIONS'} />
-                    <select
-                        onChange={(e) => setSortType(e.target.value)}
-                        className='border-2 border-gray-300 text-sm px-2'
-                    >
-                        <option value="relevant">Sort by: Relevant</option>
-                        <option value="low-high">Sort by: Low to High</option>
-                        <option value="high-low">Sort by: High to Low</option>
-                    </select>
-                </div>
-
-                {currentProducts.length === 0 ? (
-                    <div className='flex items-center justify-center h-full min-h-[300px] text-center text-gray-500'>
-                        <p>No Items Found</p>
+                {/* Bagian kanan untuk produk */}
+                <div className='flex-1 md:w-3/4 w-full'>
+                    <div className='flex justify-between text-base sm:text-2xl mb-4'>
+                        <Title text1={'ALL'} text2={'COLLECTIONS'} />
+                        <select
+                            onChange={(e) => setSortType(e.target.value)}
+                            className='border-2 border-gray-300 text-sm px-2'
+                        >
+                            <option value="relevant">Sort by: Relevant</option>
+                            <option value="low-high">Sort by: Low to High</option>
+                            <option value="high-low">Sort by: High to Low</option>
+                        </select>
                     </div>
-                ) : (
+
+                    {currentProducts.length === 0 ? (
+                        <div className='flex items-center justify-center h-full min-h-[300px] text-center text-gray-500'>
+                            <p>No Items Found</p>
+                        </div>
+                    ) : (
                         <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 img-gallery lg:grid-cols-5 gap-4 gap-y-6'>
                             {currentProducts.map((item, index) => (
-                            <ProductItem
-                                key={index}
-                                name={item.name}
-                                id={item._id}
-                                price={item.price}
-                                image={item.image}
-                            />
-                        ))}
+                                <ProductItem
+                                    key={index}
+                                    name={item.name}
+                                    id={item._id}
+                                    price={item.price}
+                                    image={item.image}
+                                />
+                            ))}
+                        </div>
+                    )}
+
+                    {/* Pagination Controls */}
+                    <div className='flex justify-center mt-6'>
+                        <button
+                            onClick={handlePrevPage}
+                            className='px-4 py-2 mx-2 bg-gray-300 rounded hover:bg-gray-400'
+                            disabled={currentPage === 1}
+                        >
+                            Prev
+                        </button>
+                        <p className='px-4 py-2 mx-2'>{currentPage} of {totalPages}</p>
+                        <button
+                            onClick={handleNextPage}
+                            className='px-4 py-2 mx-2 bg-gray-300 rounded hover:bg-gray-400'
+                            disabled={currentPage === totalPages}
+                        >
+                            Next
+                        </button>
                     </div>
-                )}
-
-                {/* Pagination Controls */}
-                <div className='flex justify-center mt-6'>
-                    <button
-                        onClick={handlePrevPage}
-                        className='px-4 py-2 mx-2 bg-gray-300 rounded hover:bg-gray-400'
-                        disabled={currentPage === 1}
-                    >
-                        Prev
-                    </button>
-                    <p className='px-4 py-2 mx-2'>{currentPage} of {totalPages}</p>
-                    <button
-                        onClick={handleNextPage}
-                        className='px-4 py-2 mx-2 bg-gray-300 rounded hover:bg-gray-400'
-                        disabled={currentPage === totalPages}
-                    >
-                        Next
-                    </button>
                 </div>
+
+
             </div>
-
-
-        </div>
-    );
+            );
 
 };
 
-export default Collection;
+            export default Collection;
