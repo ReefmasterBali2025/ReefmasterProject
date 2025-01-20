@@ -15,29 +15,26 @@ const Navbar = () => {
         <nav className='w-full bg-[#0079FF] fixed top-0 left-0 z-50'>
             <div className='flex items-center justify-around py-5 font-medium'>
                 <Link to='/home'><img src={assets.logo} className='w-36' alt='Reefmaster Logo' /></Link>
-                <Link to='/home'><img src={assets.logo} className='w-36' alt='Reefmaster Logo' /></Link>
                 <ul className='hidden sm:flex gap-5 text-sm text-gray-700'>
                     <NavLink to='/home' className='flex flex-col items-center gap-1 text-white' >
-                        <NavLink to='/home' className='flex flex-col items-center gap-1 text-white' >
-                            <p>Home</p>
-                            <hr className='w-2/4 border-none h-[1.5px] bg-white hidden ' />
-                        </NavLink>
-                        <NavLink to='/collection' className='flex flex-col items-center gap-1 text-white' >
-                            <p>Collection</p>
-                            <hr className='w-2/4 border-none h-[1.5px] bg-white hidden' />
-                        </NavLink>
-                        <NavLink to='/Cites' className='flex flex-col items-center gap-1 text-white' >
-                            <p>Cites</p>
-                            <hr className='w-2/4 border-none h-[1.5px] bg-white hidden' />
-                        </NavLink>
-                        <NavLink to='about' className='flex flex-col items-center gap-1 text-white' >
-                            <p>About</p>
-                            <hr className='w-2/4 border-none h-[1.5px] bg-white hidden' />
-                        </NavLink>
-                        <NavLink to='contact' className='flex flex-col items-center gap-1 text-white' >
-                            <p>Contact</p>
-                            <hr className='w-2/4 border-none h-[1.5px] bg-white hidden' />
-                        </NavLink>
+                        <p>Home</p>
+                        <hr className='w-2/4 border-none h-[1.5px] bg-white hidden ' />
+                    </NavLink>
+                    <NavLink to='/collection' className='flex flex-col items-center gap-1 text-white' >
+                        <p>Collection</p>
+                        <hr className='w-2/4 border-none h-[1.5px] bg-white hidden' />
+                    </NavLink>
+                    <NavLink to='/Cites' className='flex flex-col items-center gap-1 text-white' >
+                        <p>Cites</p>
+                        <hr className='w-2/4 border-none h-[1.5px] bg-white hidden' />
+                    </NavLink>
+                    <NavLink to='about' className='flex flex-col items-center gap-1 text-white' >
+                        <p>About</p>
+                        <hr className='w-2/4 border-none h-[1.5px] bg-white hidden' />
+                    </NavLink>
+                    <NavLink to='contact' className='flex flex-col items-center gap-1 text-white' >
+                        <p>Contact</p>
+                        <hr className='w-2/4 border-none h-[1.5px] bg-white hidden' />
                     </NavLink>
                 </ul>
 
@@ -78,6 +75,7 @@ const Navbar = () => {
                 </div>
             </div>
         </nav>
+
 
 
     )
