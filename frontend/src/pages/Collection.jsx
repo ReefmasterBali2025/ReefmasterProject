@@ -174,7 +174,7 @@ const Collection = () => {
 
             {/* Bagian kanan untuk produk */}
             <div className='flex-1 md:w-3/4 w-full '>
-                <div className='grid grid-cols-[2fr_1fr] md:grid-cols-1 xl:flex xl:justify-between text-base sm:text-2xl mb-4'>
+                <div className='grid grid-cols-1 sm:grid-cols-[2fr_1fr] md:grid-cols-1 xl:flex xl:justify-between text-base sm:text-2xl mb-4'>
                     <Title text1={'ALL'} text2={'COLLECTIONS'} />
                     <div className='flex gap-2 flex-wrap'>
                         <div className='md:flex justify-center items-center hidden  '>

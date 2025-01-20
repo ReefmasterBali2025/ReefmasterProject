@@ -7,24 +7,27 @@ const ProductItem = ({ id, image, name, price }) => {
     const { currency } = useContext(ShopContext);
 
     return (
-        <Link className='text-gray-700 cursor-pointer border-2' to={`/product/${id}`}>
-            <div className="overflow-hidden aspect-w-1 aspect-h-1">
+        <Link
+            className="flex flex-col items-center text-gray-700 cursor-pointer border-2 rounded-lg overflow-hidden transition-shadow hover:shadow-md"
+            to={`/product/${id}`}
+        >
+            {/* Gambar Produk */}
+            <div className="relative w-full aspect-square">
                 <img
-                    className="w-full h-40 object-cover hover:scale-110 transition ease-in-out duration-300"
+                    className="absolute inset-0 w-full h-full object-cover hover:scale-110 transition-transform ease-in-out duration-300"
                     src={image[0]}
                     alt={name}
                 />
-                 {/* <video
-                    className="w-full h-40 object-cover hover:scale-110 transition ease-in-out duration-300"
-                    src={image[0]}
-                    autoPlay
-                    muted
-                    loop
-                /> */}
             </div>
-            <p className='pt-3 pb-1 text-sm text-center'>{name}</p>
-            <p className='text-sm font-medium text-center'>{currency}{price}</p>
 
+            {/* Detail Produk */}
+            <div className="p-3 text-center">
+                <p className="text-sm font-semibold">{name}</p>
+                <p className="text-sm font-medium text-gray-500">
+                    {currency}
+                    {price}
+                </p>
+            </div>
         </Link>
     )
 }
