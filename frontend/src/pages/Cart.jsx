@@ -81,8 +81,8 @@ const Cart = () => {
 
 
     return (
-        <div className='border-t pt-14'>
-            <h2 className='text-2xl mb-3'>
+        <div className='border-t my-14 px-16'>
+            <h2 className='text-2xl mb-3 pt-10'>
                 <Title text1={'YOUR'} text2={'CART'} />
             </h2>
 
@@ -138,9 +138,9 @@ const Cart = () => {
                     );
                 })}
             </div>
-            <div className='flex w-full justify-around gap-10'>
+            <div className='flex w-full flex-col-reverse md:flex-row justify-around gap-10'>
                 {/* Diagram lingkaran untuk menampilkan efisiensi */}
-                <div className="my-10 flex items-center justify-center gap-10 flex-wrap">
+                <div className="mt-0 mb-5 flex items-center justify-center gap-10 flex-wrap">
                     {boxes.map((box, index) => (
                         <div key={index} style={{ width: 150, height: 150 }}>
                             <CircularProgressbar
@@ -165,7 +165,7 @@ const Cart = () => {
                 </div>
 
                 {/* Total dan tombol checkout */}
-                <div className='flex justify-end my-20'>
+                <div className='flex justify-start md:justify-end my-8'>
                     <div className='w-full sm:w-[450px]'>
                         <CartTotal />
                         <div className='w-full text-end'>

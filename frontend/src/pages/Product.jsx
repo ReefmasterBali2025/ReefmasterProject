@@ -44,7 +44,7 @@ const Product = () => {
     };
 
     return productData ? (
-        <div className='border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100 my-10'>
+        <div className='border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100 my-10 px-16'>
             <div className="flex flex-col gap-6 sm:flex-row">
                 {/*--------- Product Images ---------- */}
                 <div className="flex-1 flex flex-col-reverse gap-3 sm:flex-row">
