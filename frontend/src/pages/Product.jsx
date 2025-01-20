@@ -26,18 +26,22 @@ const Product = () => {
         })
     }
 
+    useEffect(() => {
+        const product = products.find(item => item._id === productId);
+        if (product) {
+            setProductData(product);
+            setImage(product.image[0]);
+        }
+    }, [productId, products]);
+
     const handleAddToCart = () => {
         if (!size) {
             setWarning("Please select a size before adding to cart.");
             return;
         }
-        setWarning(""); // Clear warning if size is selected
-        addToCart(productData._id, size, quantity);
+        setWarning("");
+        addToCart(productData._id, size.size, quantity);
     };
-
-    useEffect(() => {
-        fetchProductData();
-    }, [productId])
 
     return productData ? (
         <div className='border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100 my-10'>
@@ -85,17 +89,14 @@ const Product = () => {
                             <div className="flex gap-2 flex-wrap">
                                 {productData.sizes.map((item, index) => (
                                     <button
+                                        key={index}
                                         onClick={() => {
                                             setSize(item);
-                                            setWarning(""); // Clear warning when a size is selected
+                                            setWarning("");
                                         }}
-                                        className={`border py-2 px-4 bg-gray-100 rounded-lg ${item === size
-                                            ? "bg-red-950 text-white"
-                                            : "hover:bg-gray-200"
-                                            }`}
-                                        key={index}
+                                        className={`px-4 py-2 border rounded ${size === item ? 'bg-gray-200' : ''}`}
                                     >
-                                        {item}
+                                        {item.size}
                                     </button>
                                 ))}
                             </div>

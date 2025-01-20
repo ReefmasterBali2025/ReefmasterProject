@@ -113,7 +113,11 @@ export const products = [
         image: [p_img1],
         category: "Culture",
         subCategory: "WYSIWYG Hard Coral",
-        sizes: ["S", "M", "L"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+        ],
         date: 1716634345448,
         bestseller: true,
         type: "WYSIWYG"
@@ -126,7 +130,11 @@ export const products = [
         image: [p_img2_1, p_img2_2, p_img2_3, p_img2_4],
         category: "Culture",
         subCategory: "WYSIWYG Hard Coral",
-        sizes: ["M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+        ],
         date: 1716621345448,
         bestseller: true,
         type: "WYSIWYG"
@@ -139,7 +147,11 @@ export const products = [
         image: [p_img3],
         category: "Culture",
         subCategory: "WYSIWYG Hard Coral",
-        sizes: ["S", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+        ],
         date: 1716234545448,
         bestseller: true,
         type: "WYSIWYG"
@@ -152,7 +164,11 @@ export const products = [
         image: [p_img4],
         category: "Culture",
         subCategory: "WYSIWYG Hard Coral",
-        sizes: ["S", "M", "XXL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+        ],
         date: 1716621345448,
         bestseller: true,
         type: "WYSIWYG"
@@ -165,7 +181,11 @@ export const products = [
         image: [p_img5],
         category: "Culture",
         subCategory: "WYSIWYG Hard Coral",
-        sizes: ["M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+        ],
         date: 1716622345448,
         bestseller: true,
         type: "WYSIWYG"
@@ -178,7 +198,11 @@ export const products = [
         image: [p_img6],
         category: "Culture",
         subCategory: "WYSIWYG Hard Coral",
-        sizes: ["S", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+        ],
         date: 1716623423448,
         bestseller: true,
         type: "WYSIWYG"
@@ -191,7 +215,11 @@ export const products = [
         image: [p_img7],
         category: "Culture",
         subCategory: "WYSIWYG Hard Coral",
-        sizes: ["S", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+        ],
         date: 1716621542448,
         bestseller: false,
         type: "WYSIWYG"
@@ -204,7 +232,11 @@ export const products = [
         image: [p_img8],
         category: "Culture",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+        ],
         date: 1716622345448,
         bestseller: false,
         type: "General"
@@ -217,7 +249,11 @@ export const products = [
         image: [p_img9],
         category: "Culture",
         subCategory: "General Hard Coral",
-        sizes: ["M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+        ],
         date: 1716621235448,
         bestseller: false,
         type: "General"
@@ -230,7 +266,11 @@ export const products = [
         image: [p_img10],
         category: "Culture",
         subCategory: "General Hard Coral",
-        sizes: ["S", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+        ],
         date: 1716622235448,
         bestseller: false,
         type: "General"
@@ -243,7 +283,11 @@ export const products = [
         image: [p_img11],
         category: "Culture",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+        ],
         date: 1716623345448,
         bestseller: false,
         type: "General"
@@ -256,7 +300,11 @@ export const products = [
         image: [p_img12],
         category: "Culture",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+        ],
         date: 1716624445448,
         bestseller: false,
         type: "General"
@@ -269,7 +317,11 @@ export const products = [
         image: [p_img13],
         category: "Culture",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+        ],
         date: 1716625545448,
         bestseller: false,
         type: "General"
@@ -282,7 +334,12 @@ export const products = [
         image: [p_img14],
         category: "Culture",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716626645448,
         bestseller: false,
         type: "General"
@@ -295,7 +352,12 @@ export const products = [
         image: [p_img15],
         category: "Culture",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716627745448,
         bestseller: false,
         type: "General"
@@ -308,7 +370,12 @@ export const products = [
         image: [p_img16],
         category: "Culture",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716628845448,
         bestseller: false,
         type: "General"
@@ -321,7 +388,12 @@ export const products = [
         image: [p_img17],
         category: "Culture",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716629945448,
         bestseller: false,
         type: "General"
@@ -334,7 +406,12 @@ export const products = [
         image: [p_img18],
         category: "Culture",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716631045448,
         bestseller: false,
         type: "General"
@@ -347,7 +424,12 @@ export const products = [
         image: [p_img19],
         category: "Culture",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716632145448,
         bestseller: false,
         type: "General"
@@ -360,7 +442,12 @@ export const products = [
         image: [p_img20],
         category: "Culture",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716633245448,
         bestseller: false,
         type: "General"
@@ -373,7 +460,12 @@ export const products = [
         image: [p_img21],
         category: "Culture",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716634345448,
         bestseller: false,
         type: "General"
@@ -386,7 +478,12 @@ export const products = [
         image: [p_img22],
         category: "Culture",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716635445448,
         bestseller: false,
         type: "General"
@@ -399,7 +496,12 @@ export const products = [
         image: [p_img23],
         category: "Culture",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716636545448,
         bestseller: false,
         type: "General"
@@ -412,7 +514,12 @@ export const products = [
         image: [p_img24],
         category: "Culture",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716637645448,
         bestseller: false,
         type: "General"
@@ -425,7 +532,12 @@ export const products = [
         image: [p_img25],
         category: "Culture",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716638745448,
         bestseller: false,
         type: "General"
@@ -438,7 +550,12 @@ export const products = [
         image: [p_img26],
         category: "Culture",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716639845448,
         bestseller: false,
         type: "General"
@@ -451,7 +568,12 @@ export const products = [
         image: [p_img27],
         category: "Wild",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716640945448,
         bestseller: false,
         type: "General"
@@ -464,7 +586,12 @@ export const products = [
         image: [p_img28],
         category: "Wild",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716642045448,
         bestseller: false,
         type: "General"
@@ -477,7 +604,12 @@ export const products = [
         image: [p_img29],
         category: "Wild",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716643145448,
         bestseller: false,
         type: "General"
@@ -490,7 +622,12 @@ export const products = [
         image: [p_img30],
         category: "Wild",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716644245448,
         bestseller: false,
         type: "General"
@@ -503,7 +640,12 @@ export const products = [
         image: [p_img31],
         category: "Wild",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716645345448,
         bestseller: false,
         type: "General"
@@ -516,7 +658,12 @@ export const products = [
         image: [p_img32],
         category: "Wild",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716646445448,
         bestseller: false,
         type: "General"
@@ -529,7 +676,12 @@ export const products = [
         image: [p_img33],
         category: "Wild",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716647545448,
         bestseller: false,
         type: "General"
@@ -542,7 +694,12 @@ export const products = [
         image: [p_img34],
         category: "Wild",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716648645448,
         bestseller: false,
         type: "General"
@@ -555,7 +712,12 @@ export const products = [
         image: [p_img35],
         category: "Wild",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716649745448,
         bestseller: false,
         type: "General"
@@ -568,7 +730,12 @@ export const products = [
         image: [p_img36],
         category: "Wild",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716650845448,
         bestseller: false,
         type: "General"
@@ -581,7 +748,12 @@ export const products = [
         image: [p_img37],
         category: "Wild",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716651945448,
         bestseller: false,
         type: "General"
@@ -594,7 +766,12 @@ export const products = [
         image: [p_img38],
         category: "Wild",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716653045448,
         bestseller: false,
         type: "General"
@@ -607,7 +784,12 @@ export const products = [
         image: [p_img39],
         category: "Wild",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716654145448,
         bestseller: false,
         type: "General"
@@ -620,7 +802,12 @@ export const products = [
         image: [p_img40],
         category: "Wild",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716655245448,
         bestseller: false,
         type: "General"
@@ -633,7 +820,12 @@ export const products = [
         image: [p_img41],
         category: "Wild",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716656345448,
         bestseller: false,
         type: "General"
@@ -646,7 +838,12 @@ export const products = [
         image: [p_img42],
         category: "Wild",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716657445448,
         bestseller: false,
         type: "General"
@@ -659,7 +856,12 @@ export const products = [
         image: [p_img43],
         category: "Wild",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716658545448,
         bestseller: false,
         type: "General"
@@ -672,7 +874,12 @@ export const products = [
         image: [p_img44],
         category: "Wild",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716659645448,
         bestseller: false,
         type: "General"
@@ -685,7 +892,12 @@ export const products = [
         image: [p_img45],
         category: "Wild",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716660745448,
         bestseller: false,
         type: "General"
@@ -698,7 +910,12 @@ export const products = [
         image: [p_img46],
         category: "Wild",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716661845448,
         bestseller: false,
         type: "General"
@@ -711,7 +928,12 @@ export const products = [
         image: [p_img47],
         category: "Wild",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716662945448,
         bestseller: false,
         type: "General"
@@ -724,7 +946,12 @@ export const products = [
         image: [p_img48],
         category: "Wild",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716664045448,
         bestseller: false,
         type: "General"
@@ -737,7 +964,12 @@ export const products = [
         image: [p_img49],
         category: "Wild",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716665145448,
         bestseller: false,
         type: "General"
@@ -750,7 +982,12 @@ export const products = [
         image: [p_img50],
         category: "Wild",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716666245448,
         bestseller: false,
         type: "General"
@@ -763,7 +1000,12 @@ export const products = [
         image: [p_img51],
         category: "Wild",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716667345448,
         bestseller: false,
         type: "General"
@@ -776,7 +1018,12 @@ export const products = [
         image: [p_img52],
         category: "Wild",
         subCategory: "General Hard Coral",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: [
+            { size: "S", plasticSize: 17, plasticHeight: 15 },
+            { size: "M", plasticSize: 20, plasticHeight: 22 },
+            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+        ],
         date: 1716668445448,
         bestseller: false,
         type: "General"

@@ -15,36 +15,70 @@ const Cart = () => {
 
     useEffect(() => {
         const tempData = [];
-        let totalItems = 0; // Total barang di keranjang
-        let maxCapacity = 50; // Kapasitas maksimum per box
+        let totalVolume = 0; // Total volume plastik
+        const boxVolume = (47 * 32 * 29) * 0.85; // Volume box dengan efisiensi 85%
 
+        // Menghitung total volume barang di keranjang
         for (const items in cartItems) {
             for (const item in cartItems[items]) {
                 if (cartItems[items][item] > 0) {
+                    const product = products.find((p) => p._id === items);
+                    const sizeData = product.sizes.find((s) => s.size === item);
+                    const volumePerItem = (22 / 7) * sizeData.plasticSize * sizeData.plasticHeight;
+
+                    totalVolume += volumePerItem * cartItems[items][item];
                     tempData.push({
                         _id: items,
                         size: item,
                         quantity: cartItems[items][item],
+                        volume: volumePerItem * cartItems[items][item],
                     });
-                    totalItems += cartItems[items][item]; // Tambahkan jumlah barang
                 }
             }
         }
 
         setCartData(tempData);
 
-        // Hitung jumlah box dan distribusikan barang ke dalam masing-masing box
-        const numOfBoxes = Math.ceil(totalItems / maxCapacity); // Hitung jumlah box
+        // Menghitung jumlah box yang dibutuhkan
+        const boxUtilization = Math.ceil(totalVolume / boxVolume);
+        let remainingVolume = totalVolume; // Sisa volume yang belum teralokasi ke box
         const tempBoxes = [];
 
-        for (let i = 0; i < numOfBoxes; i++) {
-            const itemsInBox = Math.min(maxCapacity, totalItems - i * maxCapacity); // Barang dalam box ini
-            const efficiency = Math.round((itemsInBox / maxCapacity) * 100); // Efisiensi box
-            tempBoxes.push(efficiency);
+        // Alokasikan volume box berdasarkan persentase setiap barang
+        for (let i = 0; i < boxUtilization; i++) {
+            const currentBoxVolume = Math.min(boxVolume, remainingVolume);
+            const efficiency = Math.round((currentBoxVolume / boxVolume) * 100);
+
+            // Membagi volume ke barang-barang yang ada di keranjang
+            let boxVolumeLeft = currentBoxVolume;
+            const itemAllocations = tempData.map(item => {
+                // Hitung volume yang dapat dialokasikan per barang
+                const itemVolume = (item.volume / totalVolume) * currentBoxVolume; // Volume per barang di box
+                const allocatedVolume = Math.min(itemVolume, boxVolumeLeft); // Alokasikan volume yang bisa masuk
+                boxVolumeLeft -= allocatedVolume; // Kurangi volume yang masih tersisa
+                return {
+                    ...item,
+                    allocatedVolume
+                };
+            });
+
+            // Push hasil alokasi box
+            tempBoxes.push({
+                efficiency,
+                itemAllocations
+            });
+
+            // Kurangi volume yang tersisa setelah mengalokasikan box
+            remainingVolume -= currentBoxVolume;
+
+            // Jika volume sudah habis, stop looping
+            if (remainingVolume <= 0) break;
         }
 
-        setBoxes(tempBoxes); // Set data semua box
+        setBoxes(tempBoxes);
     }, [cartItems]);
+
+
 
     return (
         <div className='border-t pt-14'>
@@ -107,18 +141,25 @@ const Cart = () => {
             <div className='flex w-full justify-around gap-10'>
                 {/* Diagram lingkaran untuk menampilkan efisiensi */}
                 <div className="my-10 flex items-center justify-center gap-10 flex-wrap">
-                    {boxes.map((efficiency, index) => (
+                    {boxes.map((box, index) => (
                         <div key={index} style={{ width: 150, height: 150 }}>
                             <CircularProgressbar
-                                value={efficiency}
-                                text={`${efficiency}%`}
+                                value={box.efficiency}
+                                text={`${box.efficiency}%`}
                                 styles={buildStyles({
-                                    textColor: efficiency < 85 ? 'red' : 'green',
-                                    pathColor: efficiency < 85 ? 'red' : 'green',
+                                    textColor: box.efficiency < 85 ? 'red' : 'green',
+                                    pathColor: box.efficiency < 85 ? 'red' : 'green',
                                     trailColor: '#d6d6d6',
                                 })}
                             />
                             <p className="text-center mt-2">Box {index + 1}</p>
+                            <div className="mt-2">
+                                {box.itemAllocations.map((allocation, idx) => (
+                                    <div key={idx} className="text-xs">
+                                        <span>{allocation._id} ({allocation.size})</span>: {allocation.allocatedVolume.toFixed(2)} cm³
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     ))}
                 </div>
