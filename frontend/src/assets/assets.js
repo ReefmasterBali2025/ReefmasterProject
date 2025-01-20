@@ -58,6 +58,7 @@ import videowysiwyg from './video1.mp4'
 import videogeneral from './video2.mp4'
 import videofish from './video3.mp4'
 import video4 from './video4.mp4'
+import videologin1 from './videologin1.mp4'
 
 
 import logo from './logo_reefmaster.png'
@@ -81,6 +82,7 @@ import cross_icon from './cross_icon.png'
 import go_shop from './go_shop.png'
 import logo_hd from './logo_hd.png'
 import fotofarm1 from './fotofarm1.jpeg'
+
 
 export const assets = {
     logo,
@@ -111,7 +113,8 @@ export const assets = {
     videogeneral,
     videofish,
     video4,
-    fotofarm1
+    fotofarm1,
+    videologin1
 }
 
 export const products = [

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import Home from './pages/Home'
 import Collection from './pages/Collection'
 import About from './pages/About'
@@ -16,6 +16,7 @@ import WYSIWYG from './pages/WYSIWYGonly'
 import General from './pages/Generalonly'
 import Fish from './pages/Fishonly'
 import Cites from './pages/Cites'
+import Logout from './pages/Logout'
 
 
 const App = () => {
@@ -25,7 +26,8 @@ const App = () => {
       <Navbar />
       <SearchBar />
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={<Navigate to={'/login'} />} />
+        <Route path='/home' element={<Home />} />
         <Route path='/collection' element={<Collection />} />
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
@@ -38,6 +40,7 @@ const App = () => {
         <Route path='/Stocklist_Only' element={<General />} />
         <Route path='/Fish&Invert' element={<Fish />} />
         <Route path='/cites' element={<Cites />} />
+        <Route path='/logout' element={<Logout />} />
       </Routes>
       <Footer />
     </div>

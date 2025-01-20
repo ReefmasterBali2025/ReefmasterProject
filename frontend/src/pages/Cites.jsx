@@ -2,7 +2,7 @@ import React from 'react';
 
 const Cites = () => {
     return (
-        <div className="h-screen bg-white text-black flex flex-col py-14">
+        <div className="h-full bg-white text-black flex flex-col py-14">
             {/* Main Content */}
             <div className="flex flex-1">
                 {/* Sidebar - Guidance */}
