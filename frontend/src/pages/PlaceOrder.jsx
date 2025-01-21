@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import Title from '../components/Title'
 import CartTotal from '../components/CartTotal'
 import { assets } from '../assets/assets'
@@ -8,38 +8,98 @@ const PlaceOrder = () => {
 
     const [method, setMethod] = useState('cod');
 
-    const { navigate } = useContext(ShopContext);
+    const { navigate, boxesLength, citesCultureQuantity, citesWildQuantity, weightOfItems } = useContext(ShopContext);
+
+    const [tempBoxes, setTempBoxes] = useState([]); // Contoh nilai awal, ubah sesuai kebutuhan
+
+    const [landedCost, setLandedCost] = useState([
+        { description: 'Packing Charge HD Boxes', value: `${boxesLength} BOX${boxesLength > 1 ? 'ES' : ''}`, price: 15.00, amount: 15.00 },
+        { description: 'CITES Charge Culture Coral', value: `${citesCultureQuantity} Pcs`, price: 2.75, amount: 33.00 },
+        { description: 'CITES Charge Wild Coral', value: `${citesWildQuantity} Pcs`, price: 3.75, amount: 33.00 },
+        { description: 'CITES Processing Fee', value: '', price: 100.00, amount: 100.00 },
+        { description: 'Document Handling Fee', value: '', price: 100.00, amount: 100.00 },
+        { description: 'Fish Permit', value: '', price: 100.00, amount: 100.00 },
+        { description: 'Freight Charge ALL IN', value: `${weightOfItems}`, price: 5.74, amount: 132.08 },
+        { description: 'AWB + CCC Fee', value: '', price: 10.58, amount: 10.58 },
+        { description: 'VAT Fee', value: '1.1 %', price: '', amount: 1.57 },
+        { description: 'Pickup', value: '', price: 107.00, amount: 107.00 },
+        { description: 'Import Duties', value: '', price: 1000.00, amount: 1000.00 },
+    ]);
+
+    // Update 'amount' dynamically based on price and boxesLength
+    useEffect(() => {
+        setLandedCost((prevLandedCost) => {
+            return prevLandedCost.map((item) => {
+                if (item.description === 'Packing Charge HD Boxes') {
+                    return {
+                        ...item,
+                        value: `${boxesLength} BOX${boxesLength > 1 ? 'ES' : ''}`,
+                        amount: item.price * boxesLength, // Calculate the amount dynamically
+                    };
+                }
+                if (item.description === 'CITES Charge Culture Coral') {
+                    return {
+                        ...item,
+                        value: `${citesCultureQuantity} Pcs`,
+                        amount: item.price * citesCultureQuantity, // Calculate the amount dynamically
+                    };
+                }
+                if (item.description === 'CITES Charge Wild Coral') {
+                    return {
+                        ...item,
+                        value: `${citesWildQuantity} Pcs`,
+                        amount: item.price * citesWildQuantity, // Calculate the amount dynamically
+                    };
+                }
+                if (item.description === 'Freight Charge ALL IN') {
+                    return {
+                        ...item,
+                        value: `${weightOfItems} Kg`,
+                        amount: item.price * weightOfItems, // Calculate the amount dynamically
+                    };
+                }
+                return item;
+            });
+        });
+    }, [boxesLength]); // Recalculate when boxesLength changes
+
+    const totalLandedCost = landedCost.reduce((total, item) => total + item.amount, 0).toFixed(2);
 
     return (
         <div className='flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t'>
             {/* ----------------- Left Side ------------------- */}
-            <div className='flex flex-col gap-4 w-full sm:max-w-[480px]'>
-                <div className='text-xl sm:text-2xl my-3'>
-                    <Title text1={'DELIVERY'} text2={'INFORMATION'} />
+            <div className="w-full sm:w-[60%] mt-12">
+                <Title text1={'LANDED'} text2={'METHOD'} />
+                <div className="bg-white shadow-md rounded-lg overflow-hidden">
+                    <table className="table-auto w-full text-left border-collapse">
+                        <thead className="bg-gray-100">
+                            <tr>
+                                <th className="px-4 py-2 border">Description</th>
+                                <th className="px-4 py-2 border">Value</th>
+                                <th className="px-4 py-2 border">Price</th>
+                                <th className="px-4 py-2 border">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {landedCost.map((item, index) => (
+                                <tr key={index} className="hover:bg-gray-50">
+                                    <td className="px-4 py-2 border">{item.description}</td>
+                                    <td className="px-4 py-2 border">{item.value || '-'}</td>
+                                    <td className="px-4 py-2 border">{item.price ? `$${item.price.toFixed(2)}` : '-'}</td>
+                                    <td className="px-4 py-2 border">{`$${item.amount.toFixed(2)}`}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                        <tfoot>
+                            <tr className="bg-gray-100 font-bold">
+                                <td className="px-4 py-2 border" colSpan={3}>
+                                    Total Landed Cost
+                                </td>
+                                <td className="px-4 py-2 border">{`$${totalLandedCost}`}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
-                <div className='flex gap-3'>
-                    <input className='border border-gray-300 rounded py-1.5 px-3.5 w-full' type='text' placeholder='First Name' />
-
-                    <input className='border border-gray-300 rounded py-1.5 px-3.5 w-full' type='text' placeholder='Last Name' />
-                </div>
-
-                <input className='border border-gray-300 rounded py-1.5 px-3.5 w-full' type='email' placeholder='Email address' />
-                <input className='border border-gray-300 rounded py-1.5 px-3.5 w-full' type='text' placeholder='Street' />
-
-                <div className='flex gap-3'>
-                    <input className='border border-gray-300 rounded py-1.5 px-3.5 w-full' type='text' placeholder='City' />
-
-                    <input className='border border-gray-300 rounded py-1.5 px-3.5 w-full' type='text' placeholder='State' />
-                </div>
-
-                <div className='flex gap-3'>
-                    <input className='border border-gray-300 rounded py-1.5 px-3.5 w-full' type='number' placeholder='Zipcode' />
-
-                    <input className='border border-gray-300 rounded py-1.5 px-3.5 w-full' type='text' placeholder='Country' />
-                </div>
-
-                <input className='border border-gray-300 rounded py-1.5 px-3.5 w-full' type='tel' placeholder='Phone' />
-
             </div>
             {/* ----------- Right Side ------------- */}
             <div className='mt-8'>

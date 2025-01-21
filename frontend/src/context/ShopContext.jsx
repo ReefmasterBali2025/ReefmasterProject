@@ -12,6 +12,27 @@ const ShopContextProvider = (props) => {
     const [showSearch, setShowSearch] = useState(false); // State untuk mengontrol tampilan pencarian
     const [cartItems, setCartItems] = useState({}); // State untuk menyimpan item dalam keranjang
     const navigate = useNavigate(); // Hook untuk navigasi antar halaman
+    const [boxesLength, setBoxesLength] = useState(0);
+    const [citesCultureQuantity, setCitesCultureQuantity] = useState(0);  // Add state to store quantity
+    const [citesWildQuantity, setCitesWildQuantity] = useState(0);  // Add state to store quantity
+    const [weightOfItems, setWeightOfItems] = useState(0);
+
+    const updateBoxesLength = (length) => {
+        setBoxesLength(length)
+    };
+
+    // Function to update quantity of 'CITES Charge Culture Coral'
+    const setCitesCultureQuantityInContext = (quantity) => {
+        setCitesCultureQuantity(quantity);
+    };
+
+    const setCitesWildQuantityInContext = (quantity) => {
+        setCitesWildQuantity(quantity)
+    };
+
+    const setWeightOfItemsInContext = (weight) => {
+        setWeightOfItems(weight);
+    };
 
     /**
      * Menambahkan item ke keranjang belanja.
@@ -109,7 +130,11 @@ const ShopContextProvider = (props) => {
         search, setSearch, showSearch, setShowSearch,
         cartItems, addToCart,
         getCartCount, updateQuantity,
-        getCartAmount, navigate
+        getCartAmount, navigate,
+        boxesLength, updateBoxesLength,
+        citesCultureQuantity, setCitesCultureQuantity: setCitesCultureQuantityInContext,
+        citesWildQuantity, setCitesWildQuantity: setCitesWildQuantityInContext,
+        weightOfItems, setWeightOfItems: setWeightOfItemsInContext
     };
 
     /**
