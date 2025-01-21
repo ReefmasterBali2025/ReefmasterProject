@@ -7,7 +7,7 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'; /
 import 'react-circular-progressbar/dist/styles.css';
 
 const Cart = () => {
-    const { products, currency, cartItems, updateQuantity, navigate } = useContext(ShopContext);
+    const { products, currency, cartItems, updateQuantity, navigate, updateBoxesLength, setCitesCultureQuantity, setCitesWildQuantity, setWeightOfItems } = useContext(ShopContext);
 
     const [cartData, setCartData] = useState([]);
     const [efficiency, setEfficiency] = useState(100); // State untuk menyimpan nilai efisiensi
@@ -15,7 +15,10 @@ const Cart = () => {
 
     useEffect(() => {
         const tempData = [];
+        let totalCultureQuantity = 0;  // Variable to store total quantity for Culture category
+        let totalWildQuantity = 0;
         let totalVolume = 0; // Total volume plastik
+        let totalWeight = 0 //Total Weight
         const boxVolume = (47 * 32 * 29) * 0.85; // Volume box dengan efisiensi 85%
 
         // Menghitung total volume barang di keranjang
@@ -26,13 +29,28 @@ const Cart = () => {
                     const sizeData = product.sizes.find((s) => s.size === item);
                     const volumePerItem = (22 / 7) * sizeData.plasticSize * sizeData.plasticHeight;
 
+                    const weightPerItem = 0.75 * volumePerItem * 1.025
+
                     totalVolume += volumePerItem * cartItems[items][item];
+                    totalWeight += (weightPerItem * cartItems[items][item]) / 1000;
+
+
                     tempData.push({
                         _id: items,
                         size: item,
                         quantity: cartItems[items][item],
                         volume: volumePerItem * cartItems[items][item],
+                        weight: weightPerItem * cartItems[items][item],
+                        category: product.category // Tambahkan kategori produk
                     });
+
+                    // Jika kategori adalah Culture, tambah jumlah quantity
+                    if (product.category === "Culture") {
+                        totalCultureQuantity += cartItems[items][item];
+                    }
+                    if (product.category === "Wild") {
+                        totalWildQuantity += cartItems[items][item];
+                    }
                 }
             }
         }
@@ -76,8 +94,21 @@ const Cart = () => {
         }
 
         setBoxes(tempBoxes);
-    }, [cartItems]);
+        // Menyimpan tempBoxes.length ke context
+        updateBoxesLength(tempBoxes.length);
 
+        // Set quantity produk Culture di context untuk digunakan di PlaceOrder.jsx
+        setCitesCultureQuantity(totalCultureQuantity);
+        setCitesWildQuantity(totalWildQuantity);
+        setWeightOfItems(totalWeight.toFixed(2));
+
+        console.log("Total Quantity Culture in Cart:", totalCultureQuantity);
+        console.log("Total Quantity Wild in Cart : ", totalWildQuantity)
+
+        // Menampilkan total berat barang di keranjang
+        console.log("Total Weight of Items in Cart:", totalWeight.toFixed(2), "kg");
+
+    }, [cartItems, products, setCitesCultureQuantity, setCitesWildQuantity, setWeightOfItems]);
 
 
     return (
@@ -140,7 +171,7 @@ const Cart = () => {
             </div>
             <div className='flex w-full flex-col-reverse md:flex-row justify-around gap-10'>
                 {/* Diagram lingkaran untuk menampilkan efisiensi */}
-                <div className="mt-0 mb-5 flex items-center justify-center gap-10 flex-wrap">
+                <div className="my-10 flex items-center justify-center gap-20 flex-wrap">
                     {boxes.map((box, index) => (
                         <div key={index} style={{ width: 150, height: 150 }}>
                             <CircularProgressbar

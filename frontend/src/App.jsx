@@ -27,6 +27,7 @@ const App = () => {
       <SearchBar />
       <Routes>
         <Route path='/' element={<Navigate to={'/login'} />} />
+        <Route path='/' element={<Navigate to={'/login'} />} />
         <Route path='/home' element={<Home />} />
         <Route path='/collection' element={<Collection />} />
         <Route path='/about' element={<About />} />
