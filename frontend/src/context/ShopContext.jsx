@@ -16,6 +16,7 @@ const ShopContextProvider = (props) => {
     const [citesCultureQuantity, setCitesCultureQuantity] = useState(0);  // Add state to store quantity
     const [citesWildQuantity, setCitesWildQuantity] = useState(0);  // Add state to store quantity
     const [weightOfItems, setWeightOfItems] = useState(0);
+    const [totalAmountAll, setTotalAmount] = useState(0);
 
     const updateBoxesLength = (length) => {
         setBoxesLength(length)
@@ -33,6 +34,10 @@ const ShopContextProvider = (props) => {
     const setWeightOfItemsInContext = (weight) => {
         setWeightOfItems(weight);
     };
+
+    const setTotalAmountInContext = (amount) => {
+        setTotalAmount(amount);
+    }
 
     /**
      * Menambahkan item ke keranjang belanja.
@@ -134,7 +139,8 @@ const ShopContextProvider = (props) => {
         boxesLength, updateBoxesLength,
         citesCultureQuantity, setCitesCultureQuantity: setCitesCultureQuantityInContext,
         citesWildQuantity, setCitesWildQuantity: setCitesWildQuantityInContext,
-        weightOfItems, setWeightOfItems: setWeightOfItemsInContext
+        weightOfItems, setWeightOfItems: setWeightOfItemsInContext,
+        totalAmountAll, setTotalAmount: setTotalAmountInContext
     };
 
     /**

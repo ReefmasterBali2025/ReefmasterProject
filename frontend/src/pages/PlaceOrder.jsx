@@ -8,7 +8,7 @@ const PlaceOrder = () => {
 
     const [method, setMethod] = useState('cod');
 
-    const { navigate, boxesLength, citesCultureQuantity, citesWildQuantity, weightOfItems } = useContext(ShopContext);
+    const { navigate, boxesLength, citesCultureQuantity, citesWildQuantity, weightOfItems, setTotalAmount } = useContext(ShopContext);
 
     const [tempBoxes, setTempBoxes] = useState([]); // Contoh nilai awal, ubah sesuai kebutuhan
 
@@ -64,47 +64,52 @@ const PlaceOrder = () => {
     }, [boxesLength]); // Recalculate when boxesLength changes
 
     const totalLandedCost = landedCost.reduce((total, item) => total + item.amount, 0).toFixed(2);
+    setTotalAmount(totalLandedCost);
 
     return (
-        <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] ">
-        <div className='flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t'>
+        <div className='flex flex-col md:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t'>
             {/* ----------------- Left Side ------------------- */}
-            <div className="w-full sm:w-[60%] mt-12">
-                <Title text1={'LANDED'} text2={'METHOD'} />
-                <div className="bg-white shadow-md rounded-lg overflow-hidden">
-                    <table className="table-auto w-full text-left border-collapse">
-                        <thead className="bg-gray-100">
-                            <tr>
-                                <th className="px-4 py-2 border">Description</th>
-                                <th className="px-4 py-2 border">Value</th>
-                                <th className="px-4 py-2 border">Price</th>
-                                <th className="px-4 py-2 border">Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {landedCost.map((item, index) => (
-                                <tr key={index} className="hover:bg-gray-50">
-                                    <td className="px-4 py-2 border">{item.description}</td>
-                                    <td className="px-4 py-2 border">{item.value || '-'}</td>
-                                    <td className="px-4 py-2 border">{item.price ? `$${item.price.toFixed(2)}` : '-'}</td>
-                                    <td className="px-4 py-2 border">{`$${item.amount.toFixed(2)}`}</td>
+            <div className="w-full mt-12">
+                <Title text1={'LANDED'} text2={'COST'} />
+                <div className="bg-white shadow-md rounded-lg overflow-hidden text-sm">
+                    <div className="overflow-x-auto">
+                        <table className="table-auto min-w-full text-left border-collapse">
+                            <thead className="bg-gray-100">
+                                <tr>
+                                    <th className="px-4 py-2 border whitespace-nowrap">Description</th>
+                                    <th className="px-4 py-2 border whitespace-nowrap">Value</th>
+                                    <th className="px-4 py-2 border whitespace-nowrap">Price</th>
+                                    <th className="px-4 py-2 border whitespace-nowrap">Amount</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                        <tfoot>
-                            <tr className="bg-gray-100 font-bold">
-                                <td className="px-4 py-2 border" colSpan={3}>
-                                    Total Landed Cost
-                                </td>
-                                <td className="px-4 py-2 border">{`$${totalLandedCost}`}</td>
-                            </tr>
-                        </tfoot>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {landedCost.map((item, index) => (
+                                    <tr key={index} className="hover:bg-gray-50">
+                                        <td className="px-4 py-2 border">{item.description}</td>
+                                        <td className="px-4 py-2 border">{item.value || '-'}</td>
+                                        <td className="px-4 py-2 border">
+                                            {item.price ? `$${item.price.toFixed(2)}` : '-'}
+                                        </td>
+                                        <td className="px-4 py-2 border">{`$${item.amount.toFixed(2)}`}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                            <tfoot>
+                                <tr className="bg-gray-100 font-bold">
+                                    <td className="px-4 py-2 border" colSpan={3}>
+                                        Total Landed Cost
+                                    </td>
+                                    <td className="px-4 py-2 border">{`$${totalLandedCost}`}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
             </div>
+
             {/* ----------- Right Side ------------- */}
             <div className='mt-8'>
-                <div className='mt-8 min-w-80'>
+                <div className='mt-8 min-w-60'>
                     <CartTotal />
                 </div>
 
@@ -138,7 +143,7 @@ const PlaceOrder = () => {
 
 
         </div>
-        </div>
+        </div >
     )
 }
 
