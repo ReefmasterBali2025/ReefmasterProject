@@ -67,9 +67,9 @@ const PlaceOrder = () => {
     setTotalAmount(totalLandedCost);
 
     return (
-        <div className='flex flex-col md:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t'>
+        <div className='flex flex-col md:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
             {/* ----------------- Left Side ------------------- */}
-            <div className="w-full md:w-1/2 mt-16">
+            <div className="w-full md:w-1/2 mt-14">
                 <div className='text-2xl'>
                     <Title text1={'LANDED'} text2={'COST'} />
                 </div>
