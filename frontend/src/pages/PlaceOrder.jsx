@@ -69,8 +69,11 @@ const PlaceOrder = () => {
     return (
         <div className='flex flex-col md:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t'>
             {/* ----------------- Left Side ------------------- */}
-            <div className="w-full mt-12">
-                <Title text1={'LANDED'} text2={'COST'} />
+            <div className="w-full md:w-1/2 mt-16">
+                <div className='text-2xl'>
+                    <Title text1={'LANDED'} text2={'COST'} />
+                </div>
+
                 <div className="bg-white shadow-md rounded-lg overflow-hidden text-sm">
                     <div className="overflow-x-auto">
                         <table className="table-auto min-w-full text-left border-collapse">
@@ -109,7 +112,7 @@ const PlaceOrder = () => {
 
             {/* ----------- Right Side ------------- */}
             <div className='mt-8'>
-                <div className='mt-8 min-w-60'>
+                <div className='mt-8 min-w-80'>
                     <CartTotal />
                 </div>
 
