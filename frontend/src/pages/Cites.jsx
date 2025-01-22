@@ -2,11 +2,11 @@ import React from 'react';
 
 const Cites = () => {
     return (
-        <div className="h-full bg-white text-black flex flex-col py-14">
+        <div className="h-full bg-white text-black flex flex-col py-14 ">
             {/* Main Content */}
-            <div className="flex flex-1 ">
+            <div className="flex flex-1 flex-col md:flex-row">
                 {/* Sidebar - Guidance */}
-                <aside className="w-1/4 bg-gray-200 p-4 border-r border-gray-300">
+                <aside className="w-full md:w-1/4 bg-gray-200 p-9 md:p-3 lg:p-5 border-r border-gray-300 ">
                     <h2 className="text-lg font-bold mb-4">Guidance</h2>
                     <p className="text-sm mb-4">
                         You have 3 active CITES, tap the 'pdf' icon to see the original document.
