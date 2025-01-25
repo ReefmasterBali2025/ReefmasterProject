@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom'
 
 const Contact = () => {
     return (
-        <div className='px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
+        <div className='px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] pt-14'>
             <div className='text-center text-2xl pt-10 border-t'>
                 <Title text1={'CONTACT'} text2={'US'} />
             </div>

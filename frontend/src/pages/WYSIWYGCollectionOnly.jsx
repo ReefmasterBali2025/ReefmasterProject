@@ -98,7 +98,7 @@ const WYSIWYGCollectionOnly = () => {
         if (currentPage > 1) setCurrentPage(currentPage - 1);
     };
     return (
-        <div className='flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-10 pt-10 border-t my-10'>
+        <div className='flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-10 pt-10 border-t my-10 px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
             {/* Bagian kiri untuk filter */}
             <div className='min-w-32 md:w-[12%] w-full'>
                 <p

@@ -185,7 +185,7 @@ const Collection = () => {
                                 className="border-2 border-gray-300 text-sm px-2 py-1 rounded-md"
                             >
                                 <option value="">All Categories</option>
-                                <option value="Culture">Culturel</option>
+                                <option value="Culture">Culture</option>
                                 <option value="Wild">Wild</option>
 
                             </select>
