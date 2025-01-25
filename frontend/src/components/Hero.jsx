@@ -45,9 +45,15 @@ const Hero = () => {
               </div>
               <div className="shop-body p-4 text-center">
                 <h3 className="text-lg font-bold mb-2">Stock List<br />Collection</h3>
-                <a href="#" className="cta-btn text-blue-500 hover:text-blue-700 font-semibold inline-flex items-center">
+                {/* <a href="#" className="cta-btn text-blue-500 hover:text-blue-700 font-semibold inline-flex items-center">
                   Shop now <img src={assets.go_shop} className='w-5 min-w-5 ml-3' alt='cart-icon' />
-                </a>
+                </a> */}
+                <Link
+                  to="/Stocklist_Only"
+                  className="cta-btn text-blue-500 hover:text-blue-700 font-semibold inline-flex items-center"
+                >
+                  Shop now <img src={assets.go_shop} className="w-5 min-w-5 ml-3" alt="cart-icon" />
+                </Link>
               </div>
             </div>
           </div>

@@ -37,7 +37,7 @@ const App = () => {
         <Route path='/login' element={<Login />} />
         <Route path='/place-order' element={<PlaceOrder />} />
         <Route path='/orders' element={<Orders />} />
-        <Route path='/WYSIWYG_Only' element={<WYSIWYG />} />
+        <Route path='/wysiwygonly' element={<WYSIWYG />} />
         <Route path='/Stocklist_Only' element={<General />} />
         {/* <Route path='/Fish&Invert' element={<Fish />} /> */}
         {/* <Route path='/cites' element={<Cites />} /> */}
