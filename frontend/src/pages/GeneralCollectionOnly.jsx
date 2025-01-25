@@ -19,9 +19,9 @@ const GeneralCollectionOnly = () => {
     const [subCategory, setSubCategory] = useState([]);
     const [sortType, setSortType] = useState('relevant');
 
-    const [currentPage, setCurrentPage] = useState(1); // Halaman aktif
-    const ITEMS_PER_PAGE = 30; // Jumlah item per halaman
-    const totalPages = Math.ceil(filterProducts.length / ITEMS_PER_PAGE); // Hitung total halaman
+    const [currentPage, setCurrentPage] = useState(1);
+    const ITEMS_PER_PAGE = 30;
+    const totalPages = Math.ceil(filterProducts.length / ITEMS_PER_PAGE);
 
     const toggleCategory = (e) => {
         const value = e.target.value;
@@ -41,7 +41,8 @@ const GeneralCollectionOnly = () => {
     const updateFilteredAndSortedProducts = () => {
         let productsCopy = products.slice();
 
-        productsCopy = productsCopy.filter((item) => item.type == "General")
+        // Filter untuk hanya produk dengan type: "General"
+        productsCopy = productsCopy.filter((item) => item.type === "General");
 
         // Filter berdasarkan pencarian
         if (showSearch && search) {
@@ -77,14 +78,13 @@ const GeneralCollectionOnly = () => {
 
     useEffect(() => {
         updateFilteredAndSortedProducts();
-        setCurrentPage(1); // Reset ke halaman pertama jika filter berubah
+        setCurrentPage(1);
     }, [category, subCategory, sortType, showSearch, search]);
 
     useEffect(() => {
-        setFilterProducts(products);
+        updateFilteredAndSortedProducts();
     }, [products]);
 
-    // Produk yang akan ditampilkan pada halaman saat ini
     const currentProducts = filterProducts.slice(
         (currentPage - 1) * ITEMS_PER_PAGE,
         currentPage * ITEMS_PER_PAGE
