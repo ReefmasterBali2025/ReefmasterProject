@@ -18,13 +18,20 @@ const General = () => {
     const [subCategory, setSubCategory] = useState([]);
     const [sortType, setSortType] = useState('relevant');
 
-    const [currentPage, setCurrentPage] = useState(1); // Halaman aktif
-    const ITEMS_PER_PAGE = 30; // Jumlah item per halaman
-    const totalPages = Math.ceil(filterProducts.length / ITEMS_PER_PAGE); // Hitung total halaman
+    const [currentPage, setCurrentPage] = useState(1);
+    const ITEMS_PER_PAGE = 30;
+    const totalPages = Math.ceil(filterProducts.length / ITEMS_PER_PAGE);
 
     const toggleCategory = (e) => {
         const value = e.target.value;
         setCategory((prev) =>
+            prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
+        );
+    };
+
+    const toggleSubCategory = (e) => {
+        const value = e.target.value;
+        setSubCategory((prev) =>
             prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
         );
     };
@@ -39,18 +46,12 @@ const General = () => {
         setSubCategory(selectedValue ? [selectedValue] : []); // Perbarui state subCategory
     };
 
-    const toggleSubCategory = (e) => {
-        const value = e.target.value;
-        setSubCategory((prev) =>
-            prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
-        );
-    };
-
     // Fungsi untuk memperbarui produk yang difilter
     const updateFilteredAndSortedProducts = () => {
         let productsCopy = products.slice();
 
-        productsCopy = productsCopy.filter((item) => item.type == "General")
+        // Filter untuk hanya produk dengan type: "General"
+        productsCopy = productsCopy.filter((item) => item.type === "General");
 
         // Filter berdasarkan pencarian
         if (showSearch && search) {
@@ -86,14 +87,13 @@ const General = () => {
 
     useEffect(() => {
         updateFilteredAndSortedProducts();
-        setCurrentPage(1); // Reset ke halaman pertama jika filter berubah
+        setCurrentPage(1);
     }, [category, subCategory, sortType, showSearch, search]);
 
     useEffect(() => {
-        setFilterProducts(products);
+        updateFilteredAndSortedProducts();
     }, [products]);
 
-    // Produk yang akan ditampilkan pada halaman saat ini
     const currentProducts = filterProducts.slice(
         (currentPage - 1) * ITEMS_PER_PAGE,
         currentPage * ITEMS_PER_PAGE
@@ -106,8 +106,6 @@ const General = () => {
     const handlePrevPage = () => {
         if (currentPage > 1) setCurrentPage(currentPage - 1);
     };
-
-
 
     return (
         <div className='flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-10 pt-10 border-t my-10 px-16'>
@@ -196,12 +194,8 @@ const General = () => {
                                 className="border-2 border-gray-300 text-sm px-2 py-1 rounded-md"
                             >
                                 <option value="">All Sub-Categories</option>
-                                <option value="WYSIWYG Hard Coral">WYSIWYG Hard Coral</option>
-                                <option value="WYSIWYG Soft Coral">WYSIWYG Soft Coral</option>
-                                <option value="WYSIWYG Anemone">WYSIWYG Anemone</option>
                                 <option value="General Hard Coral">General Hard Coral</option>
                                 <option value="General Soft Coral">General Soft Coral</option>
-                                <option value="Fish">Fish</option>
                             </select>
                         </div>
                         <div className='flex justify-center items-center '>
