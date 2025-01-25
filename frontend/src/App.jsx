@@ -16,7 +16,6 @@ import WYSIWYG from './pages/WYSIWYGonly'
 import General from './pages/Generalonly'
 import Fish from './pages/Fishonly'
 import Cites from './pages/Cites'
-import Logout from './pages/Logout'
 
 
 const App = () => {
@@ -40,7 +39,6 @@ const App = () => {
         <Route path='/Stocklist_Only' element={<General />} />
         <Route path='/Fish&Invert' element={<Fish />} />
         <Route path='/cites' element={<Cites />} />
-        <Route path='/logout' element={<Logout />} />
       </Routes>
       <Footer />
     </div>
