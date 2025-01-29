@@ -8,7 +8,7 @@ const PlaceOrder = () => {
 
     const [method, setMethod] = useState('cod');
 
-    const { navigate, boxesLength, citesCultureQuantity, citesWildQuantity, weightOfItems, setTotalAmount } = useContext(ShopContext);
+    const { navigate, boxesLength, citesCultureQuantity, citesWildQuantity, weightOfItems, setTotalAmount, setTotalLandedCost } = useContext(ShopContext);
 
     const [tempBoxes, setTempBoxes] = useState([]); // Contoh nilai awal, ubah sesuai kebutuhan
 
