@@ -16,6 +16,8 @@ import WYSIWYG from './pages/WYSIWYGonly'
 import General from './pages/Generalonly'
 import Fish from './pages/Fishonly'
 import Cites from './pages/Cites'
+import Invert from './pages/Invertonly'
+import Profile from './pages/Profile'
 
 
 const App = () => {
@@ -38,8 +40,10 @@ const App = () => {
         <Route path='/orders' element={<Orders />} />
         <Route path='/wysiwygonly' element={<WYSIWYG />} />
         <Route path='/Stocklist_Only' element={<General />} />
-        <Route path='/Fish&Invert' element={<Fish />} />
+        <Route path='/Fish_Only' element={<Fish />} />
+        <Route path='/Invert_Only' element={<Invert />} />
         <Route path='/cites' element={<Cites />} />
+        <Route path='/MyProfile' element={<Profile />} />
       </Routes>
       <Footer />
     </div>

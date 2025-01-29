@@ -95,7 +95,7 @@ const Fish = () => {
                     />
                 </p>
 
-                {/* Filter kategori
+                {/* /* Filter kategori */}
                 <div className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} md:block`}>
                     <p className='mb-3 text-sm font-medium'>CATEGORIES</p>
                     <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
@@ -118,14 +118,14 @@ const Fish = () => {
                             Wild
                         </p>
                     </div>
-                </div> */}
+                </div> 
 
                 {/* Filter subkategori */}
                 <div className={`border border-gray-300 pl-5 py-3 mt-6 my-5 ${showFilter ? '' : 'hidden'} md:block`}>
                     <p className='mb-3 text-sm font-medium'>TYPE</p>
                     <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
                         {/* Daftar subkategori */}
-                        {['Fish','Invertebrate'].map((type) => (
+                        {['Fish'].map((type) => (
                             <p key={type} className='flex gap-2'>
                                 <input
                                     className='w-3'

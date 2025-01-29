@@ -1,21 +1,21 @@
-import React, { createContext, useState } from 'react';
+// import React, { createContext, useState } from 'react';
 
-// Buat AuthContext
-export const AuthContext = createContext();
+// // Buat AuthContext
+// export const AuthContext = createContext();
 
-// Provider untuk AuthContext
-export const AuthProvider = ({ children }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false); // Default: belum login
+// // Provider untuk AuthContext
+// export const AuthProvider = ({ children }) => {
+//     const [isAuthenticated, setIsAuthenticated] = useState(false); // Default: belum login
 
-    // Login function (contoh)
-    const login = () => setIsAuthenticated(true);
+//     // Login function (contoh)
+//     const login = () => setIsAuthenticated(true);
 
-    // Logout function (contoh)
-    const logout = () => setIsAuthenticated(false);
+//     // Logout function (contoh)
+//     const logout = () => setIsAuthenticated(false);
 
-    return (
-        <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
-            {children}
-        </AuthContext.Provider>
-    );
-};
+//     return (
+//         <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+//             {children}
+//         </AuthContext.Provider>
+//     );
+// };
