@@ -63,8 +63,10 @@ const PlaceOrder = () => {
         });
     }, [boxesLength]); // Recalculate when boxesLength changes
 
-    const totalLandedCost = landedCost.reduce((total, item) => total + item.amount, 0).toFixed(2);
-    setTotalAmount(totalLandedCost);
+    useEffect(() => {
+        const totalLandedCost = landedCost.reduce((total, item) => total + item.amount, 0).toFixed(2);
+        setTotalAmount(totalLandedCost);
+    }, [landedCost, setTotalAmount])
 
     return (
         <div className='flex flex-col md:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
@@ -102,7 +104,7 @@ const PlaceOrder = () => {
                                     <td className="px-4 py-2 border" colSpan={3}>
                                         Total Landed Cost
                                     </td>
-                                    <td className="px-4 py-2 border">{`$${totalLandedCost}`}</td>
+                                    <td className="px-4 py-2 border">{`${totalLandedCost}`}</td>
                                 </tr>
                             </tfoot>
                         </table>
