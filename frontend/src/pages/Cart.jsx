@@ -12,6 +12,8 @@ const Cart = () => {
     const [cartData, setCartData] = useState([]);
     const [efficiency, setEfficiency] = useState(100); // State untuk menyimpan nilai efisiensi
     const [boxes, setBoxes] = useState([]); // State untuk menyimpan data semua box
+    const [weightItem, setWeightItem] = useState(0)
+    const [totallWeightItem, setTotalWeightItem] = useState(0)
 
     useEffect(() => {
         const tempData = [];
@@ -34,8 +36,6 @@ const Cart = () => {
                     totalVolume += volumePerItem * cartItems[items][item];
                     totalWeight += (weightPerItem * cartItems[items][item]) / 1000;
 
-                    const landedCostPerItem = totalWeight > 0 ? (weightPerItem / totalWeight) * totalAmountAll : 0;
-
 
                     tempData.push({
                         _id: items,
@@ -53,6 +53,7 @@ const Cart = () => {
                     if (product.category === "Wild") {
                         totalWildQuantity += cartItems[items][item];
                     }
+                    setWeightItem(weightPerItem.toFixed(2));
                 }
             }
         }
@@ -110,7 +111,7 @@ const Cart = () => {
         // Menampilkan total berat barang di keranjang
         console.log("Total Weight of Items in Cart:", totalWeight.toFixed(2), "kg");
 
-        // Hitung Landed Cost per item
+        setTotalWeightItem(totalWeight);
 
 
     }, [cartItems, products, setCitesCultureQuantity, setCitesWildQuantity, setWeightOfItems]);
@@ -150,7 +151,13 @@ const Cart = () => {
                                 {cartData.map((item, index) => {
                                     const productData = products.find((product) => product._id === item._id);
 
+                                    // Hitung Landed Cost per item
+                                    const landedCostPerItem = (weightItem / totallWeightItem) * totalAmountAll
 
+                                    console.log(`Total Weight = ${totallWeightItem}`)
+                                    console.log(`Weight item ${weightItem}`)
+                                    console.log(totalAmountAll)
+                                    console.log(landedCostPerItem)
 
                                     return (
                                         <tr key={index} className="hover:bg-gray-100">
@@ -175,7 +182,7 @@ const Cart = () => {
                                                     className='border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1 bg-red-50'
                                                 />
                                             </td>
-                                            <td className="px-4 py-2">{currency}{landedCostPerItem.toFixed(2)}</td>
+                                            <td className="px-4 py-2">{currency}{parseFloat(landedCostPerItem.toFixed(2))}</td>
                                             <td className="px-4 py-2">test</td>
                                         </tr>
                                     );
