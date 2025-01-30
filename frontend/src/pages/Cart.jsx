@@ -7,7 +7,7 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'; /
 import 'react-circular-progressbar/dist/styles.css';
 
 const Cart = () => {
-    const { products, currency, cartItems, updateQuantity, navigate, updateBoxesLength, setCitesCultureQuantity, setCitesWildQuantity, setWeightOfItems } = useContext(ShopContext);
+    const { products, currency, cartItems, updateQuantity, navigate, updateBoxesLength, setCitesCultureQuantity, setCitesWildQuantity, setWeightOfItems, totalAmountAll } = useContext(ShopContext);
 
     const [cartData, setCartData] = useState([]);
     const [efficiency, setEfficiency] = useState(100); // State untuk menyimpan nilai efisiensi
@@ -33,6 +33,8 @@ const Cart = () => {
 
                     totalVolume += volumePerItem * cartItems[items][item];
                     totalWeight += (weightPerItem * cartItems[items][item]) / 1000;
+
+                    const landedCostPerItem = totalWeight > 0 ? (weightPerItem / totalWeight) * totalAmountAll : 0;
 
 
                     tempData.push({
@@ -108,6 +110,9 @@ const Cart = () => {
         // Menampilkan total berat barang di keranjang
         console.log("Total Weight of Items in Cart:", totalWeight.toFixed(2), "kg");
 
+        // Hitung Landed Cost per item
+
+
     }, [cartItems, products, setCitesCultureQuantity, setCitesWildQuantity, setWeightOfItems]);
 
 
@@ -127,9 +132,9 @@ const Cart = () => {
             </div> */}
 
             <div>
-                <div className="bg-white shadow-md rounded-lg overflow-hidden text-sm">
+                <div className="bg-white shadow-md rounded-lg overflow-x-scroll text-sm">
                     <div className="overflow-x-auto">
-                        <table className="table-auto max-w-full text-left border-collapse">
+                        <table className="table-auto min-w-full text-left border-collapse">
                             <thead className="bg-white">
                                 <tr>
                                     <th className="px-4 py-2 whitespace-nowrap">Product</th>
@@ -144,10 +149,13 @@ const Cart = () => {
                             <tbody>
                                 {cartData.map((item, index) => {
                                     const productData = products.find((product) => product._id === item._id);
+
+
+
                                     return (
                                         <tr key={index} className="hover:bg-gray-100">
                                             <td className="px-4 py-2">
-                                                <div className='flex items-start gap-6'>
+                                                <div className='flex items-start gap-6 flex-wrap'>
                                                     <img className='w-16 sm:w-20' src={productData.image[0]} alt='' />
                                                     <div>
                                                         <p className='text-xs sm:text-sm font-medium'>{productData.name}</p>
@@ -167,7 +175,7 @@ const Cart = () => {
                                                     className='border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1 bg-red-50'
                                                 />
                                             </td>
-                                            <td className="px-4 py-2">tes</td>
+                                            <td className="px-4 py-2">{currency}{landedCostPerItem.toFixed(2)}</td>
                                             <td className="px-4 py-2">test</td>
                                         </tr>
                                     );
