@@ -12,6 +12,8 @@ const PlaceOrder = () => {
 
     const [tempBoxes, setTempBoxes] = useState([]); // Contoh nilai awal, ubah sesuai kebutuhan
 
+    const [totalLandedCostItem, setTotalLandedCostItem] = useState(0)
+
     const [landedCost, setLandedCost] = useState([
         { description: 'Packing Charge HD Boxes', value: `${boxesLength} BOX${boxesLength > 1 ? 'ES' : ''}`, price: 15.00, amount: 15.00 },
         { description: 'CITES Charge Culture Coral', value: `${citesCultureQuantity} Pcs`, price: 2.75, amount: 33.00 },
@@ -66,7 +68,8 @@ const PlaceOrder = () => {
     useEffect(() => {
         const totalLandedCost = landedCost.reduce((total, item) => total + item.amount, 0).toFixed(2);
         setTotalAmount(totalLandedCost);
-    }, [landedCost, setTotalAmount])
+        setTotalLandedCostItem(totalLandedCost)
+    }, [landedCost, setTotalAmount, setTotalLandedCostItem])
 
     return (
         <div className='flex flex-col md:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
@@ -104,7 +107,7 @@ const PlaceOrder = () => {
                                     <td className="px-4 py-2 border" colSpan={3}>
                                         Total Landed Cost
                                     </td>
-                                    <td className="px-4 py-2 border">{`${totalLandedCost}`}</td>
+                                    <td className="px-4 py-2 border">{`${totalLandedCostItem}`}</td>
                                 </tr>
                             </tfoot>
                         </table>
