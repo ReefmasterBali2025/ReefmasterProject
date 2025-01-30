@@ -50,11 +50,11 @@ const Profile = () => {
  };
 
   return (
-    <nav className="flex py-14">
+    <nav className="flex pt-14">
       {/* Left Section */}
       <div className="bg-blue-900 text-white w-1/3 p-4 flex flex-col items-center min-h-full">
         <div className="text-center">
-          <img className='w-full p-4 cursor-pointer' src={assets.p_img11} />
+          <img className='w-full p-4 cursor-pointer rounded-full' src={assets.p_img11} />
           <h2 className="text-xl font-bold">demo1</h2>
           <p>IMPORTER</p>
         </div>
