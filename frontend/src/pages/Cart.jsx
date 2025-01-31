@@ -7,114 +7,120 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'; /
 import 'react-circular-progressbar/dist/styles.css';
 
 const Cart = () => {
-    const { products, currency, cartItems, updateQuantity, navigate, updateBoxesLength, setCitesCultureQuantity, setCitesWildQuantity, setWeightOfItems, totalAmountAll } = useContext(ShopContext);
+    const { products, currency, cartItems, updateQuantity, navigate, updateBoxesLength, setCitesCultureQuantity, setCitesWildQuantity, setWeightOfItems, totalAmountAll, landedCost, totalLandedCost } = useContext(ShopContext);
 
     const [cartData, setCartData] = useState([]);
-    const [efficiency, setEfficiency] = useState(100); // State untuk menyimpan nilai efisiensi
-    const [boxes, setBoxes] = useState([]); // State untuk menyimpan data semua box
-    const [weightItem, setWeightItem] = useState(0)
-    const [totallWeightItem, setTotalWeightItem] = useState(0)
+    const [efficiency, setEfficiency] = useState(100);
+    const [boxes, setBoxes] = useState([]);
+    const [weightItem, setWeightItem] = useState(0);
+    const [totalWeightItem, setTotalWeightItem] = useState(0);
+    const [landedCostForItem, setLandedCostForItem] = useState([]); // Array untuk menyimpan landed cost per item
 
     useEffect(() => {
         const tempData = [];
-        let totalCultureQuantity = 0;  // Variable to store total quantity for Culture category
+        let totalCultureQuantity = 0;
         let totalWildQuantity = 0;
-        let totalVolume = 0; // Total volume plastik
-        let totalWeight = 0 //Total Weight
-        const boxVolume = (47 * 32 * 29) * 0.85; // Volume box dengan efisiensi 85%
+        let totalVolume = 0;
+        let totalWeight = 0;
+        const boxVolume = (47 * 32 * 29) * 0.85;
 
-        // Menghitung total volume barang di keranjang
+        const tempLandedCosts = [];
+
+        // **Loop pertama**: Hitung total volume & berat
         for (const items in cartItems) {
             for (const item in cartItems[items]) {
                 if (cartItems[items][item] > 0) {
                     const product = products.find((p) => p._id === items);
                     const sizeData = product.sizes.find((s) => s.size === item);
-                    const volumePerItem = (22 / 7) * sizeData.r * sizeData.r * sizeData.plasticHeight;
 
-                    const weightPerItem = 0.75 * volumePerItem * 1.025
+                    totalVolume += sizeData.volume * cartItems[items][item];
+                    totalWeight += (sizeData.weight * cartItems[items][item]) / 1000; // dalam kg
 
-                    totalVolume += volumePerItem * cartItems[items][item];
-                    totalWeight += (weightPerItem * cartItems[items][item]) / 1000;
+                    const landedCostPerItem = ((sizeData.weight / 1000) / totalWeight) * totalLandedCost;
+
+                    const COGS = sizeData.price + landedCostPerItem
+                    tempLandedCosts.push({
+                        _id: items,
+                        size: item,
+                        landedCost: landedCostPerItem.toFixed(2),
+                        COGS: COGS.toFixed(2)
+                    });
+
 
 
                     tempData.push({
                         _id: items,
                         size: item,
                         quantity: cartItems[items][item],
-                        volume: volumePerItem * cartItems[items][item],
-                        weight: weightPerItem * cartItems[items][item],
-                        category: product.category // Tambahkan kategori produk
+                        volume: sizeData.volume * cartItems[items][item],
+                        weight: sizeData.weight * cartItems[items][item],
+                        category: product.category
                     });
 
-                    // Jika kategori adalah Culture, tambah jumlah quantity
                     if (product.category === "Culture") {
                         totalCultureQuantity += cartItems[items][item];
                     }
                     if (product.category === "Wild") {
                         totalWildQuantity += cartItems[items][item];
                     }
-                    setWeightItem(weightPerItem.toFixed(2));
+
+                    setWeightItem(sizeData.weight / 1000);
                 }
             }
         }
+
+
+        setLandedCostForItem(tempLandedCosts)
 
         setCartData(tempData);
 
         // Menghitung jumlah box yang dibutuhkan
         const boxUtilization = Math.ceil(totalVolume / boxVolume);
-        let remainingVolume = totalVolume; // Sisa volume yang belum teralokasi ke box
+        let remainingVolume = totalVolume;
         const tempBoxes = [];
 
-        // Alokasikan volume box berdasarkan persentase setiap barang
         for (let i = 0; i < boxUtilization; i++) {
             const currentBoxVolume = Math.min(boxVolume, remainingVolume);
             const efficiency = Math.round((currentBoxVolume / boxVolume) * 100);
 
-            // Membagi volume ke barang-barang yang ada di keranjang
             let boxVolumeLeft = currentBoxVolume;
             const itemAllocations = tempData.map(item => {
-                // Hitung volume yang dapat dialokasikan per barang
-                const itemVolume = (item.volume / totalVolume) * currentBoxVolume; // Volume per barang di box
-                const allocatedVolume = Math.min(itemVolume, boxVolumeLeft); // Alokasikan volume yang bisa masuk
-                boxVolumeLeft -= allocatedVolume; // Kurangi volume yang masih tersisa
+                const itemVolume = (item.volume / totalVolume) * currentBoxVolume;
+                const allocatedVolume = Math.min(itemVolume, boxVolumeLeft);
+                boxVolumeLeft -= allocatedVolume;
                 return {
                     ...item,
                     allocatedVolume
                 };
             });
 
-            // Push hasil alokasi box
             tempBoxes.push({
                 efficiency,
                 itemAllocations
             });
 
-            // Kurangi volume yang tersisa setelah mengalokasikan box
             remainingVolume -= currentBoxVolume;
-
-            // Jika volume sudah habis, stop looping
             if (remainingVolume <= 0) break;
         }
 
         setBoxes(tempBoxes);
-        // Menyimpan tempBoxes.length ke context
         updateBoxesLength(tempBoxes.length);
 
-        // Set quantity produk Culture di context untuk digunakan di PlaceOrder.jsx
         setCitesCultureQuantity(totalCultureQuantity);
         setCitesWildQuantity(totalWildQuantity);
         setWeightOfItems(totalWeight.toFixed(2));
 
         console.log("Total Quantity Culture in Cart:", totalCultureQuantity);
-        console.log("Total Quantity Wild in Cart : ", totalWildQuantity)
-
-        // Menampilkan total berat barang di keranjang
+        console.log("Total Quantity Wild in Cart : ", totalWildQuantity);
         console.log("Total Weight of Items in Cart:", totalWeight.toFixed(2), "kg");
-
         setTotalWeightItem(totalWeight);
 
+    }, [cartItems, products, setCitesCultureQuantity, setCitesWildQuantity, setWeightOfItems])
 
-    }, [cartItems, products, setCitesCultureQuantity, setCitesWildQuantity, setWeightOfItems]);
+    useEffect(() => {
+        console.log("Updated Landed Cost:", JSON.stringify(landedCostForItem, null, 2));
+    }, [landedCostForItem]);
+
 
 
     return (
@@ -152,12 +158,13 @@ const Cart = () => {
                                     const productData = products.find((product) => product._id === item._id);
 
                                     // Hitung Landed Cost per item
-                                    const landedCostPerItem = (weightItem / totallWeightItem) * totalAmountAll
 
-                                    console.log(`Total Weight = ${totallWeightItem}`)
-                                    console.log(`Weight item ${weightItem}`)
+
+                                    console.log(`Total Weight = ${totalWeightItem.toFixed(2)}`)
+                                    console.log(`Weight ${productData.name} ${weightItem.toFixed(2)} Kg`)
                                     console.log(totalAmountAll)
-                                    console.log(landedCostPerItem)
+                                    console.log(`Landed cost ${productData.name} = ${landedCostForItem.find(lc => lc._id === item._id && lc.size === item.size)?.landedCost}`)
+
 
                                     return (
                                         <tr key={index} className="hover:bg-gray-100">
@@ -182,7 +189,11 @@ const Cart = () => {
                                                     className='border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1 bg-red-50'
                                                 />
                                             </td>
-                                            <td className="px-4 py-2">{currency}{parseFloat(landedCostPerItem.toFixed(2))}</td>
+
+                                            <td className="px-4 py-2">
+                                                {currency}
+                                                {landedCostForItem.find(lc => lc._id === item._id && lc.size === item.size)?.landedCost || '0.00'}
+                                            </td>
                                             <td className="px-4 py-2">test</td>
                                         </tr>
                                     );
