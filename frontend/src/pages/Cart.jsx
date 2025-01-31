@@ -38,7 +38,7 @@ const Cart = () => {
 
                     const landedCostPerItem = ((sizeData.weight / 1000) / totalWeight) * totalLandedCost;
 
-                    const COGS = sizeData.price + landedCostPerItem
+                    const COGS = product.price + landedCostPerItem;
                     tempLandedCosts.push({
                         _id: items,
                         size: item,
@@ -145,12 +145,12 @@ const Cart = () => {
                             <thead className="bg-white">
                                 <tr>
                                     <th className="px-4 py-2 whitespace-nowrap">Product</th>
-                                    <th className="px-4 py-2 whitespace-nowrap">Quantity</th>
-                                    <th className="px-4 py-2 whitespace-nowrap">Landed Cost</th>
-                                    <th className="px-4 py-2 whitespace-nowrap">Cost of Good Sold</th>
-                                    <th className="px-4 py-2 whitespace-nowrap">Delete</th>
+                                    <th className="px-4 py-2 whitespace-nowrap text-center">Quantity</th>
+                                    <th className="px-4 py-2 whitespace-nowrap text-center">Landed Cost</th>
+                                    <th className="px-4 py-2 whitespace-nowrap text-center">Cost of Good Sold</th>
+                                    <th className="px-4 py-2 whitespace-nowrap text-center">Delete</th>
                                 </tr>
-                                <hr className="w-4/5 mx-auto border-gray-300" />
+
                             </thead>
 
                             <tbody>
@@ -168,8 +168,8 @@ const Cart = () => {
 
                                     return (
                                         <tr key={index} className="hover:bg-gray-100">
-                                            <td className="px-4 py-2">
-                                                <div className='flex items-start gap-6 flex-wrap'>
+                                            <td className="px-4 py-2 text-center">
+                                                <div className='flex items-center gap-6 flex-wrap'>
                                                     <img className='w-16 sm:w-20' src={productData.image[0]} alt='' />
                                                     <div>
                                                         <p className='text-xs sm:text-sm font-medium'>{productData.name}</p>
@@ -180,7 +180,7 @@ const Cart = () => {
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td className="px-4 py-2 mx-auto">
+                                            <td className="px-4 py-2 text-center ">
                                                 <input
                                                     onChange={(e) => e.target.value === '' || e.target.value === '0' ? null : updateQuantity(item._id, item.size, Number(e.target.value))}
                                                     type='number'
@@ -190,21 +190,32 @@ const Cart = () => {
                                                 />
                                             </td>
 
-                                            <td className="px-4 py-2">
+                                            <td className="px-4 py-2 text-center">
                                                 {currency}
                                                 {landedCostForItem.find(lc => lc._id === item._id && lc.size === item.size)?.landedCost || '0.00'}
                                             </td>
-                                            <td className="px-4 py-2">test</td>
+                                            <td className="px-4 py-2 text-center">
+                                                {currency}
+                                                {landedCostForItem.find(lc => lc._id === item._id && lc.size === item.size)?.COGS || '0.00'}
+                                            </td>
+                                            <td className="px-4 py-2 text-center ">
+                                                <img
+                                                    onClick={() => updateQuantity(item._id, item.size, 0)}
+                                                    className='w-4  sm:w-5 cursor-pointer mx-auto'
+                                                    src={assets.bin_icon}
+                                                    alt='delete icon'
+                                                />
+                                            </td>
                                         </tr>
                                     );
                                 })}
                             </tbody>
-                            <tfoot>
+                            {/* <tfoot>
                                 <tr className="bg-gray-100 font-bold">
                                     <td className="px-4 py-2" colSpan={3}>Total Landed Cost</td>
                                     <td className="px-4 py-2">tes</td>
                                 </tr>
-                            </tfoot>
+                            </tfoot> */}
                         </table>
 
                     </div>
