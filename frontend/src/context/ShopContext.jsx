@@ -17,6 +17,7 @@ const ShopContextProvider = (props) => {
     const [citesWildQuantity, setCitesWildQuantity] = useState(0);  // Add state to store quantity
     const [weightOfItems, setWeightOfItems] = useState(0);
     const [totalAmountAll, setTotalAmount] = useState(0);
+    const [totalForLandedCost, setTotalForLandedCost] = useState(0)
     // const [landedCost, setTotalLandedCost] = useState(0);
 
     const [totalLandedCost, setTotalLandedCost] = useState(0);
@@ -72,9 +73,9 @@ const ShopContextProvider = (props) => {
         setTotalAmount(amount);
     }
 
-    // const setLandedCostInContext = (amount) => {
-    //     setTotalLandedCost(amount);
-    // }
+    const setLandedCostInContext = (amount) => {
+        setTotalForLandedCost(amount);
+    }
 
 
 

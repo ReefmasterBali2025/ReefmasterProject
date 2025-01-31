@@ -69,9 +69,9 @@ const PlaceOrder = () => {
     // }, [landedCost, setTotalAmount])
 
     return (
-        <div className='flex flex-col md:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t'>
+        <div className='flex flex-col md:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
             {/* ----------------- Left Side ------------------- */}
-            <div className="w-full md:w-1/2 mt-16">
+            <div className="w-full md:w-1/2 mt-14">
                 <div className='text-2xl'>
                     <Title text1={'LANDED'} text2={'COST'} />
                 </div>
@@ -99,14 +99,14 @@ const PlaceOrder = () => {
                                     </tr>
                                 ))}
                             </tbody>
-                            <tfoot>
+                            {/* <tfoot>
                                 <tr className="bg-gray-100 font-bold">
                                     <td className="px-4 py-2 border" colSpan={3}>
                                         Total Landed Cost
                                     </td>
-                                    <td className="px-4 py-2 border">{`${totalLandedCost}`}</td>
+                                    <td className="px-4 py-2 border">{`${totalLandedCostItem}`}</td>
                                 </tr>
-                            </tfoot>
+                            </tfoot> */}
                         </table>
                     </div>
                 </div>
@@ -148,6 +148,7 @@ const PlaceOrder = () => {
 
 
         </div>
+
     )
 }
 

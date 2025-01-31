@@ -1,22 +1,19 @@
 import React from 'react'
 import { assets } from '../assets/assets'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const Hero = () => {
-
-  const navigate = useNavigate();
-
   return (
-    <div className="section py-14">
+    <div className="section py-20">
       <div className="container mx-auto px-4">
-        <div className="flex flex-wrap mx-4 lg:grid lg:grid-cols-4">
+        <div className="md:grid md:grid-cols-4 flex flex-wrap mx-4">
           {/* Shop 1 */}
-          <div className="w-full sm:w-1/2 md:w-1/3 lg:w-full px-4 mb-6">
+          <div className="w-1/3 md:w-full px-4 mb-6">
             <div className="shop bg-white shadow rounded-lg overflow-hidden">
               <div className="shop-img">
                 <video
                   className="w-full h-48 object-cover hover:scale-110 transition ease-in-out duration-300"
-                  src={assets.video1}
+                  src={assets.videowysiwyg}
                   autoPlay
                   muted
                   loop
@@ -24,64 +21,72 @@ const Hero = () => {
               </div>
               <div className="shop-body p-4 text-center">
                 <h3 className="text-lg font-bold mb-2">WYSIWYG<br />Collection</h3>
-                {/* <a href="#" className="cta-btn text-blue-500 hover:text-blue-700 font-semibold inline-flex items-center">
-                    Shop now <img src={assets.go_shop} className='w-5 min-w-5 ml-3' alt='cart-icon' />
-                  </a> */}
-                <Link
-                  to="/wysiwygonly"
-                  className="cta-btn text-blue-500 hover:text-blue-700 font-semibold inline-flex items-center"
-                >
-                  Shop now <img src={assets.go_shop} className="w-5 min-w-5 ml-3" alt="cart-icon" />
+                <Link className='cta-btn text-blue-500 hover:text-blue-700 font-semibold inline-flex items-center' to='/WYSIWYG_Only'>
+                  Shop now <img src={assets.go_shop} className='w-5 min-w-5 ml-3' alt='cart-icon' />
                 </Link>
               </div>
             </div>
           </div>
 
           {/* Shop 2 */}
-          <div className="w-full sm:w-1/2 md:w-1/3 lg:w-full px-4 mb-6">
+          <div className="w-1/3 md:w-full px-4 mb-6">
             <div className="shop bg-white shadow rounded-lg overflow-hidden">
               <div className="shop-img">
-                <img src={assets.p_img12} alt="" className="w-full h-48 object-cover" />
+                <video
+                  className="w-full h-48 object-cover hover:scale-110 transition ease-in-out duration-300"
+                  src={assets.videogeneral}
+                  autoPlay
+                  muted
+                  loop
+                />
               </div>
               <div className="shop-body p-4 text-center">
                 <h3 className="text-lg font-bold mb-2">Stock List<br />Collection</h3>
-                {/* <a href="#" className="cta-btn text-blue-500 hover:text-blue-700 font-semibold inline-flex items-center">
+                <Link className='cta-btn text-blue-500 hover:text-blue-700 font-semibold inline-flex items-center' to='/Stocklist_Only'>
                   Shop now <img src={assets.go_shop} className='w-5 min-w-5 ml-3' alt='cart-icon' />
-                </a> */}
-                <Link
-                  to="/Stocklist_Only"
-                  className="cta-btn text-blue-500 hover:text-blue-700 font-semibold inline-flex items-center"
-                >
-                  Shop now <img src={assets.go_shop} className="w-5 min-w-5 ml-3" alt="cart-icon" />
                 </Link>
               </div>
             </div>
           </div>
 
           {/* Shop 3 */}
-          <div className="w-full sm:w-1/2 md:w-1/3 lg:w-full  px-4 mb-6">
+          <div className="w-1/3 md:w-full px-4 mb-6">
             <div className="shop bg-white shadow rounded-lg overflow-hidden">
               <div className="shop-img">
-                <img src={assets.p_img13} alt="" className="w-full h-48 object-cover" />
+                <video
+                  className="w-full h-48 object-cover hover:scale-110 transition ease-in-out duration-300"
+                  src={assets.videofish}
+                  autoPlay
+                  muted
+                  loop
+                />
               </div>
               <div className="shop-body p-4 text-center">
                 <h3 className="text-lg font-bold mb-2">Fish<br />Collection</h3>
-                <a href="#" className="cta-btn text-blue-500 hover:text-blue-700 font-semibold inline-flex items-center">
+                <Link className='cta-btn text-blue-500 hover:text-blue-700 font-semibold inline-flex items-center' to='/Fish_Only'>
                   Shop now <img src={assets.go_shop} className='w-5 min-w-5 ml-3' alt='cart-icon' />
-                </a>
+                </Link>
               </div>
             </div>
           </div>
-          <div className="w-full sm:w-1/2 md:w-1/3 lg:w-full  px-4 mb-6">
+
+          {/* Shop 4 */}
+          <div className="w-1/3 md:w-full px-4 mb-6">
             <div className="shop bg-white shadow rounded-lg overflow-hidden">
               <div className="shop-img">
-                <img src={assets.p_img13} alt="" className="w-full h-48 object-cover" />
+                <video
+                  className="w-full h-48 object-cover hover:scale-110 transition ease-in-out duration-300"
+                  src={assets.videofish}
+                  autoPlay
+                  muted
+                  loop
+                />
               </div>
               <div className="shop-body p-4 text-center">
-                <h3 className="text-lg font-bold mb-2">Fish<br />Collection</h3>
-                <a href="#" className="cta-btn text-blue-500 hover:text-blue-700 font-semibold inline-flex items-center">
+                <h3 className="text-lg font-bold mb-2">Invertebrate<br />Collection</h3>
+                <Link className='cta-btn text-blue-500 hover:text-blue-700 font-semibold inline-flex items-center' to='/Invert_Only'>
                   Shop now <img src={assets.go_shop} className='w-5 min-w-5 ml-3' alt='cart-icon' />
-                </a>
+                </Link>
               </div>
             </div>
           </div>

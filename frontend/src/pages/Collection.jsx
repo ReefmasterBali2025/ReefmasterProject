@@ -108,7 +108,7 @@ const Collection = () => {
     };
 
     return (
-        <div className='flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-10 pt-10 border-t my-10'>
+        <div className='flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-10 pt-10 border-t my-10 px-16'>
             {/* Bagian kiri untuk filter */}
             <div className=' w-full block  px-5  bg-white shadow-md z-0 md:hidden'>
                 <p
@@ -185,7 +185,7 @@ const Collection = () => {
                                 className="border-2 border-gray-300 text-sm px-2 py-1 rounded-md"
                             >
                                 <option value="">All Categories</option>
-                                <option value="Culture">Culturel</option>
+                                <option value="Culture">Culture</option>
                                 <option value="Wild">Wild</option>
 
                             </select>
@@ -229,8 +229,8 @@ const Collection = () => {
                         <p>No Items Found</p>
                     </div>
                 ) : (
-                        <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 img-gallery lg:grid-cols-5 gap-4 gap-y-6'>
-                            {currentProducts.map((item, index) => (
+                    <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 img-gallery lg:grid-cols-5 gap-4 gap-y-6'>
+                        {currentProducts.map((item, index) => (
                             <ProductItem
                                 key={index}
                                 name={item.name}

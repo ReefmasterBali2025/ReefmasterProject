@@ -2,32 +2,24 @@ import React, { useContext } from 'react'
 import { ShopContext } from '../context/ShopContext'
 import { Link } from 'react-router-dom';
 
-const ProductItem = ({ id, image, name, price }) => {
+const ProductItem = ({ id, image, name, price, description }) => {
 
     const { currency } = useContext(ShopContext);
 
     return (
-        <Link
-            className="flex flex-col items-center text-gray-700 cursor-pointer border-2 rounded-lg overflow-hidden transition-shadow hover:shadow-md"
-            to={`/product/${id}`}
-        >
-            {/* Gambar Produk */}
-            <div className="relative w-full aspect-square">
+        <Link className='text-gray-700 cursor-pointer border-2 rounded-[8px]' to={`/product/${id}`}>
+            <div className="overflow-hidden aspect-w-1 aspect-h-1">
                 <img
-                    className="absolute inset-0 w-full h-full object-cover hover:scale-110 transition-transform ease-in-out duration-300"
+                    className="w-full h-40 object-cover hover:scale-110 transition ease-in-out duration-300 rounded-t-[8px]"
                     src={image[0]}
                     alt={name}
                 />
             </div>
+            <p className='pt-3 pb-1 text-left pl-4 text-lg'>{name}</p>
 
-            {/* Detail Produk */}
-            <div className="p-3 text-center">
-                <p className="text-sm font-semibold">{name}</p>
-                <p className="text-sm font-medium text-gray-500">
-                    {currency}
-                    {price}
-                </p>
-            </div>
+            <p className='text-md font-medium text-left pl-4'>{currency}{price}</p>
+            <hr className='w-3/4 ml-3 mt-2' />
+            <p className='text-xs px-3 text-left py-3'>{description}</p>
         </Link>
     )
 }

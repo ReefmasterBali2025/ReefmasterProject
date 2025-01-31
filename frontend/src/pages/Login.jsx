@@ -1,43 +1,91 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { assets } from '../assets/assets';
 
 const Login = () => {
-
-    const [currentState, setCurrentState] = useState('Sign Up'); // untuk mengatur tampilan awal apakah sign up atau login
-
+    const [isLogin, setIsLogin] = useState(true); // State untuk mengatur apakah sedang di halaman login atau sign up
     const navigate = useNavigate();
 
-    const onSubmitHandler = async (event) => {
+    const toggleForm = () => {
+        setIsLogin(!isLogin);
+    };
+
+    const onSubmitHandler = (event) => {
         event.preventDefault();
-
         navigate('/home');
-    }
-
-
+    };
 
     return (
-        <div className='flex items-center h-screen'>
-            <form onSubmit={onSubmitHandler} className='flex flex-col items-center w-[90%] sm:max-w-96 mx-auto mt-5 gap-4 text-gray-800'>
-                <div className='inline-flex items-center gap-2 mb-2 '>
-                    <p className='text-3xl'>{currentState}</p>
-                    <hr className='border-none h-[1.5px] w-8 bg-gray-800' />
-                </div>
+        <div className="flex h-screen w-full flex-col md:flex-row">
+            {/* Bagian Kiri */}
+            <div className="w-full md:w-1/2 bg-white flex flex-col justify-center items-center p-8">
+                <h1 className="text-4xl font-bold mb-4">{isLogin ? 'Log in' : 'Sign Up'}</h1>
+                <form onSubmit={onSubmitHandler} className="w-3/4 flex flex-col gap-4">
+                    {!isLogin && (
+                        <input
+                            type="email"
+                            placeholder="Email"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-[#0079FF]"
+                        />
+                    )}
+                    <input
+                        type="text"
+                        placeholder="Name"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-[#0079FF]"
+                        required
+                    />
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-[#0079FF]"
+                        required
+                    />
+                    {isLogin ? (
+                        <p className="text-sm text-[#0079FF] cursor-pointer mt-2">
+                            Forgot your password?
+                        </p>
+                    ) : null}
+                    <button
+                        type="submit"
+                        className="w-full bg-[#0079FF] text-white py-3 rounded-md hover:bg-blue-600 transition duration-300"
+                    >
+                        {isLogin ? 'Log in' : 'Sign Up'}
+                    </button>
+                </form>
+                <p className="text-sm mt-4">
+                    {isLogin
+                        ? "Don't have an account? "
+                        : 'Already have an account? '}
+                    <span
+                        className="text-[#0079FF] cursor-pointer"
+                        onClick={toggleForm}
+                    >
+                        {isLogin ? 'Sign Up Here' : 'Login in Here'}
+                    </span>
+                </p>
+            </div>
 
+            {/* Bagian Kanan */}
+            <div className="w-full md:w-1/2 relative h-full">
+                {/* Video Background */}
+                <video
+                    className="absolute inset-0 w-full h-full object-cover"
+                    src={assets.videologin1}
+                    autoPlay
+                    loop
+                    muted
+                ></video>
 
-                {currentState === 'Login' ? '' : <input className='w-full px-3 py-2 border border-gray-800' type='text' placeholder='Name' required />} {/* Logic untuk menampilkan form nama  */}
-                <input className='w-full px-3 py-2 border border-gray-800' type='email' placeholder='Email' required />
-                <input className='w-full px-3 py-2 border border-gray-800' type='password' placeholder='Password' required />
-                <div className='w-full flex justify-between text-sm mt-[-8px]'>
-                    <p className='text-sm mt-3 cursor-pointer'>Forgot your password?</p>
-                    {
-                        currentState === 'Login' ? <p className='cursor-pointer mt-3 text-sm' onClick={() => setCurrentState('Sign Up')}>Create Account</p> : <p className='cursor-pointer mt-3 text-sm' onClick={() => setCurrentState('Login')}>Login Here</p> //logic untuk mengubah title saat klik create account atau login here
-                    }
+                {/* Teks */}
+                <div className="relative z-10 flex flex-col justify-center items-center h-full text-white p-8 bg-black bg-opacity-40">
+                    <h1 className="text-4xl font-bold mb-4 text-center">Welcome</h1>
+                    <p className="text-center text-lg">
+                        Explore our collection and enjoy a seamless shopping experience.
+                    </p>
                 </div>
-                <button className='bg-black text-white font-light px-8 py-2 mt-2 border rounded-[5px]'>{currentState === 'Login' ? 'Sign In' : 'Sign Up'}</button>
-            </form>
+            </div>
         </div>
+    );
+};
 
-    )
-}
-
-export default Login
+export default Login;
