@@ -259,6 +259,7 @@ const Collection = () => {
             </div>
 
             {/* <Footer /> */}
+            </div>
         </div>
 
     );

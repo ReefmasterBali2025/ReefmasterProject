@@ -1,6 +1,5 @@
 import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import { Routes, Route, Navigate } from 'react-router-dom'
 import Home from './pages/Home'
 import Collection from './pages/Collection'
 import About from './pages/About'
@@ -19,6 +18,8 @@ import Fish from './pages/Fishonly'
 import Cites from './pages/Cites'
 import Invert from './pages/Invertonly'
 import Profile from './pages/Profile'
+import Unboxing from './pages/Unboxing'
+import Scan from './pages/Scan'
 
 
 const App = () => {
@@ -46,6 +47,8 @@ const App = () => {
         <Route path='/Invert_Only' element={<Invert />} />
         <Route path='/cites' element={<Cites />} />
         <Route path='/MyProfile' element={<Profile />} />
+        <Route path='/Unboxing' element={<Unboxing />} />
+        <Route path='/Scan' element={<Scan />} />
       </Routes>
       <Footer />
     </div>

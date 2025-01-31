@@ -69,7 +69,7 @@ const PlaceOrder = () => {
     // }, [landedCost, setTotalAmount])
 
     return (
-        <div className='flex flex-col md:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t'>
+        <div className='flex flex-col md:flex-row justify-between gap-4 pt-4 sm:pt-14 min-h-[80vh] border-t'>
             {/* ----------------- Left Side ------------------- */}
             <div className="w-full md:w-1/2 mt-16">
                 <div className='text-2xl'>
@@ -148,7 +148,7 @@ const PlaceOrder = () => {
 
 
         </div>
-        </div>
+        
     )
 }
 

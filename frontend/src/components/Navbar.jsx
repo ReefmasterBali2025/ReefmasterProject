@@ -90,8 +90,8 @@ const Navbar = () => {
                             {getCartCount()}
                         </p>
                     </Link>
-                    <Link to='/DOA' className='relative'>
-                        <img src={assets.unboxing_icon} className='w-24 min-w-10' alt='cart-icon' />
+                    <Link to='/Unboxing' className='relative'>
+                        <img src={assets.unboxing_icon} className='w-28 min-w-10' alt='cart-icon' />
                     </Link>
                     <img
                         onClick={() => setVisible(true)}
