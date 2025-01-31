@@ -114,13 +114,38 @@ export const products = [
         category: "Culture",
         subCategory: "WYSIWYG Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716634345448,
         bestseller: true,
-        type: "WYSIWYG"
+        type: "WYSIWYG",
+        shipment: 1
     },
     {
         _id: "aaaab",
@@ -131,13 +156,38 @@ export const products = [
         category: "Culture",
         subCategory: "WYSIWYG Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716621345448,
         bestseller: true,
-        type: "WYSIWYG"
+        type: "WYSIWYG",
+        shipment: 1
     },
     {
         _id: "aaaac",
@@ -148,13 +198,38 @@ export const products = [
         category: "Culture",
         subCategory: "WYSIWYG Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716234545448,
         bestseller: true,
-        type: "WYSIWYG"
+        type: "WYSIWYG",
+        shipment: 1
     },
     {
         _id: "aaaad",
@@ -165,13 +240,38 @@ export const products = [
         category: "Culture",
         subCategory: "WYSIWYG Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716621345448,
         bestseller: true,
-        type: "WYSIWYG"
+        type: "WYSIWYG",
+        shipment: 1
     },
     {
         _id: "aaaae",
@@ -182,13 +282,38 @@ export const products = [
         category: "Culture",
         subCategory: "WYSIWYG Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716622345448,
         bestseller: true,
-        type: "WYSIWYG"
+        type: "WYSIWYG",
+        shipment: 1
     },
     {
         _id: "aaaaf",
@@ -199,13 +324,38 @@ export const products = [
         category: "Culture",
         subCategory: "WYSIWYG Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716623423448,
         bestseller: true,
-        type: "WYSIWYG"
+        type: "WYSIWYG",
+        shipment: 1
     },
     {
         _id: "aaaag",
@@ -216,13 +366,38 @@ export const products = [
         category: "Culture",
         subCategory: "WYSIWYG Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716621542448,
         bestseller: false,
-        type: "WYSIWYG"
+        type: "WYSIWYG",
+        shipment: 1
     },
     {
         _id: "aaaah",
@@ -233,13 +408,38 @@ export const products = [
         category: "Culture",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716622345448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaaai",
@@ -250,13 +450,38 @@ export const products = [
         category: "Culture",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716621235448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaaaj",
@@ -267,9 +492,33 @@ export const products = [
         category: "Culture",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716622235448,
         bestseller: false,
@@ -284,13 +533,38 @@ export const products = [
         category: "Culture",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716623345448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaaal",
@@ -301,13 +575,38 @@ export const products = [
         category: "Culture",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716624445448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaaam",
@@ -318,13 +617,38 @@ export const products = [
         category: "Culture",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716625545448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaaan",
@@ -335,14 +659,38 @@ export const products = [
         category: "Culture",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716626645448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaaao",
@@ -353,14 +701,38 @@ export const products = [
         category: "Culture",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716627745448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaaap",
@@ -371,14 +743,47 @@ export const products = [
         category: "Culture",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716628845448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaaaq",
@@ -389,14 +794,47 @@ export const products = [
         category: "Culture",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716629945448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaaar",
@@ -407,14 +845,47 @@ export const products = [
         category: "Culture",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716631045448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaaas",
@@ -425,14 +896,47 @@ export const products = [
         category: "Culture",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716632145448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaaat",
@@ -443,14 +947,47 @@ export const products = [
         category: "Culture",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716633245448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaaau",
@@ -461,14 +998,47 @@ export const products = [
         category: "Culture",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716634345448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaaav",
@@ -479,14 +1049,47 @@ export const products = [
         category: "Culture",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716635445448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaaaw",
@@ -497,14 +1100,47 @@ export const products = [
         category: "Culture",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716636545448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaaax",
@@ -515,14 +1151,47 @@ export const products = [
         category: "Culture",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716637645448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaaay",
@@ -533,14 +1202,47 @@ export const products = [
         category: "Culture",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716638745448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaaaz",
@@ -551,14 +1253,47 @@ export const products = [
         category: "Culture",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716639845448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaaba",
@@ -569,14 +1304,47 @@ export const products = [
         category: "Wild",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716640945448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaabb",
@@ -587,14 +1355,47 @@ export const products = [
         category: "Wild",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716642045448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaabc",
@@ -605,14 +1406,47 @@ export const products = [
         category: "Wild",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716643145448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaabd",
@@ -623,14 +1457,47 @@ export const products = [
         category: "Wild",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716644245448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaabe",
@@ -641,14 +1508,47 @@ export const products = [
         category: "Wild",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716645345448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaabf",
@@ -659,14 +1559,47 @@ export const products = [
         category: "Wild",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716646445448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaabg",
@@ -677,14 +1610,47 @@ export const products = [
         category: "Wild",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716647545448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaabh",
@@ -695,14 +1661,47 @@ export const products = [
         category: "Wild",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716648645448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaabi",
@@ -713,14 +1712,47 @@ export const products = [
         category: "Wild",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716649745448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaabj",
@@ -731,14 +1763,47 @@ export const products = [
         category: "Wild",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716650845448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaabk",
@@ -749,14 +1814,47 @@ export const products = [
         category: "Wild",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716651945448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaabl",
@@ -767,14 +1865,47 @@ export const products = [
         category: "Wild",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716653045448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaabm",
@@ -785,14 +1916,47 @@ export const products = [
         category: "Wild",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716654145448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaabn",
@@ -803,14 +1967,47 @@ export const products = [
         category: "Wild",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716655245448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaabo",
@@ -821,14 +2018,47 @@ export const products = [
         category: "Wild",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716656345448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaabp",
@@ -839,14 +2069,47 @@ export const products = [
         category: "Wild",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716657445448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaabq",
@@ -857,14 +2120,47 @@ export const products = [
         category: "Wild",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716658545448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaabr",
@@ -875,14 +2171,47 @@ export const products = [
         category: "Wild",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716659645448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaabs",
@@ -893,14 +2222,47 @@ export const products = [
         category: "Wild",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716660745448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaabt",
@@ -911,14 +2273,47 @@ export const products = [
         category: "Wild",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716661845448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaabu",
@@ -929,14 +2324,47 @@ export const products = [
         category: "Wild",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716662945448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaabv",
@@ -947,14 +2375,47 @@ export const products = [
         category: "Wild",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716664045448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaabw",
@@ -965,14 +2426,47 @@ export const products = [
         category: "Wild",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716665145448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaabx",
@@ -983,14 +2477,47 @@ export const products = [
         category: "Wild",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716666245448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaaby",
@@ -1001,14 +2528,47 @@ export const products = [
         category: "Wild",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716667345448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     },
     {
         _id: "aaabz",
@@ -1019,14 +2579,47 @@ export const products = [
         category: "Wild",
         subCategory: "General Hard Coral",
         sizes: [
-            { size: "S", plasticSize: 17, plasticHeight: 15 },
-            { size: "M", plasticSize: 20, plasticHeight: 22 },
-            { size: "L", plasticSize: 22, plasticHeight: 25 },
-            { size: "XL", plasticSize: 30, plasticHeight: 30 },
+            {
+                size: "S", plasticSize: 17, r: 5.5, plasticHeight: 15,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "M", plasticSize: 20, r: 6.5, plasticHeight: 22,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "L", plasticSize: 22, r: 7, plasticHeight: 25,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            },
+            {
+                size: "XL", plasticSize: 25, r: 8, plasticHeight: 30,
+                get volume() {
+                    return (22 / 7) * (this.r ** 2) * this.plasticHeight;
+                },
+                get weight() {
+                    return 0.75 * this.volume * 1.025;
+                }
+            }
         ],
         date: 1716668445448,
         bestseller: false,
-        type: "General"
+        type: "General",
+        shipment: 1
     }
 
 ]

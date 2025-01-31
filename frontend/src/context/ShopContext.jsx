@@ -17,6 +17,39 @@ const ShopContextProvider = (props) => {
     const [citesWildQuantity, setCitesWildQuantity] = useState(0);  // Add state to store quantity
     const [weightOfItems, setWeightOfItems] = useState(0);
     const [totalAmountAll, setTotalAmount] = useState(0);
+    // const [landedCost, setTotalLandedCost] = useState(0);
+
+    const [totalLandedCost, setTotalLandedCost] = useState(0);
+
+    // Landed cost breakdown
+    const [landedCost, setLandedCost] = useState([]);
+
+
+    // Function to calculate landed cost dynamically
+    useEffect(() => {
+        const updatedLandedCost = [
+            { description: 'Packing Charge HD Boxes', value: `${boxesLength} BOX${boxesLength > 1 ? 'ES' : ''}`, price: 15.00, amount: 15.00 * boxesLength },
+            { description: 'CITES Charge Culture Coral', value: `${citesCultureQuantity} Pcs`, price: 2.75, amount: 2.75 * citesCultureQuantity },
+            { description: 'CITES Charge Wild Coral', value: `${citesWildQuantity} Pcs`, price: 3.75, amount: 3.75 * citesWildQuantity },
+            { description: 'CITES Processing Fee', value: '', price: 100.00, amount: 100.00 },
+            { description: 'Document Handling Fee', value: '', price: 100.00, amount: 100.00 },
+            { description: 'Fish Permit', value: '', price: 100.00, amount: 100.00 },
+            { description: 'Freight Charge ALL IN', value: `${weightOfItems} Kg`, price: 5.74, amount: 5.74 * weightOfItems },
+            { description: 'AWB + CCC Fee', value: '', price: 10.58, amount: 10.58 },
+            { description: 'VAT Fee', value: '1.1 %', price: '', amount: 1.57 },
+            { description: 'Pickup', value: '', price: 107.00, amount: 107.00 },
+            { description: 'Import Duties', value: '', price: 1000.00, amount: 1000.00 },
+        ];
+
+        setLandedCost(updatedLandedCost);
+
+        // Calculate total landed cost
+        const totalCost = updatedLandedCost.reduce((total, item) => total + item.amount, 0).toFixed(2);
+        setTotalLandedCost(totalCost);
+    }, [boxesLength, citesCultureQuantity, citesWildQuantity, weightOfItems]);
+
+
+
 
     const updateBoxesLength = (length) => {
         setBoxesLength(length)
@@ -38,6 +71,12 @@ const ShopContextProvider = (props) => {
     const setTotalAmountInContext = (amount) => {
         setTotalAmount(amount);
     }
+
+    // const setLandedCostInContext = (amount) => {
+    //     setTotalLandedCost(amount);
+    // }
+
+
 
     /**
      * Menambahkan item ke keranjang belanja.
@@ -140,7 +179,9 @@ const ShopContextProvider = (props) => {
         citesCultureQuantity, setCitesCultureQuantity: setCitesCultureQuantityInContext,
         citesWildQuantity, setCitesWildQuantity: setCitesWildQuantityInContext,
         weightOfItems, setWeightOfItems: setWeightOfItemsInContext,
-        totalAmountAll, setTotalAmount: setTotalAmountInContext
+        totalAmountAll, setTotalAmount: setTotalAmountInContext,
+        landedCost, totalLandedCost
+
     };
 
     /**
