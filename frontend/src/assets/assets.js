@@ -63,7 +63,7 @@ import videologin1 from './videologin1.mp4'
 
 import logo from './logo_reefmaster.png'
 import hero_img from './Underwater.jpg'
-import cart_icon from './White_cart.png'
+import cart_icon from './white_cart3.png'
 import bin_icon from './bin_icon.png'
 import dropdown_icon from './dropdown_icon.png'
 import exchange_icon from './exchange_icon.png'
@@ -82,6 +82,7 @@ import cross_icon from './cross_icon.png'
 import go_shop from './go_shop.png'
 import logo_hd from './logo_hd.png'
 import fotofarm1 from './fotofarm1.jpeg'
+import unboxing_icon from './white_unboxing.png'
 
 
 export const assets = {
@@ -114,7 +115,8 @@ export const assets = {
     videofish,
     video4,
     fotofarm1,
-    videologin1
+    videologin1,
+    unboxing_icon
 }
 
 export const products = [
