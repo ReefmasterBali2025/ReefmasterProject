@@ -22,6 +22,9 @@ const Navbar = () => {
     }
 
     return (
+
+
+
         <nav className='w-full bg-[#0079FF] fixed top-0 left-0 z-50'>
             <div className='flex items-center justify-around py-5 font-medium'>
                 <Link to='/home'>

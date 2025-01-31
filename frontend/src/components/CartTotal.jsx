@@ -4,7 +4,12 @@ import Title from './Title';
 
 const CartTotal = () => {
 
-    const { currency, delivery_fee, getCartAmount } = useContext(ShopContext);
+    const { currency, delivery_fee, getCartAmount, totalAmountAll, landedCost, totalLandedCost } = useContext(ShopContext);
+    const totalAmount = parseFloat(totalLandedCost)
+    console.log("Cart Amount:", getCartAmount());
+    console.log("Total Landed Cost:", totalAmount);
+    console.log("Total Shipping Fee (Expected):", getCartAmount() + totalAmount);
+
 
     return (
         <div className='w-full'>
@@ -20,12 +25,12 @@ const CartTotal = () => {
                 <hr />
                 <div className='flex justify-between'>
                     <p>Shipping Fee</p>
-                    <p>{currency}{delivery_fee}.00</p>
+                    <p>{currency}{totalLandedCost}.00</p>
                 </div>
                 <hr />
                 <div className='flex justify-between'>
-                    <b>Shipping Fee</b>
-                    <p>{currency}{getCartAmount() === 0 ? 0 : getCartAmount() + delivery_fee}</p>
+                    <b>Total Shipping Fee</b>
+                    <p>{currency}{getCartAmount() === 0 ? '0.00' : (getCartAmount() + totalAmount).toFixed(2)}</p>
                 </div>
             </div>
         </div>

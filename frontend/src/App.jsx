@@ -1,5 +1,6 @@
 import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import Home from './pages/Home'
 import Collection from './pages/Collection'
 import About from './pages/About'
@@ -27,6 +28,8 @@ const App = () => {
       <Navbar />
       <SearchBar />
       <Routes>
+        <Route path='/' element={<Navigate to={'/login'} />} />
+        <Route path='/home' element={<Home />} />
         <Route path='/' element={<Navigate to={'/login'} />} />
         <Route path='/home' element={<Home />} />
         <Route path='/collection' element={<Collection />} />

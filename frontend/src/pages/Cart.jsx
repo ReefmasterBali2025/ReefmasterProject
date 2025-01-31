@@ -1,119 +1,257 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ShopContext } from '../context/ShopContext'; // Mengimpor konteks toko untuk mengakses data global
-import Title from '../components/Title'; // Komponen untuk menampilkan judul
-import { assets } from '../assets/assets'; // Aset seperti ikon dan gambar
-import CartTotal from '../components/CartTotal'; // Komponen untuk menampilkan total keranjang
+import { ShopContext } from '../context/ShopContext';
+import Title from '../components/Title';
+import { assets } from '../assets/assets';
+import CartTotal from '../components/CartTotal';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'; // Import library
+import 'react-circular-progressbar/dist/styles.css';
 
 const Cart = () => {
-    // Mendapatkan data dan fungsi dari konteks toko
-    const { products, currency, cartItems, updateQuantity, navigate } = useContext(ShopContext);
+    const { products, currency, cartItems, updateQuantity, navigate, updateBoxesLength, setCitesCultureQuantity, setCitesWildQuantity, setWeightOfItems, totalAmountAll, landedCost, totalLandedCost } = useContext(ShopContext);
 
-    const [cartData, setCartData] = useState([]); // State lokal untuk menyimpan data keranjang yang diformat
+    const [cartData, setCartData] = useState([]);
+    const [efficiency, setEfficiency] = useState(100);
+    const [boxes, setBoxes] = useState([]);
+    const [weightItem, setWeightItem] = useState(0);
+    const [totalWeightItem, setTotalWeightItem] = useState(0);
+    const [landedCostForItem, setLandedCostForItem] = useState([]); // Array untuk menyimpan landed cost per item
 
-    /**
-     * useEffect ini digunakan untuk memformat data keranjang (`cartItems`) menjadi format
-     * yang mudah digunakan di dalam komponen. Hanya item dengan kuantitas > 0 yang akan disimpan.
-     */
     useEffect(() => {
         const tempData = [];
+        let totalCultureQuantity = 0;
+        let totalWildQuantity = 0;
+        let totalVolume = 0;
+        let totalWeight = 0;
+        const boxVolume = (47 * 32 * 29) * 0.85;
+
+        const tempLandedCosts = [];
+
+        // **Loop pertama**: Hitung total volume & berat
         for (const items in cartItems) {
             for (const item in cartItems[items]) {
                 if (cartItems[items][item] > 0) {
-                    tempData.push({
-                        _id: items, // ID produk
-                        size: item, // Ukuran produk
-                        quantity: cartItems[items][item] // Kuantitas produk
+                    const product = products.find((p) => p._id === items);
+                    const sizeData = product.sizes.find((s) => s.size === item);
+
+                    totalVolume += sizeData.volume * cartItems[items][item];
+                    totalWeight += (sizeData.weight * cartItems[items][item]) / 1000; // dalam kg
+
+                    const landedCostPerItem = ((sizeData.weight / 1000) / totalWeight) * totalLandedCost;
+
+                    const COGS = sizeData.price + landedCostPerItem
+                    tempLandedCosts.push({
+                        _id: items,
+                        size: item,
+                        landedCost: landedCostPerItem.toFixed(2),
+                        COGS: COGS.toFixed(2)
                     });
+
+
+
+                    tempData.push({
+                        _id: items,
+                        size: item,
+                        quantity: cartItems[items][item],
+                        volume: sizeData.volume * cartItems[items][item],
+                        weight: sizeData.weight * cartItems[items][item],
+                        category: product.category
+                    });
+
+                    if (product.category === "Culture") {
+                        totalCultureQuantity += cartItems[items][item];
+                    }
+                    if (product.category === "Wild") {
+                        totalWildQuantity += cartItems[items][item];
+                    }
+
+                    setWeightItem(sizeData.weight / 1000);
                 }
             }
         }
-        console.log(tempData); // Debugging: menampilkan data keranjang yang diformat
-        setCartData(tempData); // Menyimpan data keranjang ke state lokal
-    }, [cartItems]); // Efek ini dijalankan ulang setiap kali `cartItems` berubah
+
+
+        setLandedCostForItem(tempLandedCosts)
+
+        setCartData(tempData);
+
+        // Menghitung jumlah box yang dibutuhkan
+        const boxUtilization = Math.ceil(totalVolume / boxVolume);
+        let remainingVolume = totalVolume;
+        const tempBoxes = [];
+
+        for (let i = 0; i < boxUtilization; i++) {
+            const currentBoxVolume = Math.min(boxVolume, remainingVolume);
+            const efficiency = Math.round((currentBoxVolume / boxVolume) * 100);
+
+            let boxVolumeLeft = currentBoxVolume;
+            const itemAllocations = tempData.map(item => {
+                const itemVolume = (item.volume / totalVolume) * currentBoxVolume;
+                const allocatedVolume = Math.min(itemVolume, boxVolumeLeft);
+                boxVolumeLeft -= allocatedVolume;
+                return {
+                    ...item,
+                    allocatedVolume
+                };
+            });
+
+            tempBoxes.push({
+                efficiency,
+                itemAllocations
+            });
+
+            remainingVolume -= currentBoxVolume;
+            if (remainingVolume <= 0) break;
+        }
+
+        setBoxes(tempBoxes);
+        updateBoxesLength(tempBoxes.length);
+
+        setCitesCultureQuantity(totalCultureQuantity);
+        setCitesWildQuantity(totalWildQuantity);
+        setWeightOfItems(totalWeight.toFixed(2));
+
+        console.log("Total Quantity Culture in Cart:", totalCultureQuantity);
+        console.log("Total Quantity Wild in Cart : ", totalWildQuantity);
+        console.log("Total Weight of Items in Cart:", totalWeight.toFixed(2), "kg");
+        setTotalWeightItem(totalWeight);
+
+    }, [cartItems, products, setCitesCultureQuantity, setCitesWildQuantity, setWeightOfItems])
+
+    useEffect(() => {
+        console.log("Updated Landed Cost:", JSON.stringify(landedCostForItem, null, 2));
+    }, [landedCostForItem]);
+
+
 
     return (
-        <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] ">
-        <div className='border-t pt-20'>
-            {/* Bagian header */}
-            <h2 className='text-2xl mb-3 '>
-                <Title text1={'YOUR'} text2={'CART'} /> {/* Menampilkan judul dengan komponen Title */}
+        <div className='border-t pt-14'>
+            <h2 className='text-2xl mb-3'>
+                <Title text1={'YOUR'} text2={'CART'} />
             </h2>
 
-            {/* Bagian daftar item dalam keranjang */}
+            {/* Header Section */}
+            {/* <div className='grid grid-cols-5 gap-4 font-semibold text-lg border-b pb-3'>
+                <p className='text-center'>Product</p>
+                <p className='text-center'>Landed Cost</p>
+                <p className='text-center'>Cost of Good Sold</p>
+                <p className='text-center'>Quantity</p>
+                <p className='text-center'>Delete</p>
+            </div> */}
+
             <div>
-                {
-                    cartData.map((item, index) => {
-                        // Mencari data produk berdasarkan ID
-                        const productData = products.find((product) => product._id === item._id);
+                <div className="bg-white shadow-md rounded-lg overflow-x-scroll text-sm">
+                    <div className="overflow-x-auto">
+                        <table className="table-auto min-w-full text-left border-collapse">
+                            <thead className="bg-white">
+                                <tr>
+                                    <th className="px-4 py-2 whitespace-nowrap">Product</th>
+                                    <th className="px-4 py-2 whitespace-nowrap">Quantity</th>
+                                    <th className="px-4 py-2 whitespace-nowrap">Landed Cost</th>
+                                    <th className="px-4 py-2 whitespace-nowrap">Cost of Good Sold</th>
+                                    <th className="px-4 py-2 whitespace-nowrap">Delete</th>
+                                </tr>
+                                <hr className="w-4/5 mx-auto border-gray-300" />
+                            </thead>
 
-                        return (
-                            <div
-                                key={index}
-                                className='py-4 border-b text-gray-700 grid grid-cols-[4fr_2fr_0.5fr] items-center gap-4'
-                            >
-                                {/* Informasi produk */}
-                                <div className='flex items-start gap-6'>
-                                    <img
-                                        className='w-16 sm:w-20'
-                                        src={productData.image[0]}
-                                        alt=''
-                                    />
-                                    <div>
-                                        <p className='text-xs sm:text-lg font-medium'>
-                                            {productData.name} {/* Nama produk */}
-                                        </p>
-                                        <div className='flex items-center gap-5 mt-2'>
-                                            <p>
-                                                {currency}{productData.price} {/* Harga produk */}
-                                            </p>
-                                            <p className='px-2 sm:px-3 sm:py-1 border bg-slate-50'>
-                                                {item.size} {/* Ukuran produk */}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
+                            <tbody>
+                                {cartData.map((item, index) => {
+                                    const productData = products.find((product) => product._id === item._id);
 
-                                {/* Input untuk mengubah kuantitas */}
-                                <input
-                                    onChange={(e) =>
-                                        e.target.value === '' || e.target.value === '0'
-                                            ? null
-                                            : updateQuantity(item._id, item.size, Number(e.target.value))
-                                    }
-                                    type='number'
-                                    min={1}
-                                    defaultValue={item.quantity}
-                                    className='border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1'
-                                />
+                                    // Hitung Landed Cost per item
 
-                                {/* Ikon untuk menghapus item */}
-                                <img
-                                    onClick={() => updateQuantity(item._id, item.size, 0)}
-                                    className='w-4 mr-4 sm:w-5 cursor-pointer'
-                                    src={assets.bin_icon}
-                                    alt='delete icon'
-                                />
-                            </div>
-                        );
-                    })
-                }
-            </div>
 
-            {/* Bagian total dan tombol checkout */}
-            <div className='flex justify-end my-20'>
-                <div className='w-full sm:w-[450px]'>
-                    <CartTotal /> {/* Komponen untuk menampilkan total harga */}
-                    <div className='w-full text-end'>
-                        <button
-                            onClick={() => navigate('/place-order')}
-                            className='bg-black text-white text-sm my-8 px-8 py-5'
-                        >
-                            PROCEED TO CHECKOUT {/* Tombol untuk melanjutkan ke halaman checkout */}
-                        </button>
+                                    console.log(`Total Weight = ${totalWeightItem.toFixed(2)}`)
+                                    console.log(`Weight ${productData.name} ${weightItem.toFixed(2)} Kg`)
+                                    console.log(totalAmountAll)
+                                    console.log(`Landed cost ${productData.name} = ${landedCostForItem.find(lc => lc._id === item._id && lc.size === item.size)?.landedCost}`)
+
+
+                                    return (
+                                        <tr key={index} className="hover:bg-gray-100">
+                                            <td className="px-4 py-2">
+                                                <div className='flex items-start gap-6 flex-wrap'>
+                                                    <img className='w-16 sm:w-20' src={productData.image[0]} alt='' />
+                                                    <div>
+                                                        <p className='text-xs sm:text-sm font-medium'>{productData.name}</p>
+                                                        <div className='flex items-center gap-5 mt-2'>
+                                                            <p>{currency}{productData.price}</p>
+                                                            <p className='px-2 sm:px-3 sm:py-1 bg-slate-50'>{item.size}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td className="px-4 py-2 mx-auto">
+                                                <input
+                                                    onChange={(e) => e.target.value === '' || e.target.value === '0' ? null : updateQuantity(item._id, item.size, Number(e.target.value))}
+                                                    type='number'
+                                                    min={1}
+                                                    defaultValue={item.quantity}
+                                                    className='border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1 bg-red-50'
+                                                />
+                                            </td>
+
+                                            <td className="px-4 py-2">
+                                                {currency}
+                                                {landedCostForItem.find(lc => lc._id === item._id && lc.size === item.size)?.landedCost || '0.00'}
+                                            </td>
+                                            <td className="px-4 py-2">test</td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                            <tfoot>
+                                <tr className="bg-gray-100 font-bold">
+                                    <td className="px-4 py-2" colSpan={3}>Total Landed Cost</td>
+                                    <td className="px-4 py-2">tes</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+
                     </div>
                 </div>
             </div>
-        </div>
+            <div className='flex w-full justify-around gap-10'>
+                {/* Diagram lingkaran untuk menampilkan efisiensi */}
+                <div className="my-10 flex items-center justify-center gap-20 flex-wrap">
+                    {boxes.map((box, index) => (
+                        <div key={index} style={{ width: 150, height: 150 }}>
+                            <CircularProgressbar
+                                value={box.efficiency}
+                                text={`${box.efficiency}%`}
+                                styles={buildStyles({
+                                    textColor: box.efficiency < 85 ? 'red' : 'green',
+                                    pathColor: box.efficiency < 85 ? 'red' : 'green',
+                                    trailColor: '#d6d6d6',
+                                })}
+                            />
+                            <p className="text-center mt-2">Box {index + 1}</p>
+                            <div className="mt-2">
+                                {box.itemAllocations.map((allocation, idx) => (
+                                    <div key={idx} className="text-xs">
+                                        <span>{allocation._id} ({allocation.size})</span>: {allocation.allocatedVolume.toFixed(2)} cm³
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Total dan tombol checkout */}
+                <div className='flex justify-end my-20'>
+                    <div className='w-full sm:w-[450px]'>
+                        <CartTotal />
+                        <div className='w-full text-end'>
+                            <button
+                                onClick={() => navigate('/place-order')}
+                                className='bg-black text-white text-sm my-8 px-8 py-5'
+                            >
+                                PROCEED TO CHECKOUT
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     );
 };
