@@ -18,6 +18,8 @@ import Fish from './pages/Fishonly'
 import Cites from './pages/Cites'
 import Invert from './pages/Invertonly'
 import Profile from './pages/Profile'
+import Unboxing from './pages/Unboxing'
+import Scan from './pages/Scan'
 
 
 const App = () => {
@@ -28,6 +30,7 @@ const App = () => {
       <SearchBar />
       <Routes>
         <Route path='/' element={<Navigate to={'/login'} />} />
+        <Route path='/home' element={<Home />} />
         <Route path='/' element={<Navigate to={'/login'} />} />
         <Route path='/home' element={<Home />} />
         <Route path='/collection' element={<Collection />} />
@@ -44,6 +47,8 @@ const App = () => {
         <Route path='/Invert_Only' element={<Invert />} />
         <Route path='/cites' element={<Cites />} />
         <Route path='/MyProfile' element={<Profile />} />
+        <Route path='/Unboxing' element={<Unboxing />} />
+        <Route path='/Scan' element={<Scan />} />
       </Routes>
       <Footer />
     </div>

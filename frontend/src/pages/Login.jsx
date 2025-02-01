@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { assets } from '../assets/assets';
 
 const Login = () => {
-    const [isLogin, setIsLogin] = useState(true); // State untuk mengatur apakah sedang di halaman login atau sign up
+    const [isLogin, setIsLogin] = useState(true);
+    const [name, setName] = useState('');
+    const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
     const toggleForm = () => {
@@ -12,12 +14,16 @@ const Login = () => {
 
     const onSubmitHandler = (event) => {
         event.preventDefault();
-        navigate('/home');
+
+        if (name === 'admin' && password === 'reefmaster8889') {
+            navigate('/admin');
+        } else {
+            navigate('/home');
+        }
     };
 
     return (
         <div className="flex h-screen w-full flex-col md:flex-row">
-            {/* Bagian Kiri */}
             <div className="w-full md:w-1/2 bg-white flex flex-col justify-center items-center p-8">
                 <h1 className="text-4xl font-bold mb-4">{isLogin ? 'Log in' : 'Sign Up'}</h1>
                 <form onSubmit={onSubmitHandler} className="w-3/4 flex flex-col gap-4">
@@ -33,12 +39,16 @@ const Login = () => {
                         placeholder="Name"
                         className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-[#0079FF]"
                         required
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                     />
                     <input
                         type="password"
                         placeholder="Password"
                         className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-[#0079FF]"
                         required
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                     />
                     {isLogin ? (
                         <p className="text-sm text-[#0079FF] cursor-pointer mt-2">
@@ -53,9 +63,7 @@ const Login = () => {
                     </button>
                 </form>
                 <p className="text-sm mt-4">
-                    {isLogin
-                        ? "Don't have an account? "
-                        : 'Already have an account? '}
+                    {isLogin ? "Don't have an account? " : 'Already have an account? '}
                     <span
                         className="text-[#0079FF] cursor-pointer"
                         onClick={toggleForm}
@@ -65,9 +73,7 @@ const Login = () => {
                 </p>
             </div>
 
-            {/* Bagian Kanan */}
             <div className="w-full md:w-1/2 relative h-full">
-                {/* Video Background */}
                 <video
                     className="absolute inset-0 w-full h-full object-cover"
                     src={assets.videologin1}

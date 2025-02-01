@@ -118,7 +118,7 @@ const Invert = () => {
                             Wild
                         </p>
                     </div>
-                </div> 
+                </div>
 
                 {/* Filter subkategori */}
                 <div className={`border border-gray-300 pl-5 py-3 mt-6 my-5 ${showFilter ? '' : 'hidden'} md:block`}>

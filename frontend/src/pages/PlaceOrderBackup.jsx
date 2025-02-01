@@ -8,73 +8,70 @@ const PlaceOrder = () => {
 
     const [method, setMethod] = useState('cod');
 
-    const { navigate, boxesLength, citesCultureQuantity, citesWildQuantity, weightOfItems, setTotalAmount, landedCost, totalLandedCost } = useContext(ShopContext);
+    const { navigate, boxesLength, citesCultureQuantity, citesWildQuantity, weightOfItems, setTotalAmount } = useContext(ShopContext);
 
     const [tempBoxes, setTempBoxes] = useState([]); // Contoh nilai awal, ubah sesuai kebutuhan
 
-    const [totalLandedCostItem, setTotalLandedCostItem] = useState(0)
+    const [landedCost, setLandedCost] = useState([
+        { description: 'Packing Charge HD Boxes', value: `${boxesLength} BOX${boxesLength > 1 ? 'ES' : ''}`, price: 15.00, amount: 15.00 },
+        { description: 'CITES Charge Culture Coral', value: `${citesCultureQuantity} Pcs`, price: 2.75, amount: 33.00 },
+        { description: 'CITES Charge Wild Coral', value: `${citesWildQuantity} Pcs`, price: 3.75, amount: 33.00 },
+        { description: 'CITES Processing Fee', value: '', price: 100.00, amount: 100.00 },
+        { description: 'Document Handling Fee', value: '', price: 100.00, amount: 100.00 },
+        { description: 'Fish Permit', value: '', price: 100.00, amount: 100.00 },
+        { description: 'Freight Charge ALL IN', value: `${weightOfItems}`, price: 5.74, amount: 132.08 },
+        { description: 'AWB + CCC Fee', value: '', price: 10.58, amount: 10.58 },
+        { description: 'VAT Fee', value: '1.1 %', price: '', amount: 1.57 },
+        { description: 'Pickup', value: '', price: 107.00, amount: 107.00 },
+        { description: 'Import Duties', value: '', price: 1000.00, amount: 1000.00 },
+    ]);
 
-    // const [landedCost, setLandedCost] = useState([
-    //     { description: 'Packing Charge HD Boxes', value: `${boxesLength} BOX${boxesLength > 1 ? 'ES' : ''}`, price: 15.00, amount: 15.00 },
-    //     { description: 'CITES Charge Culture Coral', value: `${citesCultureQuantity} Pcs`, price: 2.75, amount: 33.00 },
-    //     { description: 'CITES Charge Wild Coral', value: `${citesWildQuantity} Pcs`, price: 3.75, amount: 33.00 },
-    //     { description: 'CITES Processing Fee', value: '', price: 100.00, amount: 100.00 },
-    //     { description: 'Document Handling Fee', value: '', price: 100.00, amount: 100.00 },
-    //     { description: 'Fish Permit', value: '', price: 100.00, amount: 100.00 },
-    //     { description: 'Freight Charge ALL IN', value: `${weightOfItems}`, price: 5.74, amount: 132.08 },
-    //     { description: 'AWB + CCC Fee', value: '', price: 10.58, amount: 10.58 },
-    //     { description: 'VAT Fee', value: '1.1 %', price: '', amount: 1.57 },
-    //     { description: 'Pickup', value: '', price: 107.00, amount: 107.00 },
-    //     { description: 'Import Duties', value: '', price: 1000.00, amount: 1000.00 },
-    // ]);
-
-    // // Update 'amount' dynamically based on price and boxesLength
-    // useEffect(() => {
-    //     setLandedCost((prevLandedCost) => {
-    //         return prevLandedCost.map((item) => {
-    //             if (item.description === 'Packing Charge HD Boxes') {
-    //                 return {
-    //                     ...item,
-    //                     value: `${boxesLength} BOX${boxesLength > 1 ? 'ES' : ''}`,
-    //                     amount: item.price * boxesLength, // Calculate the amount dynamically
-    //                 };
-    //             }
-    //             if (item.description === 'CITES Charge Culture Coral') {
-    //                 return {
-    //                     ...item,
-    //                     value: `${citesCultureQuantity} Pcs`,
-    //                     amount: item.price * citesCultureQuantity, // Calculate the amount dynamically
-    //                 };
-    //             }
-    //             if (item.description === 'CITES Charge Wild Coral') {
-    //                 return {
-    //                     ...item,
-    //                     value: `${citesWildQuantity} Pcs`,
-    //                     amount: item.price * citesWildQuantity, // Calculate the amount dynamically
-    //                 };
-    //             }
-    //             if (item.description === 'Freight Charge ALL IN') {
-    //                 return {
-    //                     ...item,
-    //                     value: `${weightOfItems} Kg`,
-    //                     amount: item.price * weightOfItems, // Calculate the amount dynamically
-    //                 };
-    //             }
-    //             return item;
-    //         });
-    //     });
-    // }, [boxesLength]); // Recalculate when boxesLength changes
+    // Update 'amount' dynamically based on price and boxesLength
+    useEffect(() => {
+        setLandedCost((prevLandedCost) => {
+            return prevLandedCost.map((item) => {
+                if (item.description === 'Packing Charge HD Boxes') {
+                    return {
+                        ...item,
+                        value: `${boxesLength} BOX${boxesLength > 1 ? 'ES' : ''}`,
+                        amount: item.price * boxesLength, // Calculate the amount dynamically
+                    };
+                }
+                if (item.description === 'CITES Charge Culture Coral') {
+                    return {
+                        ...item,
+                        value: `${citesCultureQuantity} Pcs`,
+                        amount: item.price * citesCultureQuantity, // Calculate the amount dynamically
+                    };
+                }
+                if (item.description === 'CITES Charge Wild Coral') {
+                    return {
+                        ...item,
+                        value: `${citesWildQuantity} Pcs`,
+                        amount: item.price * citesWildQuantity, // Calculate the amount dynamically
+                    };
+                }
+                if (item.description === 'Freight Charge ALL IN') {
+                    return {
+                        ...item,
+                        value: `${weightOfItems} Kg`,
+                        amount: item.price * weightOfItems, // Calculate the amount dynamically
+                    };
+                }
+                return item;
+            });
+        });
+    }, [boxesLength]); // Recalculate when boxesLength changes
 
     useEffect(() => {
         const totalLandedCost = landedCost.reduce((total, item) => total + item.amount, 0).toFixed(2);
         setTotalAmount(totalLandedCost);
-        setTotalLandedCostItem(totalLandedCost)
-    }, [landedCost, setTotalAmount, setTotalLandedCostItem])
+    }, [landedCost, setTotalAmount])
 
     return (
-        <div className='flex flex-col md:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
+        <div className='flex flex-col md:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t'>
             {/* ----------------- Left Side ------------------- */}
-            <div className="w-full md:w-1/2 mt-14">
+            <div className="w-full md:w-1/2 mt-16">
                 <div className='text-2xl'>
                     <Title text1={'LANDED'} text2={'COST'} />
                 </div>
@@ -107,7 +104,7 @@ const PlaceOrder = () => {
                                     <td className="px-4 py-2 border" colSpan={3}>
                                         Total Landed Cost
                                     </td>
-                                    <td className="px-4 py-2 border">{`${totalLandedCostItem}`}</td>
+                                    <td className="px-4 py-2 border">{`${setTotalAmount}`}</td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -143,7 +140,7 @@ const PlaceOrder = () => {
                     </div>
 
                     <div className='w-full text-end mt-8'>
-                        <button onClick={() => navigate('/Unboxing')} className='bg-black text-white px-16 py-3 text-sm'>PLACE ORDER</button>
+                        <button onClick={() => navigate('/orders')} className='bg-black text-white px-16 py-3 text-sm'>PLACE ORDER</button>
                     </div>
 
                 </div>
@@ -151,7 +148,6 @@ const PlaceOrder = () => {
 
 
         </div>
-
     )
 }
 

@@ -17,13 +17,15 @@ const Cart = () => {
 
     useEffect(() => {
         const tempData = [];
-        let totalCultureQuantity = 0;  // Variable to store total quantity for Culture category
+        let totalCultureQuantity = 0;
         let totalWildQuantity = 0;
-        let totalVolume = 0; // Total volume plastik
-        let totalWeight = 0 //Total Weight
-        const boxVolume = (47 * 32 * 29) * 0.85; // Volume box dengan efisiensi 85%
+        let totalVolume = 0;
+        let totalWeight = 0;
+        const boxVolume = (47 * 32 * 29) * 0.85;
 
-        // Menghitung total volume barang di keranjang
+        const tempLandedCosts = [];
+
+        // **Loop pertama**: Hitung total volume & berat
         for (const items in cartItems) {
             for (const item in cartItems[items]) {
                 if (cartItems[items][item] > 0) {
@@ -41,12 +43,11 @@ const Cart = () => {
                         _id: items,
                         size: item,
                         quantity: cartItems[items][item],
-                        volume: volumePerItem * cartItems[items][item],
-                        weight: weightPerItem * cartItems[items][item],
-                        category: product.category // Tambahkan kategori produk
+                        volume: sizeData.volume * cartItems[items][item],
+                        weight: sizeData.weight * cartItems[items][item],
+                        category: product.category
                     });
 
-                    // Jika kategori adalah Culture, tambah jumlah quantity
                     if (product.category === "Culture") {
                         totalCultureQuantity += cartItems[items][item];
                     }
@@ -58,63 +59,60 @@ const Cart = () => {
             }
         }
 
+
+        setLandedCostForItem(tempLandedCosts)
+
         setCartData(tempData);
 
         // Menghitung jumlah box yang dibutuhkan
         const boxUtilization = Math.ceil(totalVolume / boxVolume);
-        let remainingVolume = totalVolume; // Sisa volume yang belum teralokasi ke box
+        let remainingVolume = totalVolume;
         const tempBoxes = [];
 
-        // Alokasikan volume box berdasarkan persentase setiap barang
         for (let i = 0; i < boxUtilization; i++) {
             const currentBoxVolume = Math.min(boxVolume, remainingVolume);
             const efficiency = Math.round((currentBoxVolume / boxVolume) * 100);
 
-            // Membagi volume ke barang-barang yang ada di keranjang
             let boxVolumeLeft = currentBoxVolume;
             const itemAllocations = tempData.map(item => {
-                // Hitung volume yang dapat dialokasikan per barang
-                const itemVolume = (item.volume / totalVolume) * currentBoxVolume; // Volume per barang di box
-                const allocatedVolume = Math.min(itemVolume, boxVolumeLeft); // Alokasikan volume yang bisa masuk
-                boxVolumeLeft -= allocatedVolume; // Kurangi volume yang masih tersisa
+                const itemVolume = (item.volume / totalVolume) * currentBoxVolume;
+                const allocatedVolume = Math.min(itemVolume, boxVolumeLeft);
+                boxVolumeLeft -= allocatedVolume;
                 return {
                     ...item,
                     allocatedVolume
                 };
             });
 
-            // Push hasil alokasi box
             tempBoxes.push({
                 efficiency,
                 itemAllocations
             });
 
-            // Kurangi volume yang tersisa setelah mengalokasikan box
             remainingVolume -= currentBoxVolume;
-
-            // Jika volume sudah habis, stop looping
             if (remainingVolume <= 0) break;
         }
 
         setBoxes(tempBoxes);
-        // Menyimpan tempBoxes.length ke context
         updateBoxesLength(tempBoxes.length);
 
-        // Set quantity produk Culture di context untuk digunakan di PlaceOrder.jsx
         setCitesCultureQuantity(totalCultureQuantity);
         setCitesWildQuantity(totalWildQuantity);
         setWeightOfItems(totalWeight.toFixed(2));
 
         console.log("Total Quantity Culture in Cart:", totalCultureQuantity);
-        console.log("Total Quantity Wild in Cart : ", totalWildQuantity)
-
-        // Menampilkan total berat barang di keranjang
+        console.log("Total Quantity Wild in Cart : ", totalWildQuantity);
         console.log("Total Weight of Items in Cart:", totalWeight.toFixed(2), "kg");
 
         setTotalWeightItem(totalWeight);
 
 
-    }, [cartItems, products, setCitesCultureQuantity, setCitesWildQuantity, setWeightOfItems]);
+    }, [cartItems, products, setCitesCultureQuantity, setCitesWildQuantity, setWeightOfItems])
+
+    useEffect(() => {
+        console.log("Updated Landed Cost:", JSON.stringify(landedCostForItem, null, 2));
+    }, [landedCostForItem]);
+
 
 
     return (
@@ -122,6 +120,15 @@ const Cart = () => {
             <h2 className='text-2xl mb-3 pt-10'>
                 <Title text1={'YOUR'} text2={'CART'} />
             </h2>
+
+            {/* Header Section */}
+            {/* <div className='grid grid-cols-5 gap-4 font-semibold text-lg border-b pb-3'>
+                <p className='text-center'>Product</p>
+                <p className='text-center'>Landed Cost</p>
+                <p className='text-center'>Cost of Good Sold</p>
+                <p className='text-center'>Quantity</p>
+                <p className='text-center'>Delete</p>
+            </div> */}
 
             {/* Header Section */}
             {/* <div className='grid grid-cols-5 gap-4 font-semibold text-lg border-b pb-3'>
