@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { assets } from '../assets/assets';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ShopContext } from '../context/ShopContext';
 
 const Profile = () => {
+
+  const { setRoleProfile, roleProfile } = useContext(ShopContext);
+
   const [settings, setSettings] = useState({
     priceMargin: 50,
     freightMargin: 30,
@@ -49,14 +53,33 @@ const Profile = () => {
     navigate('/login'); // Arahkan ke halaman login
   };
 
+  const [role, setRole] = useState('IMPORTER'); // Default role
+
+
+
+  const toggleRole = () => {
+    const newRole = role === 'IMPORTER' ? 'CUSTOMER' : 'IMPORTER';
+    setRole(newRole); // Update state role di Profile
+    setRoleProfile(newRole); // Update role di ShopContext
+  };
+
+  const profileColor = roleProfile === 'IMPORTER' ? 'bg-blue-900' : 'bg-green-900';
+  console.log(role)
+
   return (
     <nav className="flex pt-14">
       {/* Left Section */}
-      <div className="bg-blue-900 text-white w-1/3 p-4 flex flex-col items-center h-full">
+      <div className={`${profileColor} text-white w-1/3 p-4 flex flex-col items-center min-h-full`}>
         <div className="text-center">
           <img className='w-full p-4 cursor-pointer rounded-full' src={assets.p_img11} />
           <h2 className="text-xl font-bold">demo1</h2>
-          <p>IMPORTER</p>
+          <div className='mt-3'>
+            <p className='inline-block'>{role}</p>
+            <button onClick={toggleRole} className='ml-4 p-3 bg-black rounded-md'>
+              {role === 'IMPORTER' ? 'Switch to CUSTOMER' : 'Switch to IMPORTER'}
+            </button>
+          </div>
+
         </div>
         <div className="mt-6 w-full">
           <h3 className="text-lg font-semibold mb-4">Transhipment Mode</h3>

@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { assets } from '../assets/assets'
+import { ShopContext } from '../context/ShopContext'
 
 const Footer = () => {
+
+    const { roleProfile } = useContext(ShopContext)
+
+    const footerColor = roleProfile === 'IMPORTER' ? 'bg-[#0079FF]' : 'bg-green-600';
+
     return (
-        <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] w-full bg-[#0079FF] text-white">
+        <div className={`w-full px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]  ${footerColor} text-white`}>
             <div className='flex flex-row flex-wrap item sm:grid grid-cols-[3fr_1fr_1fr] gap-14 py-10 text-sm'>
 
                 <div>

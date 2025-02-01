@@ -7,13 +7,14 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'; /
 import 'react-circular-progressbar/dist/styles.css';
 
 const Cart = () => {
-    const { products, currency, cartItems, updateQuantity, navigate, updateBoxesLength, setCitesCultureQuantity, setCitesWildQuantity, setWeightOfItems, totalAmountAll } = useContext(ShopContext);
+    const { products, currency, cartItems, updateQuantity, navigate, updateBoxesLength, setCitesCultureQuantity, setCitesWildQuantity, setWeightOfItems, totalAmountAll, landedCost, totalLandedCost } = useContext(ShopContext);
 
     const [cartData, setCartData] = useState([]);
-    const [efficiency, setEfficiency] = useState(100); // State untuk menyimpan nilai efisiensi
-    const [boxes, setBoxes] = useState([]); // State untuk menyimpan data semua box
-    const [weightItem, setWeightItem] = useState(0)
-    const [totallWeightItem, setTotalWeightItem] = useState(0)
+    const [efficiency, setEfficiency] = useState(90);
+    const [boxes, setBoxes] = useState([]);
+    const [weightItem, setWeightItem] = useState(0);
+    const [totalWeightItem, setTotalWeightItem] = useState(0);
+    const [landedCostForItem, setLandedCostForItem] = useState([]); // Array untuk menyimpan landed cost per item
 
     useEffect(() => {
         const tempData = [];
@@ -23,24 +24,37 @@ const Cart = () => {
         let totalWeight = 0;
         const boxVolume = (47 * 32 * 29) * 0.85;
 
-        const tempLandedCosts = [];
+        const tempLandedCosts = {};
+        const itemCounts = {};
 
-        // **Loop pertama**: Hitung total volume & berat
+        // **Step 1: Loop pertama - Hitung total volume, berat, dan kumpulkan data**
         for (const items in cartItems) {
             for (const item in cartItems[items]) {
                 if (cartItems[items][item] > 0) {
                     const product = products.find((p) => p._id === items);
                     const sizeData = product.sizes.find((s) => s.size === item);
-                    const volumePerItem = (22 / 7) * sizeData.r * sizeData.r * sizeData.plasticHeight;
 
-                    const weightPerItem = 0.75 * volumePerItem * 1.025
+                    totalVolume += sizeData.volume * cartItems[items][item];
+                    totalWeight += (sizeData.weight * cartItems[items][item]) / 1000; // dalam kg
 
-                    totalVolume += volumePerItem * cartItems[items][item];
-                    totalWeight += (weightPerItem * cartItems[items][item]) / 1000;
+                    // **Kumpulkan jumlah per jenis dan size**
+                    if (!tempLandedCosts[items]) {
+                        tempLandedCosts[items] = { totalQuantity: 0, sizes: {} };
+                    }
+                    tempLandedCosts[items].totalQuantity += cartItems[items][item];
 
+                    if (!tempLandedCosts[items].sizes[item]) {
+                        tempLandedCosts[items].sizes[item] = { quantity: 0, weight: 0 };
+                    }
+                    tempLandedCosts[items].sizes[item].quantity += cartItems[items][item];
+                    tempLandedCosts[items].sizes[item].weight += sizeData.weight / 1000;
+
+                    // **Kumpulkan jumlah jenis dalam cart**
+                    itemCounts[items] = true;
 
                     tempData.push({
                         _id: items,
+                        name: product.name,
                         size: item,
                         quantity: cartItems[items][item],
                         volume: sizeData.volume * cartItems[items][item],
@@ -54,17 +68,49 @@ const Cart = () => {
                     if (product.category === "Wild") {
                         totalWildQuantity += cartItems[items][item];
                     }
-                    setWeightItem(weightPerItem.toFixed(2));
+
+                    setWeightItem(sizeData.weight / 1000);
                 }
             }
         }
 
+        // **Step 2: Hitung Landed Cost per jenis**
+        const totalProductTypes = Object.keys(itemCounts).length; // Total jenis produk dalam cart
+        const landedCostPerType = totalProductTypes > 0 ? totalLandedCost / totalProductTypes : 0;
 
-        setLandedCostForItem(tempLandedCosts)
+        const landedCostForItems = [];
 
+        for (const productId in tempLandedCosts) {
+            const productData = tempLandedCosts[productId];
+            const product = products.find((p) => p._id === productId);
+
+            for (const size in productData.sizes) {
+                const sizeInfo = productData.sizes[size];
+
+                // 🔹 Menghitung landed cost berdasarkan berat (berat per jenis / total berat)
+                const landedCostPerSize = (sizeInfo.weight / totalWeight) * totalLandedCost * sizeInfo.quantity;
+
+                landedCostForItems.push({
+                    _id: productId,
+                    name: product.name,
+                    size: size,
+                    quantity: sizeInfo.quantity,
+                    weight: sizeInfo.weight,
+                    landedCost: landedCostPerSize.toFixed(2),
+                    COGS: (product.price + landedCostPerSize).toFixed(2)
+                });
+            }
+        }
+
+
+        console.log("Total weight = " + totalWeight);
+        console.log("Total Landed Cost = " + totalLandedCost);
+        console.log("Landed Cost Per Item:", landedCostForItems);
+
+        setLandedCostForItem(landedCostForItems);
         setCartData(tempData);
 
-        // Menghitung jumlah box yang dibutuhkan
+        // **Step 3: Menghitung jumlah box yang dibutuhkan**
         const boxUtilization = Math.ceil(totalVolume / boxVolume);
         let remainingVolume = totalVolume;
         const tempBoxes = [];
@@ -101,17 +147,16 @@ const Cart = () => {
         setWeightOfItems(totalWeight.toFixed(2));
 
         console.log("Total Quantity Culture in Cart:", totalCultureQuantity);
-        console.log("Total Quantity Wild in Cart : ", totalWildQuantity);
+        console.log("Total Quantity Wild in Cart:", totalWildQuantity);
         console.log("Total Weight of Items in Cart:", totalWeight.toFixed(2), "kg");
-
         setTotalWeightItem(totalWeight);
 
-
-    }, [cartItems, products, setCitesCultureQuantity, setCitesWildQuantity, setWeightOfItems])
+    }, [cartItems, products, setCitesCultureQuantity, setCitesWildQuantity, setWeightOfItems]);
 
     useEffect(() => {
         console.log("Updated Landed Cost:", JSON.stringify(landedCostForItem, null, 2));
     }, [landedCostForItem]);
+
 
 
 
@@ -146,12 +191,12 @@ const Cart = () => {
                             <thead className="bg-white">
                                 <tr>
                                     <th className="px-4 py-2 whitespace-nowrap">Product</th>
-                                    <th className="px-4 py-2 whitespace-nowrap">Quantity</th>
-                                    <th className="px-4 py-2 whitespace-nowrap">Landed Cost</th>
-                                    <th className="px-4 py-2 whitespace-nowrap">Cost of Good Sold</th>
-                                    <th className="px-4 py-2 whitespace-nowrap">Delete</th>
+                                    <th className="px-4 py-2 whitespace-nowrap text-center">Quantity</th>
+                                    <th className="px-4 py-2 whitespace-nowrap text-center">Landed Cost</th>
+                                    <th className="px-4 py-2 whitespace-nowrap text-center">Cost of Good Sold</th>
+                                    <th className="px-4 py-2 whitespace-nowrap text-center">Delete</th>
                                 </tr>
-                                <hr className="w-4/5 mx-auto border-gray-300" />
+
                             </thead>
 
                             <tbody>
@@ -159,17 +204,18 @@ const Cart = () => {
                                     const productData = products.find((product) => product._id === item._id);
 
                                     // Hitung Landed Cost per item
-                                    const landedCostPerItem = (weightItem / totallWeightItem) * totalAmountAll
 
-                                    console.log(`Total Weight = ${totallWeightItem}`)
-                                    console.log(`Weight item ${weightItem}`)
+
+                                    console.log(`Total Weight = ${totalWeightItem.toFixed(2)}`)
+                                    console.log(`Weight ${productData.name} ${weightItem.toFixed(2)} Kg`)
                                     console.log(totalAmountAll)
-                                    console.log(landedCostPerItem)
+                                    console.log(`Landed cost ${productData.name} = ${landedCostForItem.find(lc => lc._id === item._id && lc.size === item.size)?.landedCost}`)
+
 
                                     return (
                                         <tr key={index} className="hover:bg-gray-100">
-                                            <td className="px-4 py-2">
-                                                <div className='flex items-start gap-6 flex-wrap'>
+                                            <td className="px-4 py-2 text-center">
+                                                <div className='flex items-center gap-6 flex-wrap'>
                                                     <img className='w-16 sm:w-20' src={productData.image[0]} alt='' />
                                                     <div>
                                                         <p className='text-xs sm:text-sm font-medium'>{productData.name}</p>
@@ -180,7 +226,7 @@ const Cart = () => {
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td className="px-4 py-2 mx-auto">
+                                            <td className="px-4 py-2 text-center ">
                                                 <input
                                                     onChange={(e) => e.target.value === '' || e.target.value === '0' ? null : updateQuantity(item._id, item.size, Number(e.target.value))}
                                                     type='number'
@@ -189,18 +235,34 @@ const Cart = () => {
                                                     className='border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1 bg-red-50'
                                                 />
                                             </td>
-                                            <td className="px-4 py-2">{currency}{parseFloat(landedCostPerItem.toFixed(2))}</td>
-                                            <td className="px-4 py-2">test</td>
+
+                                            <td className="px-4 py-2 text-center">
+                                                {currency}
+                                                {landedCostForItem.find(lc => lc._id === item._id && lc.size === item.size)?.landedCost || '0.00'}
+
+                                            </td>
+                                            <td className="px-4 py-2 text-center">
+                                                {currency}
+                                                {landedCostForItem.find(lc => lc._id === item._id && lc.size === item.size)?.COGS || '0.00'}
+                                            </td>
+                                            <td className="px-4 py-2 text-center ">
+                                                <img
+                                                    onClick={() => updateQuantity(item._id, item.size, 0)}
+                                                    className='w-4  sm:w-5 cursor-pointer mx-auto'
+                                                    src={assets.bin_icon}
+                                                    alt='delete icon'
+                                                />
+                                            </td>
                                         </tr>
                                     );
                                 })}
                             </tbody>
-                            <tfoot>
+                            {/* <tfoot>
                                 <tr className="bg-gray-100 font-bold">
                                     <td className="px-4 py-2" colSpan={3}>Total Landed Cost</td>
                                     <td className="px-4 py-2">tes</td>
                                 </tr>
-                            </tfoot>
+                            </tfoot> */}
                         </table>
 
                     </div>

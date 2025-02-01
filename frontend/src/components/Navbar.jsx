@@ -6,7 +6,7 @@ import { ShopContext } from '../context/ShopContext';
 const Navbar = () => {
     const [visible, setVisible] = useState(false);
     const [showLogoutPopup, setShowLogoutPopup] = useState(false); // State untuk pop-up logout
-    const { setShowSearch, getCartCount } = useContext(ShopContext);
+    const { setShowSearch, getCartCount, roleProfile } = useContext(ShopContext);
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -21,8 +21,12 @@ const Navbar = () => {
         return null;
     }
 
+    // Menentukan warna navbar berdasarkan role
+    const navbarColor = roleProfile === 'IMPORTER' ? 'bg-[#0079FF]' : 'bg-green-600';
+    console.log(`Role di Navbar adalah ${roleProfile}`)
+
     return (
-        <nav className='w-full bg-[#0079FF] fixed top-0 left-0 z-50'>
+        <nav className={`w-full ${navbarColor} fixed top-0 left-0 z-50`}>
             <div className='flex items-center justify-around py-5 font-medium'>
                 <Link to='/home'>
                     <img src={assets.logo} className='w-36' alt='Reefmaster Logo' />
