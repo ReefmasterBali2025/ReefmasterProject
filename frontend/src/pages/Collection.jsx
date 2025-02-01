@@ -108,7 +108,7 @@ const Collection = () => {
     };
 
     return (
-        <div className='flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-10 pt-10 border-t my-10 px-16'>
+        <div className='flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-10 pt-10 border-t mt-14 px-16'>
             {/* Bagian kiri untuk filter */}
             <div className=' w-full block  px-5  bg-white shadow-md z-0 md:hidden'>
                 <p

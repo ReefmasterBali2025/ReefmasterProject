@@ -34,7 +34,7 @@ const Navbar = () => {
                 <ul className='hidden sm:flex gap-5 text-sm text-gray-700'>
                     <NavLink to='/home' className='flex flex-col items-center gap-1 text-white'>
                         <p>Home</p>
-                        <hr className='w-2/4 border-none h-[1.5px] bg-white hidden ' />
+                        <hr className='w-2/4 border-none h-[1.5px] bg-white hidden' />
                     </NavLink>
                     <NavLink to='/collection' className='flex flex-col items-center gap-1 text-white'>
                         <p>Collection</p>
@@ -63,74 +63,92 @@ const Navbar = () => {
                         />
                     )}
 
-                    <div className='group relative'>
-                        <Link to={'#'}>
-                            <img className='w-6 cursor-pointer' src={assets.profile_icon} />
-                        </Link>
-                        <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4'>
-                            <div className='flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded'>
-                                <Link to='/MyProfile' className='cursor-pointer hover:text-black'>
-                                    My Profile
+                    {/* Move profile and cart into dropdown on mobile */}
+                    <div className='hidden sm:block'>
+                        <div className='flex items-center gap-6'>
+                            <div className='group relative'>
+                                <Link to={'#'}>
+                                    <img className='w-6 cursor-pointer' src={assets.profile_icon} />
                                 </Link>
-                                <Link to='/orders' className='cursor-pointer hover:text-black'>
-                                    Orders
-                                </Link>
-                                {/* Tombol Logout memunculkan pop-up */}
-                                <button
-                                    onClick={() => setShowLogoutPopup(true)}
-                                    className='text-left cursor-pointer hover:text-black'
-                                >
-                                    Logout
-                                </button>
+                                <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4'>
+                                    <div className='flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded'>
+                                        <Link to='/MyProfile' className='cursor-pointer hover:text-black'>
+                                            My Profile
+                                        </Link>
+                                        <Link to='/orders' className='cursor-pointer hover:text-black'>
+                                            Orders
+                                        </Link>
+                                        <button
+                                            onClick={() => setShowLogoutPopup(true)}
+                                            className='text-left cursor-pointer hover:text-black'
+                                        >
+                                            Logout
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
+                            <Link to='/cart' className='relative'>
+                                <img src={assets.cart_icon} className='w-16 min-w-10' alt='cart-icon' />
+                                <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]'>
+                                    {getCartCount()}
+                                </p>
+                            </Link>
+                            <Link to='/Unboxing' className='relative'>
+                                <img src={assets.unboxing_icon} className='w-28 min-w-10' alt='cart-icon' />
+                            </Link>
                         </div>
                     </div>
-                    <Link to='/cart' className='relative'>
-                        <img src={assets.cart_icon} className='w-16 min-w-10' alt='cart-icon' />
-                        <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]'>
-                            {getCartCount()}
-                        </p>
-                    </Link>
-                    <Link to='/Unboxing' className='relative'>
-                        <img src={assets.unboxing_icon} className='w-28 min-w-10' alt='cart-icon' />
-                    </Link>
+
+                    {/* Mobile Menu Button */}
                     <img
                         onClick={() => setVisible(true)}
                         src={assets.menu_icon}
-                        className='w-5 cursor-pointer sm:hidden'
+                        className='w-5 cursor-pointer sm:hidden mr-5'
                     />
                 </div>
-                {/* Sidebar menu for small screen */}
-                <div
-                    className={`fixed top-0 right-0 bottom-0 overflow-hidden bg-white transition-all ${visible ? 'w-1/2' : 'w-0'
-                        } z-10`}
-                >
-                    <div className='flex flex-col text-gray-600'>
-                        <div onClick={() => setVisible(false)} className='flex items-center gap-4 p-3'>
-                            <img className='h-4 rotate-180' src={assets.dropdown_icon} alt='Dropdown-Icon' />
-                            <p className='cursor-pointer'>Back</p>
-                        </div>
-                        <NavLink onClick={() => setVisible(false)} className='py-2 pl-6 border' to='/home'>
-                            Home
-                        </NavLink>
-                        <NavLink onClick={() => setVisible(false)} className='py-2 pl-6 border' to='/collection'>
-                            Collection
-                        </NavLink>
-                        <NavLink onClick={() => setVisible(false)} className='py-2 pl-6 border' to='/about'>
-                            About
-                        </NavLink>
-                        <NavLink onClick={() => setVisible(false)} className='py-2 pl-6 border' to='/contact'>
-                            Contact
-                        </NavLink>
+            </div>
+
+            {/* Sidebar menu for small screen */}
+            <div
+                className={`fixed top-0 right-0 bottom-0 overflow-hidden bg-white transition-all ${visible ? 'w-1/2' : 'w-0'} z-10`}
+            >
+                <div className='flex flex-col text-gray-600'>
+                    <div onClick={() => setVisible(false)} className='flex items-center gap-4 p-3'>
+                        <img className='h-4 rotate-180' src={assets.dropdown_icon} alt='Dropdown-Icon' />
+                        <p className='cursor-pointer'>Back</p>
                     </div>
+                    <NavLink onClick={() => setVisible(false)} className='py-2 pl-6 border' to='/home'>
+                        Home
+                    </NavLink>
+                    <NavLink onClick={() => setVisible(false)} className='py-2 pl-6 border' to='/collection'>
+                        Collection
+                    </NavLink>
+                    <NavLink onClick={() => setVisible(false)} className='py-2 pl-6 border' to='/about'>
+                        About
+                    </NavLink>
+                    <NavLink onClick={() => setVisible(false)} className='py-2 pl-6 border' to='/contact'>
+                        Contact
+                    </NavLink>
+                    <NavLink onClick={() => setVisible(false)} className='py-2 pl-6 border' to='/cart'>
+                        Cart
+                    </NavLink>
+                    <NavLink onClick={() => setVisible(false)} className='py-2 pl-6 border' to='/Unboxing'>
+                        Unboxing
+                    </NavLink>
+
+                    {/* Cart and Unboxing in Mobile Sidebar */}
+                    {/* <Link to='/cart' className='py-2 pl-6 border'>
+                        Cart
+                    </Link>
+                    <Link to='/Unboxing' className='py-2 pl-6 border'>
+                        Unboxing
+                    </Link> */}
                 </div>
             </div>
 
             {/* Pop-up Logout */}
             {showLogoutPopup && (
-                <div
-                    className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20'
-                >
+                <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20'>
                     <div className='bg-white p-5 rounded-lg text-center'>
                         <h2 className='mb-3 text-lg font-semibold'>Logout Account</h2>
                         <p className='text-sm text-gray-600 mb-4'>
@@ -154,6 +172,7 @@ const Navbar = () => {
                 </div>
             )}
         </nav>
+
     );
 };
 
