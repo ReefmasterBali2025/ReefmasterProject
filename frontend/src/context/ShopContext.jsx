@@ -18,6 +18,7 @@ const ShopContextProvider = (props) => {
     const [weightOfItems, setWeightOfItems] = useState(0);
     const [totalAmountAll, setTotalAmount] = useState(0);
     const [totalForLandedCost, setTotalForLandedCost] = useState(0)
+    const [roleProfile, setRoleProfile] = useState('IMPORTER')
     // const [landedCost, setTotalLandedCost] = useState(0);
 
     const [totalLandedCost, setTotalLandedCost] = useState(0);
@@ -77,7 +78,9 @@ const ShopContextProvider = (props) => {
         setTotalForLandedCost(amount);
     }
 
-
+    // const setRoleInContext = (myRole) => {
+    //     setRoleProfile(myRole)
+    // }
 
     /**
      * Menambahkan item ke keranjang belanja.
@@ -181,7 +184,8 @@ const ShopContextProvider = (props) => {
         citesWildQuantity, setCitesWildQuantity: setCitesWildQuantityInContext,
         weightOfItems, setWeightOfItems: setWeightOfItemsInContext,
         totalAmountAll, setTotalAmount: setTotalAmountInContext,
-        landedCost, totalLandedCost
+        landedCost, totalLandedCost,
+        roleProfile, setRoleProfile
 
     };
 

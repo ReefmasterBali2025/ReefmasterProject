@@ -10,7 +10,7 @@ const Cart = () => {
     const { products, currency, cartItems, updateQuantity, navigate, updateBoxesLength, setCitesCultureQuantity, setCitesWildQuantity, setWeightOfItems, totalAmountAll, landedCost, totalLandedCost } = useContext(ShopContext);
 
     const [cartData, setCartData] = useState([]);
-    const [efficiency, setEfficiency] = useState(100);
+    const [efficiency, setEfficiency] = useState(90);
     const [boxes, setBoxes] = useState([]);
     const [weightItem, setWeightItem] = useState(0);
     const [totalWeightItem, setTotalWeightItem] = useState(0);
@@ -24,9 +24,10 @@ const Cart = () => {
         let totalWeight = 0;
         const boxVolume = (47 * 32 * 29) * 0.85;
 
-        const tempLandedCosts = [];
+        const tempLandedCosts = {};
+        const itemCounts = {};
 
-        // **Loop pertama**: Hitung total volume & berat
+        // **Step 1: Loop pertama - Hitung total volume, berat, dan kumpulkan data**
         for (const items in cartItems) {
             for (const item in cartItems[items]) {
                 if (cartItems[items][item] > 0) {
@@ -36,20 +37,24 @@ const Cart = () => {
                     totalVolume += sizeData.volume * cartItems[items][item];
                     totalWeight += (sizeData.weight * cartItems[items][item]) / 1000; // dalam kg
 
-                    const landedCostPerItem = ((sizeData.weight / 1000) / totalWeight) * totalLandedCost;
+                    // **Kumpulkan jumlah per jenis dan size**
+                    if (!tempLandedCosts[items]) {
+                        tempLandedCosts[items] = { totalQuantity: 0, sizes: {} };
+                    }
+                    tempLandedCosts[items].totalQuantity += cartItems[items][item];
 
-                    const COGS = product.price + landedCostPerItem;
-                    tempLandedCosts.push({
-                        _id: items,
-                        size: item,
-                        landedCost: landedCostPerItem.toFixed(2),
-                        COGS: COGS.toFixed(2)
-                    });
+                    if (!tempLandedCosts[items].sizes[item]) {
+                        tempLandedCosts[items].sizes[item] = { quantity: 0, weight: 0 };
+                    }
+                    tempLandedCosts[items].sizes[item].quantity += cartItems[items][item];
+                    tempLandedCosts[items].sizes[item].weight += sizeData.weight / 1000;
 
-
+                    // **Kumpulkan jumlah jenis dalam cart**
+                    itemCounts[items] = true;
 
                     tempData.push({
                         _id: items,
+                        name: product.name,
                         size: item,
                         quantity: cartItems[items][item],
                         volume: sizeData.volume * cartItems[items][item],
@@ -69,12 +74,43 @@ const Cart = () => {
             }
         }
 
+        // **Step 2: Hitung Landed Cost per jenis**
+        const totalProductTypes = Object.keys(itemCounts).length; // Total jenis produk dalam cart
+        const landedCostPerType = totalProductTypes > 0 ? totalLandedCost / totalProductTypes : 0;
 
-        setLandedCostForItem(tempLandedCosts)
+        const landedCostForItems = [];
 
+        for (const productId in tempLandedCosts) {
+            const productData = tempLandedCosts[productId];
+            const product = products.find((p) => p._id === productId);
+
+            for (const size in productData.sizes) {
+                const sizeInfo = productData.sizes[size];
+
+                // 🔹 Menghitung landed cost berdasarkan berat (berat per jenis / total berat)
+                const landedCostPerSize = (sizeInfo.weight / totalWeight) * totalLandedCost * sizeInfo.quantity;
+
+                landedCostForItems.push({
+                    _id: productId,
+                    name: product.name,
+                    size: size,
+                    quantity: sizeInfo.quantity,
+                    weight: sizeInfo.weight,
+                    landedCost: landedCostPerSize.toFixed(2),
+                    COGS: (product.price + landedCostPerSize).toFixed(2)
+                });
+            }
+        }
+
+
+        console.log("Total weight = " + totalWeight);
+        console.log("Total Landed Cost = " + totalLandedCost);
+        console.log("Landed Cost Per Item:", landedCostForItems);
+
+        setLandedCostForItem(landedCostForItems);
         setCartData(tempData);
 
-        // Menghitung jumlah box yang dibutuhkan
+        // **Step 3: Menghitung jumlah box yang dibutuhkan**
         const boxUtilization = Math.ceil(totalVolume / boxVolume);
         let remainingVolume = totalVolume;
         const tempBoxes = [];
@@ -111,15 +147,16 @@ const Cart = () => {
         setWeightOfItems(totalWeight.toFixed(2));
 
         console.log("Total Quantity Culture in Cart:", totalCultureQuantity);
-        console.log("Total Quantity Wild in Cart : ", totalWildQuantity);
+        console.log("Total Quantity Wild in Cart:", totalWildQuantity);
         console.log("Total Weight of Items in Cart:", totalWeight.toFixed(2), "kg");
         setTotalWeightItem(totalWeight);
 
-    }, [cartItems, products, setCitesCultureQuantity, setCitesWildQuantity, setWeightOfItems])
+    }, [cartItems, products, setCitesCultureQuantity, setCitesWildQuantity, setWeightOfItems]);
 
     useEffect(() => {
         console.log("Updated Landed Cost:", JSON.stringify(landedCostForItem, null, 2));
     }, [landedCostForItem]);
+
 
 
 
@@ -193,6 +230,7 @@ const Cart = () => {
                                             <td className="px-4 py-2 text-center">
                                                 {currency}
                                                 {landedCostForItem.find(lc => lc._id === item._id && lc.size === item.size)?.landedCost || '0.00'}
+
                                             </td>
                                             <td className="px-4 py-2 text-center">
                                                 {currency}

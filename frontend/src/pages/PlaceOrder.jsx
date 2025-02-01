@@ -99,14 +99,14 @@ const PlaceOrder = () => {
                                     </tr>
                                 ))}
                             </tbody>
-                            {/* <tfoot>
+                            <tfoot>
                                 <tr className="bg-gray-100 font-bold">
                                     <td className="px-4 py-2 border" colSpan={3}>
                                         Total Landed Cost
                                     </td>
-                                    <td className="px-4 py-2 border">{`${totalLandedCostItem}`}</td>
+                                    <td className="px-4 py-2 border">{`${totalLandedCost}`}</td>
                                 </tr>
-                            </tfoot> */}
+                            </tfoot>
                         </table>
                     </div>
                 </div>
