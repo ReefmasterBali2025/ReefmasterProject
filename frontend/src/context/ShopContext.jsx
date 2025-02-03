@@ -35,22 +35,56 @@ const ShopContextProvider = (props) => {
             { description: 'CITES Charge Wild Coral', value: `${citesWildQuantity} Pcs`, price: 3.75, amount: 3.75 * citesWildQuantity },
             { description: 'CITES Processing Fee', value: '', price: 100.00, amount: 100.00 },
             { description: 'Document Handling Fee', value: '', price: 100.00, amount: 100.00 },
-            { description: 'Fish Permit', value: '', price: 100.00, amount: 100.00 },
-            { description: 'Freight Charge ALL IN', value: `${weightOfItems} Kg`, price: 5.74, amount: 5.74 * weightOfItems },
+            {
+                description: 'Fish Permit', value: '', price: 100.00,
+                get amount() {
+                    return this.price;
+                }
+            },
+            {
+                description: 'Freight Charge ALL IN', value: `${weightOfItems} Kg`, price: 5.74,
+                get amount() {
+                    const total = this.price * weightOfItems;
+                    return parseFloat(total.toFixed(2)); // Ensure it's a number, not a string
+                }
+            },
             { description: 'AWB + CCC Fee', value: '', price: 10.58, amount: 10.58 },
-            { description: 'VAT Fee', value: '1.1 %', price: '', amount: 1.57 },
+            {
+                description: 'VAT Fee', value: '1.2%', price: '',
+                get amount() {
+                    const percentage = 1.2 / 100; // Convert 1.2% to decimal
+                    return percentage * this.price.toFixed(2);
+                }
+            },
             { description: 'Pickup', value: '', price: 107.00, amount: 107.00 },
             { description: 'Import Duties', value: '', price: 1000.00, amount: 1000.00 },
         ];
 
         setLandedCost(updatedLandedCost);
 
+
+
+        // Function to calculate VAT Fee based on the sum of the specified amounts
+        function calculateVATFee() {
+            const freightCharge = updatedLandedCost.find(item => item.description === 'Freight Charge ALL IN')?.amount || 0;
+            const awbCCCFee = updatedLandedCost.find(item => item.description === 'AWB + CCC Fee')?.amount || 0;
+            const vatFee = freightCharge + awbCCCFee;
+            return vatFee;
+        }
+
+        // Update VAT Fee amount
+        const vatFeeAmount = calculateVATFee();
+
+        // Update the VAT Fee entry
+        const vatFeeIndex = updatedLandedCost.findIndex(item => item.description === 'VAT Fee');
+        if (vatFeeIndex !== -1) {
+            updatedLandedCost[vatFeeIndex].price = vatFeeAmount;
+        }
+
         // Calculate total landed cost
         const totalCost = updatedLandedCost.reduce((total, item) => total + item.amount, 0).toFixed(2);
         setTotalLandedCost(totalCost);
     }, [boxesLength, citesCultureQuantity, citesWildQuantity, weightOfItems]);
-
-
 
 
     const updateBoxesLength = (length) => {
