@@ -90,6 +90,8 @@ const Cart = () => {
                 // 🔹 Menghitung landed cost berdasarkan berat (berat per jenis / total berat)
                 const landedCostPerSize = (sizeInfo.weight / totalWeight) * totalLandedCost * sizeInfo.quantity;
 
+                const COGS = landedCostPerSize + (product.price * sizeInfo.quantity)
+
                 landedCostForItems.push({
                     _id: productId,
                     name: product.name,
@@ -97,7 +99,7 @@ const Cart = () => {
                     quantity: sizeInfo.quantity,
                     weight: sizeInfo.weight,
                     landedCost: landedCostPerSize.toFixed(2),
-                    COGS: (product.price + landedCostPerSize).toFixed(2)
+                    COGS: COGS.toFixed(2)
                 });
             }
         }
