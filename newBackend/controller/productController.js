@@ -26,7 +26,7 @@ const addProduct = async (req, res) => {
 
         // console.log(name, description, price, category, subCategory, sizes, bestseller);
         console.log(imagesUrl);
-        w
+
         const productData = {
             name,
             description,
@@ -55,7 +55,7 @@ const addProduct = async (req, res) => {
 };
 
 // function for list product
-const listProduct = async (req, res) => {
+const listProducts = async (req, res) => {
 
     try {
         const products = await productModel.find({});
@@ -91,4 +91,4 @@ const singleProduct = async (req, res) => {
     }
 };
 
-export { addProduct, listProduct, removeProduct, singleProduct };
+export { addProduct, listProducts, removeProduct, singleProduct };
