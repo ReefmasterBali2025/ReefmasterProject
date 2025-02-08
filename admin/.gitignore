@@ -1,0 +1,13 @@
+# Logs
+logs
+
+
+
+*.local
+
+# Editor directories and files
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
