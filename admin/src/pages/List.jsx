@@ -11,6 +11,10 @@ const List = ({ token }) => {
   const [isUpdating, setIsUpdating] = useState(false); // ✅ State untuk animasi loading
   const [showSuccessPopup, setShowSuccessPopup] = useState(false); // ✅ State untuk popup sukses
   const [selectedProducts, setSelectedProducts] = useState([]); // ✅ Produk yang dipilih untuk dihapus
+  const [showConfirmPopup, setShowConfirmPopup] = useState(false);
+  const [deleteType, setDeleteType] = useState(""); // "single" | "multiple" | "all"
+  const [deleteTarget, setDeleteTarget] = useState(null);
+
 
 
   // 🔹 Fetch produk dari MongoDB
@@ -30,23 +34,7 @@ const List = ({ token }) => {
     }
   };
 
-  // 🔹 Hapus produk dari database
-  const deleteProduct = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this product?")) return;
 
-    try {
-      const response = await axios.post(`${backendUrl}/api/product/remove`, { id }, { headers: { token } });
-      if (response.data.success) {
-        toast.success("Product deleted successfully!");
-        setProducts(products.filter((product) => product._id !== id));
-      } else {
-        toast.error("Failed to delete product");
-      }
-    } catch (error) {
-      console.error("Error deleting product:", error);
-      toast.error("Error deleting product");
-    }
-  };
 
   // 🔹 Handle Upload Gambar Baru
   const handleImageUpload = (e, index) => {
@@ -57,44 +45,55 @@ const List = ({ token }) => {
     updatedImages[index] = file;
     setNewImages(updatedImages);
   };
-  // 🔹 Hapus produk yang dipilih
-  const deleteSelectedProducts = async () => {
-    if (selectedProducts.length === 0) {
-      toast.warn("No products selected!");
-      return;
-    }
-    if (!window.confirm(`Are you sure you want to delete ${selectedProducts.length} products?`)) return;
-
-    try {
-      const response = await axios.post(`${backendUrl}/api/product/remove-multiple`, { ids: selectedProducts }, { headers: { token } });
-      if (response.data.success) {
-        toast.success("Selected products deleted successfully!");
-        setProducts(products.filter((product) => !selectedProducts.includes(product._id)));
-        setSelectedProducts([]); // Reset pilihan
-      } else {
-        toast.error("Failed to delete selected products");
-      }
-    } catch (error) {
-      console.error("Error deleting products:", error);
-      toast.error("Error deleting selected products");
-    }
+  // 🔹 Tampilkan Konfirmasi Delete Pop-Up
+  const confirmDelete = (type, target = null) => {
+    setDeleteType(type);
+    setDeleteTarget(target);
+    setShowConfirmPopup(true);
   };
 
-  // 🔹 Hapus semua produk
-  const deleteAllProducts = async () => {
-    if (!window.confirm("Are you sure you want to delete ALL products? This action cannot be undone!")) return;
+  // 🔹 Eksekusi Delete Produk
+  const executeDelete = async () => {
+    setShowConfirmPopup(false);
 
     try {
-      const response = await axios.post(`${backendUrl}/api/product/remove-all`, {}, { headers: { token } });
-      if (response.data.success) {
-        toast.success("All products deleted successfully!");
-        setProducts([]);
-      } else {
-        toast.error("Failed to delete all products");
+      if (deleteType === "single") {
+        // Hapus satu produk
+        const response = await axios.post(`${backendUrl}/api/product/remove`, { id: deleteTarget }, { headers: { token } });
+        if (response.data.success) {
+          toast.success("Product deleted successfully!");
+          setProducts(products.filter((product) => product._id !== deleteTarget));
+        } else {
+          toast.error("Failed to delete product");
+        }
+      } else if (deleteType === "multiple") {
+        // Hapus beberapa produk sekaligus
+        if (selectedProducts.length === 0) {
+          toast.warn("No products selected!");
+          return;
+        }
+
+        const response = await axios.post(`${backendUrl}/api/product/remove-multiple`, { ids: selectedProducts }, { headers: { token } });
+        if (response.data.success) {
+          toast.success("Selected products deleted successfully!");
+          setProducts(products.filter((product) => !selectedProducts.includes(product._id)));
+          setSelectedProducts([]);
+        } else {
+          toast.error("Failed to delete selected products");
+        }
+      } else if (deleteType === "all") {
+        // Hapus semua produk
+        const response = await axios.post(`${backendUrl}/api/product/remove-all`, {}, { headers: { token } });
+        if (response.data.success) {
+          toast.success("All products deleted successfully!");
+          setProducts([]);
+        } else {
+          toast.error("Failed to delete all products");
+        }
       }
     } catch (error) {
-      console.error("Error deleting all products:", error);
-      toast.error("Error deleting all products");
+      console.error("Error deleting product(s):", error);
+      toast.error("Error deleting product(s)");
     }
   };
 
@@ -157,14 +156,14 @@ const List = ({ token }) => {
       {/* 🔥 Tombol Delete Selected & Delete All */}
       <div className="flex gap-3 mb-4">
         <button
-          onClick={deleteSelectedProducts}
+          onClick={() => confirmDelete("multiple")}
           className={`py-2 px-4 bg-red-500 text-white rounded-md font-semibold ${selectedProducts.length === 0 ? "opacity-50 cursor-not-allowed" : "hover:bg-red-600"}`}
           disabled={selectedProducts.length === 0}
         >
           Delete Selected
         </button>
         <button
-          onClick={deleteAllProducts}
+          onClick={() => confirmDelete("all")}
           className="py-2 px-4 bg-red-700 text-white rounded-md font-semibold hover:bg-red-800"
         >
           Delete All
@@ -182,7 +181,7 @@ const List = ({ token }) => {
       {/* 🔥 Grid Produk */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {products.map((product) => (
-          <div key={product._id} className="bg-white shadow-md rounded-lg overflow-hidden p-4">
+          <div key={product._id} className="bg-white shadow-md rounded-lg overflow-hidden p-4 relative">
 
             {/* Checkbox untuk memilih produk */}
             <input
@@ -325,6 +324,19 @@ const List = ({ token }) => {
       {/* Success Popup */}
       {showSuccessPopup && (
         <div className="success-popup">✅ Product updated successfully!</div>
+      )}
+
+      {/* 🔥 Konfirmasi Delete Pop-Up */}
+      {showConfirmPopup && (
+        <div className="popup-overlay">
+          <div className="popup-box">
+            <p className="popup-text mb-5">Apakah kamu yakin ingin menghapusnya?</p>
+            <div className="popup-buttons grid grid-cols-2 gap-2">
+              <button className="popup-btn ok" onClick={executeDelete}>OK</button>
+              <button className="popup-btn cancel" onClick={() => setShowConfirmPopup(false)}>Cancel</button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

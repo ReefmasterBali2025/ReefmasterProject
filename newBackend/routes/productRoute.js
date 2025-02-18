@@ -28,7 +28,7 @@ productRouter.post('/remove', adminAuth, removeProduct);
 productRouter.post('/remove-multiple', adminAuth, removeSelectedProduct)
 
 // ✅ Endpoint untuk menghapus semua produk sekaligus
-productRouter.post('/remove-multiple', adminAuth, removeAllProduct)
+productRouter.post('/remove-all', adminAuth, removeAllProduct)
 
 // ✅ Endpoint untuk mendapatkan detail satu produk
 productRouter.post('/single', singleProduct);
