@@ -20,6 +20,7 @@ import Invert from './pages/Invertonly'
 import Profile from './pages/Profile'
 
 
+
 const App = () => {
   return (
     <div >
@@ -44,6 +45,8 @@ const App = () => {
         <Route path='/Invert_Only' element={<Invert />} />
         <Route path='/cites' element={<Cites />} />
         <Route path='/MyProfile' element={<Profile />} />
+
+
       </Routes>
       <Footer />
     </div>

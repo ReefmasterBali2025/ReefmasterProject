@@ -6,11 +6,11 @@ import { toast } from "react-toastify";
 const List = ({ token }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedProducts, setSelectedProducts] = useState([]); // ✅ Produk yang dipilih untuk dihapus
   const [editingProduct, setEditingProduct] = useState(null);
   const [newImages, setNewImages] = useState(Array(4).fill(null));
   const [isUpdating, setIsUpdating] = useState(false); // ✅ State untuk animasi loading
   const [showSuccessPopup, setShowSuccessPopup] = useState(false); // ✅ State untuk popup sukses
-  const [selectedProducts, setSelectedProducts] = useState([]); // ✅ Produk yang dipilih untuk dihapus
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
   const [deleteType, setDeleteType] = useState(""); // "single" | "multiple" | "all"
   const [deleteTarget, setDeleteTarget] = useState(null);
@@ -144,9 +144,12 @@ const List = ({ token }) => {
     }
   };
 
+
   useEffect(() => {
     fetchProducts();
   }, []);
+
+
 
   return (
     <div className="max-w-6xl mx-auto p-6">
@@ -193,14 +196,25 @@ const List = ({ token }) => {
 
             {/* Gambar Produk */}
             <div className="h-48 w-full flex items-center justify-center overflow-hidden rounded-md">
-              <img src={product.image[0]} alt={product.name} className="object-cover w-full h-full" />
+              {product.link_image ? (
+                <img
+                  src={product.link_image}
+                  alt="NOT"
+                  className=" w-full h-full object-cover"
+                />
+              ) : (
+                <p className="text-gray-500">No Image</p>
+              )}
+              {/* <img src="https://drive.google.com/thumbnail?id=1yYJuOtb-2_WZDfwvM73qes-ewSOmtXNS" /> */}
             </div>
 
-            {/* Detail Produk */}
+
+            {/* 🔹 Detail Produk */}
             <div className="mt-3">
-              <h3 className="text-lg font-semibold text-gray-700">{product.name}</h3>
-              <p className="text-gray-500 text-sm">{product.category} - {product.subCategory}</p>
+              <h3 className="text-lg font-semibold text-gray-700">{product.common_name}-{product.code}</h3>
+              <p className="text-gray-500 text-sm">{product.latin_name} - {product.cites}</p>
               <p className="text-gray-800 font-bold mt-1">${product.price}</p>
+              <p className="text-gray-500 text-sm">Stock: {product.available_stock}</p>
             </div>
 
             {/* Tombol Aksi */}
@@ -330,7 +344,7 @@ const List = ({ token }) => {
       {showConfirmPopup && (
         <div className="popup-overlay">
           <div className="popup-box">
-            <p className="popup-text mb-5">Apakah kamu yakin ingin menghapusnya?</p>
+            <p className="popup-text mb-">Apakah kamu yakin ingin menghapusnya?</p>
             <div className="popup-buttons grid grid-cols-2 gap-2">
               <button className="popup-btn ok" onClick={executeDelete}>OK</button>
               <button className="popup-btn cancel" onClick={() => setShowConfirmPopup(false)}>Cancel</button>
