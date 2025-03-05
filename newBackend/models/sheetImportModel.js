@@ -22,13 +22,14 @@ const sheetImportSchema = new mongoose.Schema({
     localName: { type: String },
     grade: { type: String },
     size: { type: String },
-    hargaJual: { type: Number },
-    upsale: { type: Number },
-    hargaNet: { type: Number },
-    cost: { type: Number },
+    // 🔹 Bisa menyimpan baik Number maupun String
+    hargaJual: { type: mongoose.Schema.Types.Mixed },
+    upsale: { type: mongoose.Schema.Types.Mixed },
+    hargaNet: { type: mongoose.Schema.Types.Mixed },
+    cost: { type: mongoose.Schema.Types.Mixed },
     group: { type: String },
     aliasCitesWild: { type: String },
 }, { timestamps: true });
 
-const SheetImport = mongoose.models.SheetImport || mongoose.model('SheetImport', sheetImportSchema);
+const SheetImport = mongoose.models.SheetImport || mongoose.model('PRICE LIST STOCK LIST', sheetImportSchema);
 export default SheetImport;

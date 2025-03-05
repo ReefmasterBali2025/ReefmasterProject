@@ -97,7 +97,7 @@ const Cart = () => {
                     quantity: sizeInfo.quantity,
                     weight: sizeInfo.weight,
                     landedCost: landedCostPerSize.toFixed(2),
-                    COGS: (product.price + landedCostPerSize).toFixed(2)
+                    COGS: ((product.price * sizeInfo.quantity) + landedCostPerSize).toFixed(2)
                 });
             }
         }

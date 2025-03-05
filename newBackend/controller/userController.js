@@ -2,6 +2,7 @@ import validator from 'validator'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import userModel from "../models/userModel.js";
+import UserGsheet from '../models/userGsheetModel.js';
 
 
 const createToken = (id) => {
@@ -101,4 +102,14 @@ const adminLogin = async (req, res) => {
 
 }
 
-export { loginUser, registerUser, adminLogin };
+const listUser = async (req, res) => {
+    try {
+        const users = await UserGsheet.find({});
+        res.json({ success: true, users });
+    } catch (error) {
+        console.error("❌ Error fetching user:", error);
+        res.status(500).json({ success: false, message: error.message });
+    }
+}
+
+export { loginUser, registerUser, adminLogin, listUser };

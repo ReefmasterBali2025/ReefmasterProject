@@ -16,7 +16,8 @@ const Sidebar = () => {
                 {[
                     { to: "/add", icon: assets.add_icon, label: "Add Items" },
                     { to: "/list", icon: assets.order_icon, label: "List Items" },
-                    { to: "/orders", icon: assets.order_icon, label: "Orders" }
+                    { to: "/orders", icon: assets.order_icon, label: "Orders" },
+                    { to: "/listUser", icon: assets.order_icon, label: "Users" }
                 ].map((item, index) => (
                     <NavLink
                         key={index}

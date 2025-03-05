@@ -12,6 +12,11 @@ a.active hr {
   font-family: "Lexend", serif;
 }
 
+html, body {
+  overflow: auto;
+  min-height: 100vh;
+}
+
 /* body {
   background-color: aliceblue;
 } */
