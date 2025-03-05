@@ -1,22 +1,26 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { assets } from '../assets/assets';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ShopContext } from '../context/ShopContext';
+import { backendUrl } from '../App';
+import axios from 'axios';
 
-const Profile = () => {
+const Profile = ({ setToken }) => {
 
   const { setRoleProfile, roleProfile } = useContext(ShopContext);
-
+  const [userData, setUserData] = useState(null); // Data user yang login
+  const [subOrders, setSubOrders] = useState([]); // Semua user dengan USER_VERIFICATION_CODE yang sama
+  const [loading, setLoading] = useState(true); // Status loading
   const [settings, setSettings] = useState({
     priceMargin: 50,
     freightMargin: 30,
     importDuties: 1000,
   });
 
-  const [subOrders, setSubOrders] = useState([
-    { id: 'demo1', role: 'IMPORTER', password: 'demo', note: '' },
-    { id: 'custa', role: 'CUSTOMER', password: '123', note: '' },
-  ]);
+  // const [subOrders, setSubOrders] = useState([
+  //   { id: 'demo1', role: 'IMPORTER', password: 'demo', note: '' },
+  //   { id: 'custa', role: 'CUSTOMER', password: '123', note: '' },
+  // ]);
 
   const [toggles, setToggles] = useState({
     subOrderMode: true,
@@ -46,12 +50,12 @@ const Profile = () => {
     const [showLogoutPopup, setShowLogoutPopup] = useState(false); // State untuk pop-up logout
     const navigate = useNavigate();
 
-  const handleLogout = () => {
-    // Tambahkan logika logout seperti menghapus token, dsb.
-    alert('You have been logged out.');
-    setShowLogoutPopup(false);
-    navigate('/login'); // Arahkan ke halaman login
-  };
+  // const handleLogout = () => {
+  //   // Tambahkan logika logout seperti menghapus token, dsb.
+  //   alert('You have been logged out.');
+  //   setShowLogoutPopup(false);
+  //   navigate('/login'); // Arahkan ke halaman login
+  // };
 
   const [role, setRole] = useState('IMPORTER'); // Default role
 
@@ -66,15 +70,77 @@ const Profile = () => {
   const profileColor = roleProfile === 'IMPORTER' ? 'bg-blue-900' : 'bg-green-900';
   console.log(role)
 
+  // const navigate = useNavigate();
+
+  // ✅ Ambil data user dari localStorage saat komponen pertama kali dimuat
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+      if (!storedUser) {
+        navigate("/login");
+        return;
+      }
+
+      try {
+        // 🔥 Fetch semua user dari database
+        const response = await axios.get(`${backendUrl}/api/user/list-user`);
+        if (response.data.success) {
+          const allUsers = response.data.users;
+
+          // ✅ Cari user yang sedang login berdasarkan ID
+          const currentUser = allUsers.find(user => user.ID === storedUser.ID);
+
+          if (!currentUser) {
+            navigate("/login");
+            return;
+          }
+
+          setUserData(currentUser);
+          setRoleProfile(currentUser.ROLE);
+
+          // ✅ Filter user lain yang punya USER_VERIFICATION_CODE yang sama
+          let relatedUsers = allUsers.filter(user =>
+            user.USER_VERIFICATION_CODE === currentUser.USER_VERIFICATION_CODE
+          );
+
+          // ✅ Urutkan: IMPORTER dulu, baru CUSTOMER
+          relatedUsers = relatedUsers.sort((a, b) => (a.ROLE === 'IMPORTER' ? -1 : 1));
+
+          setSubOrders(relatedUsers);
+        }
+      } catch (error) {
+        console.error("❌ Error fetching user data:", error);
+      } finally {
+        setLoading(false); // Matikan loading setelah fetch selesai
+      }
+    };
+
+    fetchUserData();
+  }, [navigate, setRoleProfile]);
+
+  // ✅ Tampilkan loading jika data belum selesai diambil
+  if (loading) {
+    return <p className="text-center mt-10">Loading profile...</p>;
+  }
+
+  // ✅ Jika `userData` masih null setelah fetch, redirect ke login
+  if (!userData) {
+    navigate("/login");
+    return null;
+  }
+
   return (
     <nav className="flex pt-14">
       {/* Left Section */}
       <div className={`${profileColor} text-white w-1/3 p-4 flex flex-col items-center min-h-full`}>
         <div className="text-center">
           <img className='w-full p-4 cursor-pointer rounded-full' src={assets.p_img11} />
-          <h2 className="text-xl font-bold">demo1</h2>
+          {/* ✅ Ganti nama user berdasarkan yang login */}
+          <h2 className="text-xl font-bold">{userData.ID}</h2>
           <div className='mt-3'>
-            <p className='inline-block'>{role}</p>
+            <p className="mt-2">{userData.ROLE}</p>
             <button onClick={toggleRole} className='ml-4 p-3 bg-black rounded-md'>
               {role === 'IMPORTER' ? 'Switch to CUSTOMER' : 'Switch to IMPORTER'}
             </button>
@@ -155,20 +221,18 @@ const Profile = () => {
           <table className="w-full border-collapse border border-gray-200">
             <thead>
               <tr className="bg-gray-100">
+                <th className="border border-gray-200 p-2">USER_VERIFICATION_CODE</th>
                 <th className="border border-gray-200 p-2">ID</th>
                 <th className="border border-gray-200 p-2">ROLE</th>
-                <th className="border border-gray-200 p-2">PASSWORD</th>
-                <th className="border border-gray-200 p-2">NOTE</th>
                 <th className="border border-gray-200 p-2">ACTION</th>
               </tr>
             </thead>
             <tbody>
-              {subOrders.map((order, index) => (
-                <tr key={index}>
-                  <td className="border border-gray-200 p-2">{order.id}</td>
-                  <td className="border border-gray-200 p-2">{order.role}</td>
-                  <td className="border border-gray-200 p-2">{order.password}</td>
-                  <td className="border border-gray-200 p-2">{order.note}</td>
+              {subOrders.map((user, index) => (
+                <tr key={index} className={index === 0 ? "bg-yellow-100" : ""}>
+                  <td className="border border-gray-200 p-2">{user.USER_VERIFICATION_CODE || "-"}</td>
+                  <td className="border border-gray-200 p-2">{user.ID || "-"}</td>
+                  <td className="border border-gray-200 p-2">{user.ROLE || "-"}</td>
                   <td className="border border-gray-200 p-2">
                     <button
                       className="text-red-600"
