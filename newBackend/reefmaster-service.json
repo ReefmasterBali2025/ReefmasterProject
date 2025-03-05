@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "micro-environs-451503-f9",
+  "private_key_id": "28b960f30dcfcd8b2294af88981b7b4af6973c57",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDczra1EQb5kEOF\niGbtL5zNZUNA44qjwEiqqn68dZ92ZotcDokSidl9z6kTD6lom7kts3E5gbC/mLdr\nbMIhsW0xerJrUCPDyTBwCIxQ+2q7iyKollnmoVPgNt8tE52iNa3WUcjnizpL3b9H\nyR5/LE4qGDXEbPBgYPHrAqAVcjM4ybzJSxmI5K+s4UvXzC8g0oDhH53d0UhPqnGH\nwuGNrc8hf0SDg7zTEPHIJtNuWSgKs11N+CH/rghoovgsdVhPBVPPO0eAyGJdZxZ7\ne6cua6S3orYaydkpTl8z2yKNJV5p3dAkqh0/X9w5l6lXwTnK4A0/W4qtPRHqXWbT\nVrw3vGmjAgMBAAECggEAA9IX2z42Lq9OW8smbMg8IFm2NjM5vOeg2kMk+kHWxoez\ntZ4SxR1ZhBHJzSiiN8sqAx5twR77XfVYhyVUnpyhVQ/Ycn7qf4LFscqUEvqmuCQK\nL3yahaEZAHIynmcOfTYMkf7MSSVhltp5ataSDoVHvPa6R3HTHvfOd9CN0JEvTbY3\nsantxuIigSmsR7zKH4tBURk9Y4oO33lHNWGPp3qavFZtzv8YSU4kw3j1if6jP1Ii\neOvkNIVPtSjA5tNbAyc+atZetum30QOYeuR6wPbbDmtjM4pCjqQ3CCZYNTZQSonA\nvdFuFiiio3gEcNe1SglGHlv9bXtY9LDY4uiG5TS08QKBgQDvJNn3dEoyElYe7yMd\ngnXaU+HFoyHc7XCcDwoB0W0Xmhfvp5YK9m90VqPibb4rmFHRYbOT2Fl19iPBbzbD\nqCumnHxZ7ydJfTW9KaP5kWdJzfyuwEL1s+55HoEkUfAjBqxh7xqdl9LzK0kKhHUy\nBZR1PaAvuGYDVIAv0BY2LWgU/wKBgQDsXv8Htc8Asm7bUhHZGx2yqY90uTrW8jhT\nSn7ZLfjhTkB4NKt8fp83jDZo4sQ+YAJTsthkhc2FsvUKlluDYUL5CCCNj7nD1CKQ\nStp3jxvUE/1A76SqXbjq97GA0IlSrFN0oIbxEtgheELm3wCZqaBwzyOzHjP3jODs\nHnl08ZY3XQKBgQDQZNakcuwtEhmGP3HkR0mYBjzaUzwxH6Bf/iMETpG4XYm6R9nS\nl8msIcwShvuPVd8GjRNGJORgjSu/ZsDcY3IWcItUe7lKqxfnTaAc3P6bLCujxNsU\n7cVEOrbjBZwziZ8ygIA7EJC9Ytz1k1PlUUN7n0Y2D4SmJj7Ga5jPgWYP1QKBgQDY\ngz+6UUgXDFrNHQTqSJNQd07HjXAfOepsKP2+dATYZHRbZ2t5cwbmu9GPC8DUnd8j\nydu7YHDcugsJMqcK1gmh0Vb4NKHlhihO4bHx+C12ewTs+VZtE8JxwIdgRiSzjNQ5\nLV3N7wP4zI8DqVuEZcNn8eVyigTyCaJxxoxcmXqOpQKBgQCqNufxEaDo0w5gjcfl\nCIo8UIQpyHHJEOZunfBGDPVrnj9J6zEA982ntlSf/Fjeo8FrtqmBmvgyb+BOqMQK\nzQIdEIJ4A0XygQ6rZpgchw8s9ZGFkC2LUWH1rtlRsDeCLo3cg1wG/DCV1Z9GYyac\njTt35gsiCgZNP2lwn/AxJK+SuQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "reefmaster-service@micro-environs-451503-f9.iam.gserviceaccount.com",
+  "client_id": "100356723208963921877",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/reefmaster-service%40micro-environs-451503-f9.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

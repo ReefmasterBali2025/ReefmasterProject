@@ -22,6 +22,7 @@ import Unboxing from './pages/Unboxing'
 import Scan from './pages/Scan'
 
 
+
 const App = () => {
   return (
     <div >

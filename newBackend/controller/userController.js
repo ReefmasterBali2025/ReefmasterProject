@@ -2,6 +2,7 @@ import validator from 'validator'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import userModel from "../models/userModel.js";
+import UserGsheet from '../models/userGsheetModel.js';
 
 
 const createToken = (id) => {
@@ -14,10 +15,16 @@ const loginUser = async (req, res) => {
 
     try {
         const { email, password } = req.body;
+
+        // Menyimpan nilai user yang terdaftar
         const user = await userModel.findOne({ email });
+
+        // Cek apakah user sudah terdaftar atau belum
         if (!user) {
             return res.json({ success: false, message: "User doesn't exists" });
         }
+
+        // Menyocokkan password dengan user yang terdaftar
         const isMatch = await bcrypt.compare(password, user.password);
 
         if (isMatch) {
@@ -36,12 +43,12 @@ const loginUser = async (req, res) => {
 const registerUser = async (req, res) => {
     try {
 
-        const { name, email, password } = req.body;
+        const { name, email, password, role } = req.body;
 
         // checking user already exists or not
         const exists = await userModel.findOne({ email });
         if (exists) {
-            return res.json({ success: false, message: "User already exists" });
+            return res.json({ success: false, message: "User already exists boss" });
         }
 
         // Validating email format and strong pass
@@ -59,7 +66,8 @@ const registerUser = async (req, res) => {
         const newUser = new userModel({
             name,
             email,
-            password: hashPassword
+            password: hashPassword,
+            role
         });
 
         const user = await newUser.save();
@@ -77,8 +85,31 @@ const registerUser = async (req, res) => {
 
 
 // Route for admin login
-const adminUser = async (req, res) => {
+const adminLogin = async (req, res) => {
+
+
+    try {
+        const { email, password } = req.body;
+        if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
+            const token = jwt.sign(email + password, process.env.JWT_SECRET);
+            res.json({ success: true, token })
+        } else {
+            res.json({ success: false, message: "Invalid credentials" });
+        }
+    } catch (error) {
+        res.json({ success: false, message: error.message })
+    }
 
 }
 
-export { loginUser, registerUser, adminUser };
+const listUser = async (req, res) => {
+    try {
+        const users = await UserGsheet.find({});
+        res.json({ success: true, users });
+    } catch (error) {
+        console.error("❌ Error fetching user:", error);
+        res.status(500).json({ success: false, message: error.message });
+    }
+}
+
+export { loginUser, registerUser, adminLogin, listUser };

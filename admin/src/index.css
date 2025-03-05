@@ -1,0 +1,294 @@
+@import url("https://fonts.googleapis.com/css2?family=Bentham&family=Fredoka:wght@300..700&family=Lexend:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: "Lexend", serif;
+}
+
+/* body {
+  background-color: aliceblue;
+} */
+
+.fredoka-regular {
+  font-family: "Fredoka", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+.fredoka-semibold {
+  font-family: "Fredoka", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+.fredoka-bold {
+  font-family: "Fredoka", serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+.montserrat-regular {
+  font-family: "Montserrat", serif;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.montserrat-semibold {
+  font-family: "Montserrat", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.lexend-regular {
+  font-family: "Lexend", serif;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.lexend-semibold {
+  font-family: "Lexend", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.lexend-bold {
+  font-family: "Lexend", serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.bentham-regular {
+  font-family: "Bentham", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.outfit-semibold {
+  font-family: "Outfit", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.active{
+  background-color: #90CAF9;
+  border-color: rgb(197, 197, 197);
+  
+}
+
+
+select, input, textarea{
+  border: 1px solid #c2c2c2;
+  outline-color:#90CAF9 ;
+  border-radius: 8px;
+}
+
+/* ➰Animasi Loading di List.jsx ➰*/
+
+/* Animasi loading di tengah layar */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Efek gelembung berjalan */
+.loading-animation {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 6px solid #ffffff;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Popup sukses */
+.success-popup {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #4caf50;
+  color: white;
+  padding: 15px 25px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  animation: fadeInOut 3s ease-in-out;
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0; }
+  10%, 90% { opacity: 1; }
+}
+
+
+/* End Animasi Loading di List.jsx */
+
+/* 🔥 Background gelap saat pop-up muncul */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* 🔥 Box pop-up konfirmasi */
+.popup-box {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  animation: popup-fade 0.3s ease-in-out;
+}
+
+/* 🔥 Animasi pop-up */
+@keyframes popup-fade {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 🔥 Tombol pop-up */
+/* .popup-buttons {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 10px;
+} */
+
+.popup-btn {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.popup-btn.ok {
+  background: red;
+  color: white;
+}
+
+.popup-btn.cancel {
+  background: gray;
+  color: white;
+}
+
+.popup-btn.ok:hover {
+  background: darkred;
+}
+
+.popup-btn.cancel:hover {
+  background: darkgray;
+}
+
+
+/* 🔹 Overlay Importing */
+.import-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* 🔹 Importing Text */
+.import-loading {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 🔹 Efek animasi gelembung naik turun */
+.bubble-container {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.bubble {
+  width: 12px;
+  height: 12px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  animation: bubbleMove 2s infinite ease-in-out;
+}
+
+.bubble:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.bubble:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.bubble:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+@keyframes bubbleMove {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-15px);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+}
