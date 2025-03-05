@@ -14,28 +14,28 @@ const createToken = (id) => {
 const loginUser = async (req, res) => {
 
     try {
-        const { email, password } = req.body;
+        const { ID, PASSWORD } = req.body;
 
-        // Menyimpan nilai user yang terdaftar
-        const user = await userModel.findOne({ email });
+        // 🔍 Cek apakah user ada di database berdasarkan ID
+        const user = await UserGsheet.findOne({ ID });
 
-        // Cek apakah user sudah terdaftar atau belum
         if (!user) {
-            return res.json({ success: false, message: "User doesn't exists" });
+            return res.status(404).json({ success: false, message: "User ID tidak ditemukan!" });
         }
 
-        // Menyocokkan password dengan user yang terdaftar
-        const isMatch = await bcrypt.compare(password, user.password);
-
-        if (isMatch) {
-            const token = createToken(user._id);
-            res.json({ success: true, token });
-        } else {
-            res.json({ success: false, message: 'Invalid password' })
+        // 🔑 Cek apakah password cocok (tidak dienkripsi)
+        if (user.PASSWORD !== PASSWORD) {
+            return res.status(401).json({ success: false, message: "Password salah!" });
         }
+
+        // 🛡️ Buat token JWT
+        const token = createToken(user._id);
+
+        res.json({ success: true, token, user: { ID: user.ID, ROLE: user.ROLE } });
+
     } catch (error) {
-        console.log(error);
-        res.json({ success: false, message: error.message })
+        console.error("❌ Error saat login:", error);
+        res.status(500).json({ success: false, message: error.message });
     }
 }
 

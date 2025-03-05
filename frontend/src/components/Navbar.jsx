@@ -3,7 +3,7 @@ import { assets } from '../assets/assets';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { ShopContext } from '../context/ShopContext';
 
-const Navbar = () => {
+const Navbar = ({ setToken }) => {
     const [visible, setVisible] = useState(false);
     const [showLogoutPopup, setShowLogoutPopup] = useState(false); // State untuk pop-up logout
     const { setShowSearch, getCartCount, roleProfile } = useContext(ShopContext);
@@ -11,10 +11,18 @@ const Navbar = () => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        // Tambahkan logika logout seperti menghapus token, dsb.
-        alert('You have been logged out.');
-        setShowLogoutPopup(false);
-        navigate('/login'); // Arahkan ke halaman login
+        console.log("🚀 Logging out...");
+
+        // ✅ Hapus token dari localStorage
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+
+        // ✅ Hapus state token
+        setToken("");
+        setShowLogoutPopup(false)
+
+        // ✅ Redirect ke halaman login
+        navigate('/login');
     };
 
     if (location.pathname === '/login') {

@@ -2,7 +2,14 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { assets } from '../assets/assets';
 
-const Login = () => {
+import axios from 'axios';
+import { backendUrl } from '../App';
+import { toast } from 'react-toastify';
+
+const Login = ({ setToken }) => {
+    const [ID, setID] = useState(""); // State untuk ID
+    const [password, setPassword] = useState(""); // State untuk Password
+    const [error, setError] = useState(""); // State untuk pesan error
     const [isLogin, setIsLogin] = useState(true); // State untuk mengatur apakah sedang di halaman login atau sign up
     const navigate = useNavigate();
 
@@ -15,12 +22,52 @@ const Login = () => {
         navigate('/home');
     };
 
+    // ✅ Fungsi untuk menangani login
+    const handleLogin = async (event) => {
+        event.preventDefault();
+        setError(""); // Reset error message sebelum request
+
+        try {
+            const response = await axios.post(`${backendUrl}/api/user/login`, {
+                ID,
+                PASSWORD: password
+            });
+
+            if (response.data.success) {
+                const token = response.data.token;
+
+                console.log("✅ Token diterima:", token);
+
+                // ✅ Simpan token & user info di localStorage
+                localStorage.setItem("token", token);
+                localStorage.setItem("user", JSON.stringify(response.data.user));
+
+                // ✅ Set token di state global
+                setToken(token);
+
+                // ✅ Notifikasi sukses login
+                toast.success("Login berhasil! Selamat datang!");
+
+                // ✅ Redirect ke home
+                navigate('/home');
+            } else {
+                setError(response.data.message);
+                toast.error(response.data.message);
+                console.log("❌ Login gagal:", response.data.message);
+            }
+        } catch (error) {
+            console.error("❌ Error login:", error);
+            setError("Terjadi kesalahan saat login.");
+            toast.error("Terjadi kesalahan saat login.");
+        }
+    };
+
     return (
         <div className="flex h-screen w-full flex-col md:flex-row">
             {/* Bagian Kiri */}
             <div className="w-full md:w-1/2 bg-white flex flex-col justify-center items-center p-8">
                 <h1 className="text-4xl font-bold mb-4">{isLogin ? 'Log in' : 'Sign Up'}</h1>
-                <form onSubmit={onSubmitHandler} className="w-3/4 flex flex-col gap-4">
+                <form onSubmit={handleLogin} className="w-3/4 flex flex-col gap-4">
                     {!isLogin && (
                         <input
                             type="email"
@@ -30,13 +77,17 @@ const Login = () => {
                     )}
                     <input
                         type="text"
-                        placeholder="Name"
+                        placeholder="User ID"
+                        value={ID}
+                        onChange={(e) => setID(e.target.value)}
                         className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-[#0079FF]"
                         required
                     />
                     <input
                         type="password"
                         placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-[#0079FF]"
                         required
                     />
