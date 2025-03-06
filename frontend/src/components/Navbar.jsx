@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { assets } from '../assets/assets';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { ShopContext } from '../context/ShopContext';
@@ -9,6 +9,16 @@ const Navbar = ({ setToken }) => {
     const { setShowSearch, getCartCount, roleProfile } = useContext(ShopContext);
     const location = useLocation();
     const navigate = useNavigate();
+    const [role, setRole] = useState("IMPORTER"); // Default IMPORTER
+
+
+    useEffect(() => {
+        const storedRole = localStorage.getItem("role");
+        if (storedRole) {
+            setRole(storedRole);
+        }
+    }, []);
+
 
     const handleLogout = () => {
         console.log("🚀 Logging out...");
@@ -16,6 +26,7 @@ const Navbar = ({ setToken }) => {
         // ✅ Hapus token dari localStorage
         localStorage.removeItem("token");
         localStorage.removeItem("user");
+        localStorage.removeItem("role"); // 🔥 Hapus role saat logout
 
         // ✅ Hapus state token
         setToken("");
@@ -23,15 +34,16 @@ const Navbar = ({ setToken }) => {
 
         // ✅ Redirect ke halaman login
         navigate('/login');
+        window.location.reload(); // 🔥 Refresh biar Navbar & Footer langsung update
     };
 
     if (location.pathname === '/login') {
         return null;
     }
 
-    // Menentukan warna navbar berdasarkan role
-    const navbarColor = roleProfile === 'IMPORTER' ? 'bg-[#0079FF]' : 'bg-green-600';
-    console.log(`Role di Navbar adalah ${roleProfile}`)
+    // 🔥 Warna Navbar sesuai ROLE
+    const navbarColor = role === "IMPORTER" ? "bg-[#0079FF]" : "bg-green-600";
+    console.log(`Role di Navbar adalah ${role}`)
 
     return (
         <nav className={`w-full ${navbarColor} fixed top-0 left-0 z-50`}>

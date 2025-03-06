@@ -27,6 +27,11 @@ const ShopContextProvider = (props) => {
     const [landedCost, setLandedCost] = useState([]);
 
 
+
+
+
+
+
     // Function to calculate landed cost dynamically
     useEffect(() => {
         const updatedLandedCost = [

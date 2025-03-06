@@ -129,5 +129,28 @@ const deleteUser = async (req, res) => {
     }
 };
 
+const addSubOrder = async (req, res) => {
+    try {
+        const { ID, PASSWORD, ROLE, USER_VERIFICATION_CODE } = req.body;
 
-export { loginUser, registerUser, adminLogin, listUser, deleteUser };
+        // 🔥 Pastikan ID unik
+        const existingUser = await UserGsheet.findOne({ ID });
+        if (existingUser) {
+            return res.status(400).json({ success: false, message: "ID already exists!" });
+        }
+
+        // 🔥 Simpan sub order ke database
+        const newSubOrder = new UserGsheet({ ID, PASSWORD, ROLE, USER_VERIFICATION_CODE });
+        await newSubOrder.save();
+
+        res.json({ success: true, message: "Sub Order added successfully!" });
+
+    } catch (error) {
+        console.error("❌ Error adding sub order:", error);
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
+
+
+
+export { loginUser, registerUser, adminLogin, listUser, deleteUser, addSubOrder };

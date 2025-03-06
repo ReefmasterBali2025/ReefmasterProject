@@ -35,12 +35,14 @@ const Login = ({ setToken }) => {
 
             if (response.data.success) {
                 const token = response.data.token;
+                const user = response.data.user;
 
                 console.log("✅ Token diterima:", token);
 
                 // ✅ Simpan token & user info di localStorage
                 localStorage.setItem("token", token);
-                localStorage.setItem("user", JSON.stringify(response.data.user));
+                localStorage.setItem("user", JSON.stringify(user));
+                localStorage.setItem("role", user.ROLE); // 🔥 Simpan ROLE ke localStorage
 
                 // ✅ Set token di state global
                 setToken(token);
@@ -50,6 +52,9 @@ const Login = ({ setToken }) => {
 
                 // ✅ Redirect ke home
                 navigate('/home');
+
+                // ✅ Refresh halaman biar Navbar & Footer langsung baca ROLE
+                window.location.reload(); // 🔥 Ini biar Navbar & Footer langsung update warna
             } else {
                 setError(response.data.message);
                 toast.error(response.data.message);

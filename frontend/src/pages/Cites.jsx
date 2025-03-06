@@ -1,6 +1,53 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from "axios";
+import { backendUrl } from "../App";
 
 const Cites = () => {
+
+    const [citesList, setCitesList] = useState([]);
+    const [selectedCites, setSelectedCites] = useState(""); // Untuk menyimpan pilihan dropdown
+
+    useEffect(() => {
+        // ✅ Ambil data user dari localStorage
+        const storedUser = JSON.parse(localStorage.getItem("user"));
+        if (!storedUser) {
+            console.error("❌ Tidak ada user yang login.");
+            return;
+        }
+
+        // ✅ Ambil CITES dari user yang login
+        const fetchCites = async () => {
+            try {
+                const response = await axios.get(`${backendUrl}/api/user/list-user`);
+                if (response.data.success) {
+                    const allUsers = response.data.users;
+                    const currentUser = allUsers.find(user => user.ID === storedUser.ID);
+
+                    if (!currentUser) {
+                        console.error("❌ User tidak ditemukan di database.");
+                        return;
+                    }
+
+                    // ✅ Ambil semua nilai dari NO_CITES_1 - NO_CITES_10
+                    const citesNumbers = [];
+                    for (let i = 1; i <= 10; i++) {
+                        const citesKey = `NO_CITES_${i}`;
+                        if (currentUser[citesKey]) {
+                            citesNumbers.push(currentUser[citesKey]);
+                        }
+                    }
+
+                    setCitesList(citesNumbers);
+                }
+            } catch (error) {
+                console.error("❌ Error fetching CITES data:", error);
+            }
+        };
+
+        fetchCites();
+    }, []);
+
+
     return (
         <div className="h-full bg-white text-black flex flex-col pt-14 ">
             {/* Main Content */}
@@ -9,7 +56,7 @@ const Cites = () => {
                 <aside className="w-full md:w-1/4 bg-gray-200 p-9 md:p-3 lg:p-5 border-r border-gray-300 ">
                     <h2 className="text-lg font-bold mb-4">Guidance</h2>
                     <p className="text-sm mb-4">
-                        You have 3 active CITES, tap the 'pdf' icon to see the original document.
+                        You have {citesList.length} active CITES, tap the 'pdf' icon to see the original document.
                     </p>
                     <p className="text-sm">
                         Please kindly maximize our Hard Coral Cites, so we can always deliver our best price.
@@ -22,15 +69,17 @@ const Cites = () => {
                         <select
                             id="citesDropdown"
                             className="w-full p-2 border border-gray-300 rounded bg-white cursor-pointer"
-                            value=""
-                            onChange={(e) => e.preventDefault()} // Prevent selection change
+                            value={selectedCites}
+                            onChange={(e) => setSelectedCites(e.target.value)}
                         >
                             <option value="" disabled>
                                 Select to view CITES
                             </option>
-                            <option>[1] → 99999</option>
-                            <option>[2] → 77777</option>
-                            <option>[3] → 5555</option>
+                            {citesList.map((cites, index) => (
+                                <option key={index} value={cites}>
+                                    [{index + 1}] → {cites}
+                                </option>
+                            ))}
                         </select>
                     </div>
                 </aside>

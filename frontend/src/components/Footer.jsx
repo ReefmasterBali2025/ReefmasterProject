@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { assets } from '../assets/assets'
 import { ShopContext } from '../context/ShopContext'
 
@@ -6,7 +6,16 @@ const Footer = () => {
 
     const { roleProfile } = useContext(ShopContext)
 
-    const footerColor = roleProfile === 'IMPORTER' ? 'bg-[#0079FF]' : 'bg-green-600';
+    const [role, setRole] = useState("IMPORTER"); // Default IMPORTER
+
+    useEffect(() => {
+        const storedRole = localStorage.getItem("role");
+        if (storedRole) {
+            setRole(storedRole);
+        }
+    }, []);
+
+    const footerColor = role === 'IMPORTER' ? 'bg-[#0079FF]' : 'bg-green-600';
 
     return (
         <div className={`w-full px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]  ${footerColor} text-white`}>

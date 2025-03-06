@@ -59,6 +59,7 @@ import videogeneral from './video2.mp4'
 import videofish from './video3.mp4'
 import video4 from './video4.mp4'
 import videologin1 from './videologin1.mp4'
+import successgif from './success.gif'
 
 
 import logo from './logo_reefmaster.png'
@@ -114,7 +115,8 @@ export const assets = {
     videofish,
     video4,
     fotofarm1,
-    videologin1
+    videologin1,
+    successgif
 }
 
 export const products = [
