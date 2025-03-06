@@ -112,4 +112,22 @@ const listUser = async (req, res) => {
     }
 }
 
-export { loginUser, registerUser, adminLogin, listUser };
+const deleteUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deletedUser = await UserGsheet.findByIdAndDelete(id);
+
+
+        if (!deletedUser) {
+            return res.status(404).json({ success: false, message: "User not found!" });
+        }
+
+        res.json({ success: true, message: "User deleted successfully!" });
+    } catch (error) {
+        console.error("❌ Error deleting user:", error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+};
+
+
+export { loginUser, registerUser, adminLogin, listUser, deleteUser };

@@ -36,9 +36,26 @@ const Profile = ({ setToken }) => {
     setSettings((prev) => ({ ...prev, [key]: value }));
   };
 
-  const handleDeleteSubOrder = (id) => {
-    setSubOrders((prev) => prev.filter((order) => order.id !== id));
+  const handleDeleteSubOrder = async (userId) => {
+    if (!window.confirm("Are you sure you want to delete this user?")) return;
+
+    try {
+      // 🔥 Kirim request DELETE ke backend
+      const response = await axios.delete(`${backendUrl}/api/user/delete-user/${userId}`);
+
+      if (response.data.success) {
+        // ✅ Hapus user dari state subOrders
+        setSubOrders((prevSubOrders) => prevSubOrders.filter((user) => user.ID !== userId));
+        alert("User deleted successfully!");
+      } else {
+        alert("Failed to delete user!");
+      }
+    } catch (error) {
+      console.error("❌ Error deleting user:", error);
+      alert("An error occurred while deleting the user.");
+    }
   };
+
 
   const handleAddSubOrder = () => {
     setSubOrders((prev) => [
@@ -236,7 +253,7 @@ const Profile = ({ setToken }) => {
                   <td className="border border-gray-200 p-2">
                     <button
                       className="text-red-600"
-                      onClick={() => handleDeleteSubOrder(order.id)}
+                      onClick={() => handleDeleteSubOrder(user.ID)}
                     >
                       &#x1F5D1; Delete
                     </button>
