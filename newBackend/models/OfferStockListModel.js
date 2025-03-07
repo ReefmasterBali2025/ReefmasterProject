@@ -16,7 +16,7 @@ const OfferStockListSchema = new mongoose.Schema({
     value: String,
     plastic_size: Number,
     height_cm: Number,
-    price: Number,
+    price: String,
     system: String,
     image_file_name: String,
     image: String, // 🔥 Simpan link gambar Google Drive

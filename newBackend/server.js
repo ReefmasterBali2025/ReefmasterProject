@@ -13,6 +13,7 @@ import { importOfferWysiwyg } from './controller/OfferWysiwygController.js';
 import { fetchCommonNames } from './controller/commonNameController.js';
 import { fetchCommonNamesWysiwyg } from './controller/commonNameWysiwygController.js';
 import { importUserGsheet } from './controller/userGsheetController.js';
+import { getAllCitesDetails, getCitesDetailByNumber, importCitesDetail } from './controller/citesDetailController.js';
 // import { checkImgBBConnection } from "./middleware/imgbb.js"; // 🔥 Import ImgBB Connection Check
 // Import the functions you need from the SDKs you need
 
@@ -54,6 +55,14 @@ app.get("/api/common-names", fetchCommonNames); // 🔥 Route untuk ambil common
 app.get("/api/common-names-wysiwyg", fetchCommonNamesWysiwyg); // 🔥 Route untuk ambil common_name
 
 app.get("/api/userGsheet", importUserGsheet);
+
+app.get("/api/citesDetail", importCitesDetail);
+
+// 🔥 Tambahkan endpoint baru
+app.get("/api/citesNumberDetail/:citesNumber", getCitesDetailByNumber);
+
+app.post("/api/citesAllDetails", getAllCitesDetails);
+
 
 
 

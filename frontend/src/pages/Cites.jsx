@@ -1,34 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { backendUrl } from "../App";
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const Cites = () => {
 
     const [citesList, setCitesList] = useState([]);
-    const [selectedCites, setSelectedCites] = useState(""); // Untuk menyimpan pilihan dropdown
+    const [selectedCites, setSelectedCites] = useState("");
+    const [citesData, setCitesData] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        // ✅ Ambil data user dari localStorage
         const storedUser = JSON.parse(localStorage.getItem("user"));
         if (!storedUser) {
             console.error("❌ Tidak ada user yang login.");
             return;
         }
 
-        // ✅ Ambil CITES dari user yang login
-        const fetchCites = async () => {
+        const fetchUserCites = async () => {
             try {
-                const response = await axios.get(`${backendUrl}/api/user/list-user`);
-                if (response.data.success) {
-                    const allUsers = response.data.users;
-                    const currentUser = allUsers.find(user => user.ID === storedUser.ID);
+                const userResponse = await axios.get(`${backendUrl}/api/user/list-user`);
+                if (userResponse.data.success) {
+                    const allUsers = userResponse.data.users;
+                    const currentUser = allUsers.find((user) => user.ID === storedUser.ID);
 
                     if (!currentUser) {
                         console.error("❌ User tidak ditemukan di database.");
                         return;
                     }
 
-                    // ✅ Ambil semua nilai dari NO_CITES_1 - NO_CITES_10
+                    // ✅ Ambil NO_CITES_1 - NO_CITES_10 yang dimiliki user
                     const citesNumbers = [];
                     for (let i = 1; i <= 10; i++) {
                         const citesKey = `NO_CITES_${i}`;
@@ -36,16 +37,61 @@ const Cites = () => {
                             citesNumbers.push(currentUser[citesKey]);
                         }
                     }
-
                     setCitesList(citesNumbers);
                 }
             } catch (error) {
-                console.error("❌ Error fetching CITES data:", error);
+                console.error("❌ Error fetching CITES numbers:", error);
             }
         };
 
-        fetchCites();
+        fetchUserCites();
     }, []);
+
+    useEffect(() => {
+        if (!selectedCites) {
+            setCitesData(null);
+            return;
+        }
+
+        const fetchCitesDetail = async () => {
+            setLoading(true);
+
+            try {
+                if (selectedCites === "ALL") {
+                    const response = await axios.post(`${backendUrl}/api/citesAllDetails`, { citesList });
+                    if (response.data.success) {
+                        setTimeout(() => {
+                            setCitesData(response.data.data); // ✅ Pastikan structure benar
+                            setLoading(false);
+                        }, 500);
+                    }
+                } else {
+                    const response = await axios.get(`${backendUrl}/api/citesNumberDetail/${selectedCites}`);
+                    if (response.data.success) {
+                        setTimeout(() => {
+                            setCitesData({
+                                [response.data.cites_category]: response.data.data.map((item) => ({
+                                    scientific_name: item.scientific_name,
+                                    quantity: item.quantity,
+                                    order: 0,
+                                })),
+                            });
+                            setLoading(false);
+                        }, 500);
+                    }
+                }
+            } catch (error) {
+                console.error("❌ Error fetching CITES detail:", error);
+                setLoading(false);
+            }
+        };
+
+        fetchCitesDetail();
+    }, [selectedCites]);
+
+    // console.log(selectedCites);
+    console.log(citesList);
+
 
 
     return (
@@ -75,6 +121,7 @@ const Cites = () => {
                             <option value="" disabled>
                                 Select to view CITES
                             </option>
+                            <option value="ALL">All Cites</option> {/* 🔥 Tambahkan opsi "All Cites" */}
                             {citesList.map((cites, index) => (
                                 <option key={index} value={cites}>
                                     [{index + 1}] → {cites}
@@ -84,168 +131,39 @@ const Cites = () => {
                     </div>
                 </aside>
 
-                {/* Cites Culture & Wild */}
-                <main className="flex-1 flex flex-col lg:flex-row">
-                    {/* CITES Culture */}
-                    <section className="flex-1 p-4">
-                        <h2 className="text-lg font-bold mb-4">CITES CULTURE</h2>
-                        <div className="overflow-auto border border-gray-300">
-                            <table className="w-full text-left border-collapse">
-                                <thead>
-                                    <tr className="bg-gray-100">
-                                        <th className="p-2 border-b">Cites</th>
-                                        <th className="p-2 border-b">Remaining</th>
-                                        <th className="p-2 border-b">Qty</th>
-                                        <th className="p-2 border-b">Order</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {/* Example rows */}
-                                    <tr>
-                                        <td className="p-2 border-b">Acanthastrea spp.</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="p-2 border-b">Acropora spp.</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="p-2 border-b">Acropora spp.</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="p-2 border-b">Acropora spp.</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="p-2 border-b">Acropora spp.</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="p-2 border-b">Acropora spp.</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="p-2 border-b">Acropora spp.</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="p-2 border-b">Acropora spp.</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="p-2 border-b">Acropora spp.</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="p-2 border-b">Acropora spp.</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">0</td>
-                                    </tr>
-                                    {/* Add more rows as needed */}
-                                </tbody>
-                            </table>
-                        </div>
-                    </section>
-
-                    {/* CITES Wild */}
-                    <section className="flex-1 p-4">
-                        <h2 className="text-lg font-bold mb-4">CITES WILD</h2>
-                        <div className="overflow-auto border border-gray-300">
-                            <table className="w-full text-left border-collapse">
-                                <thead>
-                                    <tr className="bg-gray-100">
-                                        <th className="p-2 border-b">Cites</th>
-                                        <th className="p-2 border-b">Remaining</th>
-                                        <th className="p-2 border-b">Qty</th>
-                                        <th className="p-2 border-b">Order</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {/* Example rows */}
-                                    <tr>
-                                        <td className="p-2 border-b">Acanthastrea spp.</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="p-2 border-b">Acropora spp.</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="p-2 border-b">Acropora spp.</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="p-2 border-b">Acropora spp.</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="p-2 border-b">Acropora spp.</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="p-2 border-b">Acropora spp.</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">0</td>
-                                    </tr><tr>
-                                        <td className="p-2 border-b">Acropora spp.</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="p-2 border-b">Acropora spp.</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="p-2 border-b">Acropora spp.</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="p-2 border-b">Acropora spp.</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">100</td>
-                                        <td className="p-2 border-b">0</td>
-                                    </tr>
-                                    {/* Add more rows as needed */}
-                                </tbody>
-                            </table>
-                        </div>
-                    </section>
+                <main className="flex-1 p-4">
+                    {loading && <LoadingSpinner isLoading={loading} />} {/* ✅ Tampilkan loading spinner */}
+                    {!loading && selectedCites && citesData ? (
+                        Object.keys(citesData).map((category, index) => ( // ✅ Render tabel per kategori
+                            <div key={index} className="mb-6">
+                                <h2 className="text-lg font-bold mb-4">CITES {category}</h2>
+                                <div className="overflow-auto border border-gray-300">
+                                    <table className="w-full text-left border-collapse">
+                                        <thead>
+                                            <tr className="bg-gray-100">
+                                                <th className="p-2 border-b">Cites</th>
+                                                <th className="p-2 border-b">Remaining</th>
+                                                <th className="p-2 border-b">Qty</th>
+                                                <th className="p-2 border-b">Order</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {citesData[category].map((item, idx) => ( // ✅ Data dari kategori
+                                                <tr key={idx}>
+                                                    <td className="p-2 border-b">{item.scientific_name}</td>
+                                                    <td className="p-2 border-b">{item.quantity - item.order || 0}</td>
+                                                    <td className="p-2 border-b">{item.quantity}</td>
+                                                    <td className="p-2 border-b">{item.order || 0}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        ))
+                    ) : !loading ? (
+                        <p className="text-center text-lg font-semibold text-gray-500">No CITES Selected</p>
+                    ) : null}
                 </main>
             </div>
         </div>
