@@ -84,7 +84,7 @@ const ListWysiwyg = ({ token }) => {
     // 🔥 Upload ke ImgBB
     const formData = new FormData();
     formData.append("image", file);
-    formData.append("key", "e8d64594db1210de2a1f2ebdf0843870"); // API Key ImgBB
+    formData.append("key", "e8d64594db1210de2a1f2ebdf0843870");
 
     try {
       const response = await fetch("https://api.imgbb.com/1/upload", {
@@ -98,13 +98,10 @@ const ListWysiwyg = ({ token }) => {
       if (data.success) {
         const imageUrl = data.data.url;
 
-        // ✅ Perbarui `link_image` langsung ke `editingProduct`
-        setEditingProduct((prev) => ({
-          ...prev,
-          link_image: imageUrl,
-        }));
-
-        console.log("📸 Gambar berhasil diunggah dan diperbarui:", imageUrl);
+        // ✅ Update `newImages` agar sesuai dengan hasil upload
+        const updatedUrls = [...newImages];
+        updatedUrls[index] = imageUrl;
+        setNewImages(updatedUrls);
       }
     } catch (error) {
       console.error("❌ Error uploading to ImgBB:", error);
@@ -266,6 +263,16 @@ const ListWysiwyg = ({ token }) => {
   useEffect(() => {
     fetchProducts();
   }, []);
+
+  // 🔥 Reset gambar ke gambar asli setiap kali modal update dibuka
+  useEffect(() => {
+    if (editingProduct) {
+      // Pastikan `link_image` diambil dari produk yang benar
+      setNewImages(editingProduct.link_image ? [...editingProduct.link_image] : Array(4).fill(null));
+    }
+  }, [editingProduct]); // Hanya dijalankan saat `editingProduct` berubah
+
+
 
 
 
@@ -434,23 +441,25 @@ const ListWysiwyg = ({ token }) => {
 
               {/* Upload Gambar Baru */}
               <div className="grid grid-cols-4 gap-2">
-                {editingProduct.link_image ? (
-                  <label className="relative w-full aspect-square overflow-hidden cursor-pointer rounded-md">
+                {Array(4).fill(null).map((_, index) => (
+                  <label key={index} className="relative w-full aspect-square overflow-hidden cursor-pointer rounded-md">
                     <input
                       type="file"
                       accept="image/*"
-                      onChange={(e) => handleImageUpload(e, 0)}
+                      onChange={(e) => handleImageUpload(e, index)}
                       className="hidden"
                     />
                     <img
-                      src={newImages[0] ? URL.createObjectURL(newImages[0]) : editingProduct.link_image}
-                      alt="Product"
+                      src={
+                        newImages[index] instanceof File
+                          ? URL.createObjectURL(newImages[index]) // Jika user baru saja mengunggah file
+                          : newImages[index] || "https://via.placeholder.com/150" // Jika belum ada file baru, pakai gambar asli
+                      }
+                      alt={`Product ${index + 1}`}
                       className="w-full h-full object-cover rounded-md"
                     />
                   </label>
-                ) : (
-                  <p className="text-gray-500">No Image Available</p>
-                )}
+                ))}
               </div>
 
               {/* Best Seller */}

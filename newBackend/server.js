@@ -9,11 +9,12 @@ import { importSheetData } from './controller/sheetImportController.js';
 import { importOfferStockList } from './controller/OfferStockListController.js';
 // import priceListWysiwyg from './models/PriceListWysiwygModel.js';
 import { importPriceListWysiwyg } from './controller/PriceListWysiwygController.js';
-import { importOfferWysiwyg } from './controller/OfferWysiwygController.js';
+import { fetchLatinNamesWysiwyg, getMaxUniqueId, importOfferWysiwyg } from './controller/OfferWysiwygController.js';
 import { fetchCommonNames } from './controller/commonNameController.js';
 import { fetchCommonNamesWysiwyg } from './controller/commonNameWysiwygController.js';
 import { importUserGsheet } from './controller/userGsheetController.js';
 import { getAllCitesDetails, getCitesDetailByNumber, importCitesDetail } from './controller/citesDetailController.js';
+import { importCombine } from './controller/CombineController.js';
 // import { checkImgBBConnection } from "./middleware/imgbb.js"; // 🔥 Import ImgBB Connection Check
 // Import the functions you need from the SDKs you need
 
@@ -27,7 +28,12 @@ connectCloudinary();
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: "*",  // Jika ingin spesifik bisa ganti "*" dengan frontend URL
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true
+}));
+
 
 // API Routes
 app.use('/api/user', userRouter);
@@ -63,6 +69,11 @@ app.get("/api/citesNumberDetail/:citesNumber", getCitesDetailByNumber);
 
 app.post("/api/citesAllDetails", getAllCitesDetails);
 
+app.get("/api/maxUniqueId", getMaxUniqueId); // ✅ Route baru
+
+app.get("/api/latin-names-wysiwyg", fetchLatinNamesWysiwyg);
+
+app.get("/api/import-combine", importCombine) // Route untuk fetch data combine stock list dan wysiwyg
 
 
 

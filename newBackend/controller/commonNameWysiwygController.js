@@ -28,7 +28,7 @@ export const fetchCommonNamesWysiwyg = async (req, res) => {
             return res.status(404).json({ success: false, message: "No data found" });
         }
 
-        const commonNames = rows.map(row => row[0]).filter(name => name); // Ambil hanya nama yang ada
+        const commonNames = rows.map(row => row[0]).filter(name => name).sort((a, b) => a.localeCompare(b)); // Ambil hanya nama yang ada
         console.log("✅ Common Names Fetched:", commonNames.length);
 
         return res.json({ success: true, data: commonNames });

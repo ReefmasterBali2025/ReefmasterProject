@@ -33,10 +33,10 @@ const ListStockList = ({ token }) => {
         setTotalProducts(response.data.products.length); // ✅ Simpan total produk
         // ✅ Grouping berdasarkan `latin_name`
         const grouped = productList.reduce((acc, product) => {
-          if (!acc[product.latin_name]) {
-            acc[product.latin_name] = [];
+          if (!acc[product.latinName]) {
+            acc[product.latinName] = [];
           }
-          acc[product.latin_name].push(product);
+          acc[product.latinName].push(product);
           return acc;
         }, {});
 
@@ -336,8 +336,8 @@ const ListStockList = ({ token }) => {
 
                     {/* 🔹 Detail Produk */}
                     <div className="mt-3">
-                      <h3 className="text-lg font-semibold text-gray-700">{product.common_name}-{product.code}</h3>
-                      <p className="text-gray-500 text-sm">{product.latin_name} - {product.cites}</p>
+                      <h3 className="text-lg font-semibold text-gray-700">{product.commonName}-{product.code}</h3>
+                      <p className="text-gray-500 text-sm">{product.latinName} - {product.cites}</p>
                       <p className="text-gray-800 font-bold mt-1">${product.price}</p>
                       <p className="text-gray-500 text-sm">Stock: {product.available_stock}</p>
                     </div>

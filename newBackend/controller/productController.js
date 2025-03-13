@@ -3,6 +3,7 @@ import productModel from '../models/productModel.js';
 import OfferStockList from '../models/OfferStockListModel.js';
 import { uploadToGoogleDrive } from '../middleware/googleDrive.js';
 import OfferWysiwyg from '../models/OfferWYSIWYGModel.js';
+import Combine from '../models/CombineModel.js';
 // import { uploadToImgBB } from '../middleware/imgbb.js';
 
 
@@ -163,76 +164,86 @@ const singleProduct = async (req, res) => {
 // For WSYIWYG Only
 const addProductWysiwyg = async (req, res) => {
     try {
-        console.log("✅ Data Diterima di Backend:", req.body);
-
-        // 🔍 Cari unique_key terbesar yang sudah ada
-        const lastProductWysiwyg = await OfferWysiwyg.findOne().sort({ uniqueId: -1 });
-
-        // 🔢 Buat Unique ID otomatis
-        const nextUniqueKeyWysiwyg = lastProductWysiwyg ? parseInt(lastProductWysiwyg.uniqueId) + 1 : 1;
-
-        // ⏳ Buat timestamp saat produk ditambahkan
-        const now = new Date();
-        const formattedDate = now.toLocaleString("id-ID", {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit",
-            hour12: false,
-        });
+        console.log("📤 Menerima data dari frontend:", req.body);
 
         const {
-            page_header,
-            appsheet_code,
             uniqueId,
+            common_name,
+            latinName,
+            size,
+            plasticSize,
+            heightCm,
             line,
             aquarium,
-            number,
-            common_name,
-            size,
-            plastic_size,
-            height_cm,
-            price, // 🔥 Harga tetap dalam format angka dari frontend
-            individualDiscount,
-            citesCombo,
-            citesScleractinianFragmen,
-            exclusiveFor
+            price,
+            link_image,
         } = req.body;
 
-        // ✅ Konversi harga ke format "$xx.xx"
-        const formattedPrice = `$${parseFloat(price).toFixed(2)}`;
+        // ⏳ Ambil timestamp otomatis
+        const now = new Date();
+        const formattedDate = now.toISOString().split("T")[0]; // Format YYYY-MM-DD
 
-        // 🔹 Simpan data ke MongoDB
-        const newProductWysiwyg = new OfferWysiwyg({
-            pageHeader: page_header,
-            date: formattedDate, // ⏳ Simpan waktu saat produk ditambahkan
-            uniqueId, // ✅ Simpan uniqueId sebagai string
-            appsheetCode: appsheet_code,
-            line,
-            aquarium,
-            number,
-            commonName: common_name,
-            size,
-            plasticSize: plastic_size,
-            heightCm: parseInt(height_cm) || 0,
-            price: formattedPrice, // ✅ Simpan harga dalam format "$xx.xx"
-            individualDiscount,
-            citesCombo,
-            citesScleractinianFragmen,
-            exclusiveFor
+        // ✅ Konversi harga ke format "$xx.xx"
+        const formattedPrice = price ? `$${parseFloat(price).toFixed(2)}` : "$0.00";
+
+        // 🔥 Simpan ke database dengan data yang sesuai
+        const newProduct = new OfferWysiwyg({
+            uniqueId: uniqueId || 0, // Jika `uniqueId` kosong, set 0
+            date: formattedDate, // Auto Timestamp
+            commonName: common_name || "",
+            size: size, // Pastikan array
+            plasticSize: plasticSize || "",
+            heightCm: heightCm || "",
+            price: formattedPrice,
+            link_image: link_image ? [link_image] : [], // Simpan dalam array
+            line: line, // Pastikan array
+            aquarium: aquarium, // Pastikan array
+            // 🔥 Field lainnya tetap string kosong
+            pageHeader: "",
+            generateUniqueId: "",
+            doubleIdChecker: "",
+            coralData: "",
+            number: "",
+            location: "",
+            locationChecker: "",
+            appsheetCode: "",
+            cites: "",
+            aliasCites1: "",
+            code: "",
+            latinName: latinName,
+            marking: "",
+            individualDiscount: "",
+            citesCombo: "",
+            citesScleractinianFragmen: "",
+            cherryPickImage: "",
+            exclusiveSection: "",
+            exclusiveFor: "",
+            duplicateImageSection: "",
+            duplicateChecker: "",
+            system: "",
+            imageFileName: "",
+            image: "",
+            imageSale: "",
+            imageChecker: "",
+            orderStatus: "",
+            orderByCartKey: "",
+            orderByCrm: "",
+            orderByUser: "",
+            orderById: "",
+            scriptResponse: "",
+            show: "",
+            textAllPriceMargin: "",
+            textIndividualPriceMargin: "",
         });
 
-        await newProductWysiwyg.save();
+        await newProduct.save();
 
-        console.log(`✅ Product Added with uniqueId: ${nextUniqueKeyWysiwyg} at ${formattedDate} with price: ${formattedPrice}`);
-
-        res.json({ success: true, message: 'Product Added' });
+        console.log(`✅ Data berhasil ditambahkan dengan Unique ID: ${uniqueId || 0}`);
+        res.status(200).json({ success: true, message: "Product added successfully!" });
 
     } catch (error) {
-        console.error("❌ Error adding product:", error.message);
-        res.status(500).json({ success: false, message: error.message });
+        console.error("❌ Error adding product:", error);
+        res.status(500).json({ success: false, message: "Internal Server Error" });
     }
 };
 
@@ -312,6 +323,54 @@ const singleProductWysiwyg = async (req, res) => {
 
 // End Wysiwyg Only
 
+const listCombineProducts = async (req, res) => {
+    try {
+        const combineProduct = await Combine.find({});
+        res.json({ success: true, combineProduct });
+    } catch (error) {
+        console.error("❌ Error fetching products:", error);
+        res.status(500).json({ success: false, message: error.message });
+    }
+}
+
+// function for single product info
+const singleProductCombine = async (req, res) => {
+    try {
+        const { combineProductId } = req.params; // ✅ Ambil dari req.params;
+        const combineProduct = await Combine.findById(combineProductId)
+        res.json({ success: true, combineProduct })
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: error.message })
+
+    }
+};
+
+const getProductsByCommonNameAndLocation = async (req, res) => {
+    try {
+        const { commonName, coralLocation } = req.params;
+
+        // Jika coralLocation kosong, cari berdasarkan commonName saja
+        const query = { commonName };
+        if (coralLocation && coralLocation !== "") {
+            query.coralLocation = coralLocation;
+        }
+
+        const products = await Combine.find(query);
+
+        if (!products || products.length === 0) {
+            return res.status(404).json({ success: false, message: "Products not found" });
+        }
+
+        res.json({ success: true, products });
+    } catch (error) {
+        console.error("❌ Error fetching products:", error);
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
 
 
-export { addProduct, listProducts, removeProduct, singleProduct, updateProduct, removeSelectedProduct, removeAllProduct, addProductWysiwyg, listWysiwygProducts, removeAllProductWysiwyg, removeProductWysiwyg, removeSelectedProductWysiwyg, singleProductWysiwyg, updateProductWysiwyg };
+
+
+
+export { addProduct, listProducts, removeProduct, singleProduct, updateProduct, removeSelectedProduct, removeAllProduct, addProductWysiwyg, listWysiwygProducts, removeAllProductWysiwyg, removeProductWysiwyg, removeSelectedProductWysiwyg, singleProductWysiwyg, updateProductWysiwyg, listCombineProducts, singleProductCombine, getProductsByCommonNameAndLocation };

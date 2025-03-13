@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const OfferWysiwygSchema = new mongoose.Schema({
     pageHeader: String,
-    date: Date,
+    date: String,
     uniqueId: { type: Number, unique: true },
     generateUniqueId: String,
     doubleIdChecker: String,

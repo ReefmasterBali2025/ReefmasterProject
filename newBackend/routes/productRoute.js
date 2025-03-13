@@ -1,5 +1,5 @@
 import express from 'express'
-import { addProduct, listProducts, removeProduct, singleProduct, updateProduct, removeSelectedProduct, removeAllProduct, addProductWysiwyg, listWysiwygProducts, removeAllProductWysiwyg, removeProductWysiwyg, removeSelectedProductWysiwyg, singleProductWysiwyg, updateProductWysiwyg } from '../controller/productController.js'
+import { addProduct, listProducts, removeProduct, singleProduct, updateProduct, removeSelectedProduct, removeAllProduct, addProductWysiwyg, listWysiwygProducts, removeAllProductWysiwyg, removeProductWysiwyg, removeSelectedProductWysiwyg, singleProductWysiwyg, updateProductWysiwyg, listCombineProducts, singleProductCombine, getProductsByCommonNameAndLocation } from '../controller/productController.js'
 import upload from '../middleware/multer.js';
 import adminAuth from '../middleware/adminAuth.js';
 
@@ -46,5 +46,13 @@ productRouter.post('/single-wysiwyg', singleProductWysiwyg);
 productRouter.get('/list', listProducts);
 
 productRouter.get('/listWysiwyg', listWysiwygProducts);
+
+productRouter.get('/listCombine', listCombineProducts);
+
+// ✅ Endpoint untuk mendapatkan detail satu produk
+productRouter.get('/singleCombine/:combineProductId', singleProductCombine); // ✅ Gunakan GET dengan ID di URL
+
+productRouter.get('/byCommonName/:commonName/:coralLocation?', getProductsByCommonNameAndLocation);
+
 
 export default productRouter;

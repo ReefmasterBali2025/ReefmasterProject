@@ -6,21 +6,37 @@ import { assets } from "../assets/assets.js";
 import Select from 'react-select'
 
 const AddWysiwyg = ({ token }) => {
+
+  // Variable
   const [images, setImages] = useState(Array(4).fill(null));
   const [uniqueId, setUniqueId] = useState();
+  const [maxUniqueId, setMaxUniqueId] = useState(null); // 🔥 Simpan uniqueId terbesar
   const [line, setLine] = useState("");
   const [aquarium, setAquarium] = useState("");
   const [number, setNumber] = useState("");
   const [pageHeader, setPageHeader] = useState("");
   const [appsheetCode, setAppsheetCode] = useState("");
   const [commonName, setCommonName] = useState("");
+  const [latinName, setLatinName] = useState("");
   const [size, setSize] = useState("");
   const [plasticSize, setPlasticSize] = useState("");
   const [heightCm, setHeightCm] = useState("");
+  const [plasticSizeOptions, setPlasticSizeOptions] = useState([
+    { value: 10, label: 10 },
+    { value: 13, label: 13 },
+    { value: 15, label: 15 },
+    { value: 17, label: 17 },
+    { value: 20, label: 20 },
+    { value: 22, label: 22 },
+    { value: 25, label: 25 },
+    { value: 30, label: 30 },
+    { value: 35, label: 35 },
+  ]);
   const [price, setPrice] = useState(""); // 🔥 Harga tetap angka di frontend
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [commonNamesList, setCommonNamesList] = useState([]);
+  const [latinNameList, setLatinNamesList] = useState([]);
   const [sizeOptions, setSizeOptions] = useState([
     { value: "S", label: "S" },
     { value: "M", label: "M" },
@@ -42,6 +58,58 @@ const AddWysiwyg = ({ token }) => {
   ])
   const [inputSize, setInputSize] = useState(""); // 🔥 State buat menangkap input baru
   const [inputAquarium, setInputAquarium] = useState("");
+  // 🔥 Pilihan untuk Size
+  const lineOptions = [
+    { value: "A", label: "A" },
+    { value: "B", label: "B" },
+    { value: "C", label: "C" },
+    { value: "D", label: "D" },
+    { value: "E", label: "E" },
+    { value: "F", label: "F" },
+    { value: "G", label: "G" },
+    { value: "H", label: "H" },
+  ];
+
+
+  // All Logic Here
+
+  // ✅ Fetch data offerwysiwygs lalu cari uniqueId terbesar
+  const fetchMaxUniqueId = async () => {
+    setLoading(true); // 🔄 Mulai loading
+    try {
+      console.log("📡 Fetching max uniqueId from backend...");
+
+      const response = await axios.get(`${backendUrl}/api/maxUniqueId`, {
+        headers: { "Cache-Control": "no-cache" },
+      });
+
+      // ✅ Pastikan response memiliki `data`
+      if (!response || !response.data) {
+        throw new Error("Invalid response from server");
+      }
+
+      // ✅ Pastikan response memiliki `success` dan `maxUniqueId`
+      if (response.data.success && response.data.maxUniqueId !== undefined) {
+        setMaxUniqueId(response.data.maxUniqueId);
+        console.log("✅ Max Unique ID Terbaru:", response.data.maxUniqueId);
+      } else {
+        console.warn("⚠️ No Unique ID found in response.");
+        setMaxUniqueId("No Unique ID found");
+      }
+    } catch (error) {
+      console.error("❌ Error fetching max uniqueId:", error);
+      toast.error("Failed to fetch max uniqueId!");
+      setMaxUniqueId("Error fetching data");
+    } finally {
+      setLoading(false); // ✅ Selesai loading
+    }
+  };
+
+  // 🔥 Panggil saat pertama kali halaman dimuat
+  useEffect(() => {
+    console.log("🔥 State maxUniqueId berubah:", maxUniqueId);
+  }, [maxUniqueId]);
+
 
   // ✅ Fetch data `common_name` dari database
   useEffect(() => {
@@ -61,6 +129,30 @@ const AddWysiwyg = ({ token }) => {
     };
     fetchCommonNames();
   }, []);
+
+  // ✅ Fetch data `latinName` dari database
+  useEffect(() => {
+    const fetchLatinNamesWysiwyg = async () => {
+      try {
+        console.log("📡 Fetching latin names...");
+        const response = await axios.get(`${backendUrl}/api/latin-names-wysiwyg`);
+        if (response.data.success) {
+          setLatinNamesList(response.data.data);
+        } else {
+          toast.error("Failed to fetch latin names!");
+        }
+      } catch (error) {
+        console.error("Error fetching common names:", error);
+        toast.error("Error fetching common names!");
+      }
+    };
+    fetchLatinNamesWysiwyg();
+  }, []);
+
+  // 🔥 Konversi data ke format react-select
+  const options = commonNamesList.map((name) => ({ value: name, label: name }));
+  const latinNameOptions = latinNameList.map((name) => ({ value: name, label: name }));
+
 
   // ✅ Handle Upload Gambar
   const handleImageUpload = (e, index) => {
@@ -101,26 +193,28 @@ const AddWysiwyg = ({ token }) => {
         year: "numeric",
         month: "2-digit",
         day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: false,
       });
 
       // ✅ Konversi harga ke format "$xx.xx"
-      const formattedPrice = `$${parseFloat(price).toFixed(2)}`;
+      const formattedPrice = parseFloat(price).toFixed(2);
+
+      // ✅ Pastikan line tetap string & aquarium tetap number
+      const formattedLine = typeof line === "string" ? line : "";
+      const formattedAquarium = typeof aquarium === "number" ? aquarium : 0;
 
       // 🔹 Kirim data ke backend
       const productData = {
-        page_header: pageHeader,
-        appsheet_code: appsheetCode,
+        uniqueId: uniqueId, // Pastikan tidak kosong
         date: formattedDate, // ⏳ Tanggal otomatis
+        latinName: latinName,
         common_name: commonName,
-        size: size,
-        plastic_size: plasticSize,
-        height_cm: heightCm,
-        price: formattedPrice, // ✅ Format harga "$xx.xx"
-        link_image: imageUrls[0] || "",
+        size: size, 
+        plasticSize: plasticSize,
+        heightCm: heightCm,
+        line: line,
+        aquarium: aquarium,
+        price: formattedPrice, // ✅ Format harga
+        link_image: imageUrls || "", // Ambil gambar pertama jika ada
       };
 
       console.log("📤 Mengirim data ke backend...", productData);
@@ -146,8 +240,7 @@ const AddWysiwyg = ({ token }) => {
     }
   };
 
-  // 🔥 Konversi data ke format react-select
-  const options = commonNamesList.map((name) => ({ value: name, label: name }));
+
 
   // ✅ Fungsi untuk menangani input custom (menambah ukuran baru)
   const handleCreateSize = (inputValue) => {
@@ -164,6 +257,7 @@ const AddWysiwyg = ({ token }) => {
     setSize((prev) => [...prev, inputValue]);
     setInputSize(""); // 🔥 Kosongkan input setelah ditambahkan
   };
+
 
   // ✅ Tangani Enter untuk menambahkan ukuran baru
   const handleKeyDown = (event) => {
@@ -214,17 +308,15 @@ const AddWysiwyg = ({ token }) => {
     }
   };
 
-  // 🔥 Pilihan untuk Size
-  const lineOptions = [
-    { value: "A", label: "A" },
-    { value: "B", label: "B" },
-    { value: "C", label: "C" },
-    { value: "D", label: "D" },
-    { value: "E", label: "E" },
-    { value: "F", label: "F" },
-    { value: "G", label: "G" },
-    { value: "H", label: "H" },
-  ];
+  // ✅ Fungsi untuk menghapus ukuran dari dropdown
+  // const handleRemoveHeight = (heightValue) => {
+  //   setHeightCmOptions((prev) => prev.filter((option) => option.value !== heightValue));
+  //   if (heightCm === heightValue) {
+  //     setHeightCm(null); // 🔥 Hapus pilihan jika yang dihapus adalah yang sedang dipilih
+  //   }
+  // };
+
+
 
   return (
     <>
@@ -244,6 +336,7 @@ const AddWysiwyg = ({ token }) => {
           </div>
         </div>
       )}
+
 
       <form onSubmit={onSubmitHandler} className="flex flex-col w-full items-start gap-6 bg-white p-6 shadow-lg rounded-lg">
         <h2 className="text-2xl font-bold text-gray-700">Add New Product</h2>
@@ -269,6 +362,41 @@ const AddWysiwyg = ({ token }) => {
             className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-blue-400"
 
           />
+
+          {/* 🔥 Tampilkan Unique ID Terakhir */}
+          {maxUniqueId !== null && (
+            <p className="text-sm text-gray-500 mt-1">
+              Nomor urut terakhir: <strong>{maxUniqueId}</strong>
+            </p>
+          )}
+
+          {/* 🔄 Tombol Sync */}
+          <button
+            type="button"
+            onClick={fetchMaxUniqueId}
+            className="mt-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 flex items-center"
+            disabled={loading} // ❌ Disable saat loading
+          >
+            {loading ? "Syncing..." : "Sync Unique ID 🔄"}
+          </button>
+        </div>
+
+        {/* ✅ Dropdown untuk Latin Name */}
+        <div className="w-full">
+          <label className="block font-semibold text-gray-700 mb-1">Latin Name</label>
+          <Select
+            options={latinNameOptions}
+            value={latinNameOptions.find((option) => option.value === latinName)}
+            onChange={(selectedOption) => setLatinName(selectedOption.value)}
+            className="w-full block"
+            styles={{
+              menu: (provided) => ({
+                ...provided,
+                zIndex: 50, // 🔥 Supaya tidak tertutup elemen lain
+              }),
+            }}
+            placeholder="Select Latin Name"
+          />
         </div>
 
         {/* ✅ Dropdown untuk Common Name */}
@@ -278,7 +406,7 @@ const AddWysiwyg = ({ token }) => {
             options={options}
             value={options.find((option) => option.value === commonName)}
             onChange={(selectedOption) => setCommonName(selectedOption.value)}
-            className="w-full"
+            className="w-full block"
             styles={{
               menu: (provided) => ({
                 ...provided,
@@ -289,11 +417,57 @@ const AddWysiwyg = ({ token }) => {
           />
         </div>
 
-        {/* ✅ Dropdown untuk Size (Bisa Tambah & Hapus Langsung) */}
-        <div>
-          <label className="block font-semibold text-gray-700 mb-1">Size</label>
+        <div className="flex flex-wrap md:grid md:grid-cols-2 gap-3 w-full">
+          {/* ✅ Dropdown untuk Size (Bisa Tambah & Hapus Langsung) */}
+          <div className="w-full">
+            <label className="block font-semibold text-gray-700 mb-1">Size</label>
+            <Select
+              options={sizeOptions.map((option) => ({
+                ...option,
+                label: (
+                  <div className="flex justify-between items-center">
+                    <span>{option.label}</span>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation(); // 🔥 Cegah dropdown tertutup
+                        handleRemoveSize(option.value);
+                      }}
+                      className="text-red-500 hover:text-red-700 text-sm font-bold ml-2"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ),
+              }))}
+              value={sizeOptions.find((option) => option.value === size)}
+              onChange={(selectedOption) => setSize(selectedOption.value)}
+              className="w-full block"
+              styles={{ menu: (provided) => ({ ...provided, zIndex: 50 }) }}
+              placeholder="Select or Add Size"
+              isClearable
+              isSearchable
+              inputValue={inputSize} // 🔥 Handle input manual
+              onInputChange={(value) => setInputSize(value)} // 🔥 Simpan input ke state
+              onKeyDown={handleKeyDown} // 🔥 Tangani event Enter
+              noOptionsMessage={() => "Press Enter to add new size"} // 🔥 Info user bisa tambah opsi
+            />
+          </div>
+
+
+          {/* ✅ Input Harga */}
+          <div className="w-full">
+            <label className="block font-semibold text-gray-700 mb-1">Price ($)</label>
+            <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} className="w-full px-4 py-2 border rounded-md" placeholder="Enter price ($)" required />
+          </div>
+        </div>
+
+
+
+        {/* ✅ Dropdown untuk Height (Bisa Tambah & Hapus Langsung) */}
+        {/* <div>
+          <label className="block font-semibold text-gray-700 mb-1">Height</label>
           <Select
-            options={sizeOptions.map((option) => ({
+            options={heightCmOptions.map((option) => ({
               ...option,
               label: (
                 <div className="flex justify-between items-center">
@@ -301,7 +475,7 @@ const AddWysiwyg = ({ token }) => {
                   <button
                     onClick={(e) => {
                       e.stopPropagation(); // 🔥 Cegah dropdown tertutup
-                      handleRemoveSize(option.value);
+                      handleRemoveHeight(option.value);
                     }}
                     className="text-red-500 hover:text-red-700 text-sm font-bold ml-2"
                   >
@@ -310,48 +484,93 @@ const AddWysiwyg = ({ token }) => {
                 </div>
               ),
             }))}
-            value={sizeOptions.find((option) => option.value === size)}
-            onChange={(selectedOption) => setSize(selectedOption.value)}
+            value={heightCmOptions.find((option) => option.value === heightCm)}
+            onChange={(selectedOption) => setAquarium(selectedOption.value)}
             className="w-full"
             styles={{ menu: (provided) => ({ ...provided, zIndex: 50 }) }}
-            placeholder="Select or Add Size"
+            placeholder="Select or Add Height"
             isClearable
+
             isSearchable
-            inputValue={inputSize} // 🔥 Handle input manual
-            onInputChange={(value) => setInputSize(value)} // 🔥 Simpan input ke state
-            onKeyDown={handleKeyDown} // 🔥 Tangani event Enter
+            inputValue={inputHeightCm} // 🔥 Handle input manual
+            onInputChange={(value) => setInputHeightCm(value)} // 🔥 Simpan input ke state
+            onKeyDown={handleKeyDownHeight} // 🔥 Tangani event Enter
             noOptionsMessage={() => "Press Enter to add new size"} // 🔥 Info user bisa tambah opsi
           />
+        </div> */}
+
+        <div className="flex gap-4 w-full flex-wrap sm:flex-nowrap">
+          <div className="w-full">
+            <label className="block font-semibold text-gray-700 mb-1">Plastic Size</label>
+            <Select
+              options={plasticSizeOptions}
+              value={plasticSizeOptions.find(option => option.value === plasticSize)}
+              onChange={selectedOption => setPlasticSize(selectedOption.value)}
+              className="w-full block"
+              styles={{
+                menu: (provided) => ({
+                  ...provided,
+                  zIndex: 50,
+                }),
+              }}
+              placeholder="Select Plastic Size"
+            />
+          </div>
+
+
+          {/* ✅ Input Height */}
+          <div className="w-full">
+            <label className="block font-semibold text-gray-700 mb-1">Height</label>
+            <input type="number" value={heightCm} onChange={(e) => setHeightCm(e.target.value)} className="w-full px-4 py-2 border rounded-md" placeholder="Enter height (cm)" required />
+          </div>
+
         </div>
 
+        <div className="flex gap-4 w-full flex-wrap sm:flex-nowrap">
+          {/* ✅ Dropdown untuk Line */}
+          <div className="w-full">
+            <label className="block font-semibold text-gray-700 mb-1">Line</label>
+            <Select
+              options={lineOptions}
+              value={lineOptions.find((option) => option.value === line)}
+              onChange={(selectedOption) => setLine(selectedOption.value)}
+              className="w-full block"
+              styles={{
+                menu: (provided) => ({
+                  ...provided,
+                  zIndex: 50, // 🔥 Supaya tidak tertutup elemen lain
+                }),
+              }}
+              placeholder="Select Line"
+            />
+          </div>
 
-        {/* ✅ Input Harga */}
-        <div className="w-full">
-          <label className="block font-semibold text-gray-700 mb-1">Price ($)</label>
-          <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} className="w-full px-4 py-2 border rounded-md" placeholder="Enter price ($)" required />
+          {/* ✅ Dropdown untuk Aquarium */}
+          <div className="w-full">
+            <label className="block font-semibold text-gray-700 mb-1">Aquarium</label>
+            <Select
+              options={[
+                { value: 1, label: "1" },
+                { value: 2, label: "2" },
+                { value: 3, label: "3" },
+                { value: 4, label: "4" },
+                { value: 5, label: "5" },
+                { value: 6, label: "6" },
+                { value: 7, label: "7" },
+                { value: 8, label: "8" },
+                { value: 9, label: "9" },
+                { value: 10, label: "10" },
+              ]}
+              value={{ value: aquarium, label: aquarium.toString() }}
+              onChange={(selectedOption) => setAquarium(Number(selectedOption.value))}
+              className="w-full"
+              placeholder="Select Aquarium"
+            />
+
+          </div>
         </div>
 
-        {/* ✅ Dropdown untuk Line */}
-        <div>
-          <label className="block font-semibold text-gray-700 mb-1">Line</label>
-          <Select
-            options={lineOptions}
-            value={lineOptions.filter((option) => size.includes(option.value))}
-            onChange={(selectedOptions) => setSize(selectedOptions.map((option) => option.value))}
-            isMulti // 🔥 Biar bisa pilih lebih dari satu ukuran
-            className="w-full block"
-            styles={{
-              menu: (provided) => ({
-                ...provided,
-                zIndex: 50,
-              }),
-            }}
-            placeholder="Select Size"
-          />
-        </div>
-
-        {/* ✅ Dropdown untuk Aquarium (Bisa Tambah & Hapus Langsung) */}
-        <div>
+        {/* <div>
           <label className="block font-semibold text-gray-700 mb-1">Aquarium</label>
           <Select
             options={aquariumOptions.map((option) => ({
@@ -383,7 +602,7 @@ const AddWysiwyg = ({ token }) => {
             onKeyDown={handleKeyDownAquarium} // 🔥 Tangani event Enter
             noOptionsMessage={() => "Press Enter to add new size"} // 🔥 Info user bisa tambah opsi
           />
-        </div>
+        </div> */}
 
 
         {/* ✅ Submit Button */}
