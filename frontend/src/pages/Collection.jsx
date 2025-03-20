@@ -316,6 +316,7 @@ const Collection = () => {
                                                 price={product.price}
                                                 description={product.description}
                                                 coralLocation={product.coralLocation}
+                                                actualStock={product.actualStock}
                                             />
                                         ))}
                                 </div>

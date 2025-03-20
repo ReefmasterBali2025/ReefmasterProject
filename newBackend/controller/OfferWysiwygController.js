@@ -17,7 +17,7 @@ export const importOfferWysiwyg = async (req, res) => {
         const authClient = await auth.getClient();
         const sheets = google.sheets({ version: "v4", auth: authClient });
 
-        const spreadsheetId = process.env.SHEET_ID;
+        const spreadsheetId = process.env.ARCHIVE_SHEET_ID;
         const range = "OFFER_WYSIWYG!A1:AS";
 
         console.log("📡 Mengambil data dari Google Sheets...");

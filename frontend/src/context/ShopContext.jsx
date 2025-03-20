@@ -1,8 +1,12 @@
 import { createContext, useEffect, useState } from "react";
 import { products } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { backendUrl } from "../App";
 
 export const ShopContext = createContext();
+
+
 
 const ShopContextProvider = (props) => {
 
@@ -10,7 +14,10 @@ const ShopContextProvider = (props) => {
     const delivery_fee = 10; // Biaya pengiriman tetap untuk setiap pesanan
     const [search, setSearch] = useState(''); // State untuk menyimpan kata kunci pencarian
     const [showSearch, setShowSearch] = useState(false); // State untuk mengontrol tampilan pencarian
-    const [cartItems, setCartItems] = useState({}); // State untuk menyimpan item dalam keranjang
+    const [cartItems, setCartItems] = useState(() => {
+        const savedCart = localStorage.getItem("cart");
+        return savedCart ? JSON.parse(savedCart) : [];
+    });
     const navigate = useNavigate(); // Hook untuk navigasi antar halaman
     const [boxesLength, setBoxesLength] = useState(0);
     const [citesCultureQuantity, setCitesCultureQuantity] = useState(0);  // Add state to store quantity
@@ -26,10 +33,37 @@ const ShopContextProvider = (props) => {
     // Landed cost breakdown
     const [landedCost, setLandedCost] = useState([]);
 
+    // useEffect(() => {
+    //     const fetchProducts = async () => {
+    //         try {
+    //             const response = await axios.get(`${backendUrl}/api/product/listCombine`);
+    //             console.log("✅ Data dari API:", response.data); // Debugging
+
+    //             if (response.data.success) {
+    //                 setProductsData(response.data.combineProduct);
+    //             } else {
+    //                 console.error("❌ API response error:", response.data);
+    //             }
+    //         } catch (error) {
+    //             console.error("❌ Error fetching products:", error);
+
+    //             if (error.response) {
+    //                 console.error("Server responded with:", error.response.status, error.response.data);
+    //             } else if (error.request) {
+    //                 console.error("No response received from server");
+    //             } else {
+    //                 console.error("Error setting up request:", error.message);
+    //             }
+    //         }
+    //     };
+
+    //     fetchProducts();
+    // }, []);
 
 
-
-
+    useEffect(() => {
+        localStorage.setItem("cart", JSON.stringify(cartItems));
+    }, [cartItems]);
 
 
     // Function to calculate landed cost dynamically
@@ -97,16 +131,29 @@ const ShopContextProvider = (props) => {
      * @param {string} size - Ukuran produk.
      * @param {number} quantity - Jumlah produk yang ditambahkan (default 1).
      */
-    const addToCart = async (itemId, size, quantity = 1) => {
-        let cartData = structuredClone(cartItems);
+    const addToCart = (product) => {
+        setCartItems((prevCart) => {
+            const existingItemIndex = prevCart.findIndex(
+                (item) =>
+                    item._id === product._id &&
+                    item.size === product.size &&
+                    item.commonName === product.commonName &&
+                    item.appsheetCode === product.appsheetCode &&
+                    item.coralLocation === product.coralLocation &&
+                    item.code === product.code
+            );
 
-        if (cartData[itemId]) {
-            cartData[itemId][size] = (cartData[itemId][size] || 0) + quantity;
-        } else {
-            cartData[itemId] = { [size]: quantity };
-        }
-        setCartItems(cartData);
+            if (existingItemIndex !== -1) {
+                const updatedCart = [...prevCart];
+                updatedCart[existingItemIndex].quantity += product.quantity;
+                return updatedCart;
+            } else {
+                return [...prevCart, product];
+            }
+        });
     };
+
+
 
     /**
      * Menghitung total jumlah item dalam keranjang.
@@ -115,20 +162,11 @@ const ShopContextProvider = (props) => {
      * @returns {number} - Total jumlah item dalam keranjang.
      */
     const getCartCount = () => {
-        let totalCount = 0;
-        for (const items in cartItems) {
-            for (const item in cartItems[items]) {
-                try {
-                    if (cartItems[items][item] > 0) {
-                        totalCount += cartItems[items][item];
-                    }
-                } catch (error) {
-                    // Tangani kesalahan (jika ada) tanpa menghentikan aplikasi
-                }
-            }
-        }
-        return totalCount;
+        return Object.values(cartItems).reduce((total, sizes) => {
+            return total + Object.values(sizes).reduce((sum, qty) => sum + qty, 0);
+        }, 0);
     };
+
 
     /**
      * Memperbarui jumlah item pada ukuran tertentu dalam keranjang.
@@ -142,6 +180,7 @@ const ShopContextProvider = (props) => {
         cartData[itemId][size] = quantity; // Perbarui jumlah untuk ukuran tertentu
         setCartItems(cartData);
     };
+
 
     /**
      * Menghitung total harga semua item dalam keranjang.

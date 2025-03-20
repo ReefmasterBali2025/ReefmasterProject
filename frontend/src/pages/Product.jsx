@@ -10,7 +10,7 @@ import { backendUrl } from '../App';
 const Product = () => {
 
     const { combineProductId } = useParams();
-    const { products, currency, addToCart } = useContext(ShopContext);
+    const { products, currency, addToCart, updateQuantity, cartItems, setCartItems } = useContext(ShopContext);
     const [productData, setProductData] = useState(false);
     const [image, setImage] = useState('');
     const [size, setSize] = useState('');
@@ -90,41 +90,95 @@ const Product = () => {
     const availableLocations = productData ? [...new Set(productData.map(p => p.location))] : [];
     const handleSizeSelection = (size) => {
         const selectedProduct = productData.find(p => p.size === size);
+
+        // Jika ukuran baru berbeda dari yang sebelumnya, reset displayStock dan quantity
+        if (!selectedSize || selectedSize.size !== size) {
+            setQuantity(0); // Reset jumlah ke 0
+            setDisplayStock(selectedProduct ? (selectedProduct.actualStock || 0) : 0);
+        }
+
         setSelectedSize(selectedProduct);
         setWarning("");
-        setDisplayStock(selectedProduct ? (selectedProduct.actualStock || 0) : 0);
+
         // Console log hanya setelah memilih size
-        console.log("Selected Product ID:", selectedProduct._id);
-        console.log("Selected Product Code:", selectedProduct.code);
-        console.log("Common Name:", selectedProduct.commonName);
-        console.log("Price: $", selectedProduct.price);
+        if (selectedProduct) {
+            console.log("Selected Product ID:", selectedProduct._id);
+            console.log("Selected Product Code:", selectedProduct.code);
+            console.log("Common Name:", selectedProduct.commonName);
+            console.log("Price: $", selectedProduct.price);
+        }
 
     };
 
 
-    const handleAddToCart = () => {
-        if (!selectedSize) {
+    const handleAddToCart = (product, size) => {
+        if (!product) {
+            setWarning("Please select a product before adding to cart.");
+            console.error("Error: Product is undefined.");
+            return;
+        }
+
+        if (!size) {
             setWarning("Please select a size before adding to cart.");
             return;
         }
 
-        if (quantity > selectedSize.actualStock) {
+        if (quantity > size.actualStock) {
             setWarning("Stock Melebihi batas!");
             return;
         }
 
+        const { _id, commonName, appsheetCode, coralLocation, code } = product;
+        const productId = String(_id); // Pastikan _id dalam bentuk string
+
+        setCartItems((prevCart) => {
+            // Cek apakah barang dengan kombinasi atribut sudah ada di cart
+            const existingItemIndex = prevCart.findIndex(
+                (item) =>
+                    item.commonName === commonName &&
+                    item.size === size &&
+                    item.appsheetCode === appsheetCode &&
+                    item.coralLocation === coralLocation &&
+                    item.code === code
+            );
+
+            if (existingItemIndex !== -1) {
+                // Jika barang sudah ada, update jumlahnya
+                const updatedCart = [...prevCart];
+                updatedCart[existingItemIndex].quantity += quantity;
+                return updatedCart;
+            } else {
+                // Jika barang belum ada, tambahkan sebagai item baru
+                return [
+                    ...prevCart,
+                    {
+                        _id: productId,
+                        commonName,
+                        size,
+                        quantity,
+                        appsheetCode,
+                        coralLocation,
+                        code,
+                    },
+                ];
+            }
+        });
+
         setWarning("");
 
-        // Pastikan hanya menyimpan berdasarkan size yang dipilih
-        addToCart(selectedSize._id, selectedSize.size, selectedSize.commonName, quantity);
-
-        console.log("Added to Cart:", {
-            id: selectedSize._id,
-            commonName: selectedSize.commonName,
-            size: selectedSize.size,
-            quantity: quantity
+        console.log("Product added to cart:", {
+            _id,
+            size,
+            quantity,
+            commonName,
+            appsheetCode,
+            coralLocation,
+            code
         });
     };
+
+
+
 
     return productData ? (
         <div className='border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100 my-10 px-16'>
@@ -133,10 +187,10 @@ const Product = () => {
                 <div className="flex-1 flex flex-col-reverse gap-3 sm:flex-row">
                     {/* Thumbnail Images */}
                     <div className="flex sm:flex-col overflow-x-auto sm:overflow-y-auto justify-between sm:w-[20%] w-full">
-                        {productData[0]?.link_image.map((item, index) => (
+                        {Array.from(new Set(productData.map(p => p.link_image[0]))).map((item, index) => (
                             <img
                                 onClick={() => setImage(item)}
-                                src={item[0]}
+                                src={item}
                                 key={index}
                                 className="w-[25%] sm:w-full sm:mb-3 object-cover flex-shrink-0 cursor-pointer hover:scale-105 transition-transform"
                             />
@@ -228,7 +282,7 @@ const Product = () => {
 
                             {/* Add to Cart Button */}
                             <button
-                                onClick={handleAddToCart}
+                                onClick={() => handleAddToCart(selectedSize, String(selectedSize.size))} // ✅ Berikan parameter
                                 className={`py-3 px-6 text-sm rounded-lg shadow ${stockError || quantity > (selectedSize?.actualStock || 0)
                                     ? "bg-gray-400 cursor-not-allowed"
                                     : "bg-black text-white hover:bg-gray-800"

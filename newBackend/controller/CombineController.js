@@ -45,7 +45,7 @@ export const importCombine = async (req, res) => {
             "LATIN NAME": "latinName",
             "COMMON NAME": "commonName",
             "LOCATION": "coralLocation",
-            "SIZE": "size",
+            "SIZE": JSON.stringify("size"),
             "ACTUAL STOCK": "actualStock",
             "TYPE": "type",
             'LINK IMAGE': "link_image",

@@ -20,6 +20,7 @@ const ProductItem = ({ id, link_image, commonName, coralLocation, latinName, pri
             <p className='text-md font-medium text-left pl-4'>{currency}{price}</p>
             <hr className='w-3/4 ml-3 mt-2' />
             {/* <p className='text-xs px-3 text-left py-3'>{description}</p> */}
+
         </Link>
     )
 }

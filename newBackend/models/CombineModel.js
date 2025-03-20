@@ -7,7 +7,7 @@ const CombineSchema = new mongoose.Schema({
     cites: String,
     latinName: String,
     commonName: String,
-    size: String,
+    size: Array,
     actualStock: Number,
     type: String,
     link_image: Array,

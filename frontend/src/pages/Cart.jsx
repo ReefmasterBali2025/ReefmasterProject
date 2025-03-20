@@ -5,18 +5,50 @@ import { assets } from '../assets/assets';
 import CartTotal from '../components/CartTotal';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'; // Import library
 import 'react-circular-progressbar/dist/styles.css';
+import axios from 'axios';
+import { backendUrl } from '../App';
 
 const Cart = () => {
-    const { products, currency, cartItems, updateQuantity, navigate, updateBoxesLength, setCitesCultureQuantity, setCitesWildQuantity, setWeightOfItems, totalAmountAll, landedCost, totalLandedCost } = useContext(ShopContext);
 
+    const { products, currency, cartItems, updateQuantity, navigate, updateBoxesLength, setCitesCultureQuantity, setCitesWildQuantity, setWeightOfItems, totalAmountAll, landedCost, totalLandedCost } = useContext(ShopContext);
     const [cartData, setCartData] = useState([]);
     const [efficiency, setEfficiency] = useState(90);
     const [boxes, setBoxes] = useState([]);
     const [weightItem, setWeightItem] = useState(0);
     const [totalWeightItem, setTotalWeightItem] = useState(0);
-    const [landedCostForItem, setLandedCostForItem] = useState([]); // Array untuk menyimpan landed cost per item
+    const [landedCostForItem, setLandedCostForItem] = useState([]);
+    const [productsData, setProductsData] = useState([]);
 
     useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const response = await axios.get(`${backendUrl}/api/product/listCombine`);
+                console.log("✅ Data dari API:", response.data); // Debugging
+
+                if (response.data.success) {
+                    setProductsData(response.data.combineProduct);
+                } else {
+                    console.error("❌ API response error:", response.data);
+                }
+            } catch (error) {
+                console.error("❌ Error fetching products:", error);
+
+                if (error.response) {
+                    console.error("Server responded with:", error.response.status, error.response.data);
+                } else if (error.request) {
+                    console.error("No response received from server");
+                } else {
+                    console.error("Error setting up request:", error.message);
+                }
+            }
+        };
+
+        fetchProducts();
+    }, []);
+
+    useEffect(() => {
+        if (productsData.length === 0) return; // Cegah eksekusi jika data kosong
+
         const tempData = [];
         let totalCultureQuantity = 0;
         let totalWildQuantity = 0;
@@ -27,46 +59,65 @@ const Cart = () => {
         const tempLandedCosts = {};
         const itemCounts = {};
 
-        // **Step 1: Loop pertama - Hitung total volume, berat, dan kumpulkan data**
-        for (const items in cartItems) {
-            for (const item in cartItems[items]) {
-                if (cartItems[items][item] > 0) {
-                    const product = products.find((p) => p._id === items);
-                    const sizeData = product.sizes.find((s) => s.size === item);
+        console.log("📌 Debugging cartItems:", JSON.stringify(cartItems, null, 2)); // Cek data cartItems
 
-                    totalVolume += sizeData.volume * cartItems[items][item];
-                    totalWeight += (sizeData.weight * cartItems[items][item]) / 1000; // dalam kg
+        for (const itemId in cartItems) {
+            console.log("🛒 Checking item ID:", itemId);
 
-                    // **Kumpulkan jumlah per jenis dan size**
-                    if (!tempLandedCosts[items]) {
-                        tempLandedCosts[items] = { totalQuantity: 0, sizes: {} };
+            for (const size in cartItems[itemId]) {
+                if (cartItems[itemId][size] > 0) {
+                    const product = productsData.find((p) => String(p._id) === String(itemId));
+
+                    if (!product) {
+                        console.error(`❌ Product with ID ${itemId} not found in productsData`);
+                        continue;
                     }
-                    tempLandedCosts[items].totalQuantity += cartItems[items][item];
 
-                    if (!tempLandedCosts[items].sizes[item]) {
-                        tempLandedCosts[items].sizes[item] = { quantity: 0, weight: 0 };
+                    console.log("✅ Found product:", product);
+
+                    if (!Array.isArray(product.size)) {
+                        console.error(`Size data is not an array for product ${product.commonName}`);
+                        continue;
                     }
-                    tempLandedCosts[items].sizes[item].quantity += cartItems[items][item];
-                    tempLandedCosts[items].sizes[item].weight += sizeData.weight / 1000;
 
-                    // **Kumpulkan jumlah jenis dalam cart**
-                    itemCounts[items] = true;
+                    const sizeData = product.size.find((s) => s.size === size);
+
+                    if (!sizeData) {
+                        console.error(`❌ Size ${size} not found for product ${product.commonName}`);
+                        continue;
+                    }
+
+                    totalVolume += sizeData.volume * cartItems[itemId][size];
+                    totalWeight += (sizeData.weight * cartItems[itemId][size]) / 1000;
+
+                    if (!tempLandedCosts[itemId]) {
+                        tempLandedCosts[itemId] = { totalQuantity: 0, size: {} };
+                    }
+                    tempLandedCosts[itemId].totalQuantity += cartItems[itemId][size];
+
+                    if (!tempLandedCosts[itemId].size[size]) {
+                        tempLandedCosts[itemId].size[size] = { quantity: 0, weight: 0 };
+                    }
+                    tempLandedCosts[itemId].size[size].quantity += cartItems[itemId][size];
+                    tempLandedCosts[itemId].size[size].weight += sizeData.weight / 1000;
+
+                    itemCounts[itemId] = true;
 
                     tempData.push({
-                        _id: items,
-                        name: product.name,
-                        size: item,
-                        quantity: cartItems[items][item],
-                        volume: sizeData.volume * cartItems[items][item],
-                        weight: sizeData.weight * cartItems[items][item],
+                        _id: itemId,
+                        name: product.commonName,
+                        size: size,
+                        quantity: cartItems[itemId][size],
+                        volume: sizeData.volume * cartItems[itemId][size],
+                        weight: sizeData.weight * cartItems[itemId][size],
                         category: product.category
                     });
 
                     if (product.category === "Culture") {
-                        totalCultureQuantity += cartItems[items][item];
+                        totalCultureQuantity += cartItems[itemId][size];
                     }
                     if (product.category === "Wild") {
-                        totalWildQuantity += cartItems[items][item];
+                        totalWildQuantity += cartItems[itemId][size];
                     }
 
                     setWeightItem(sizeData.weight / 1000);
@@ -74,25 +125,25 @@ const Cart = () => {
             }
         }
 
-        // **Step 2: Hitung Landed Cost per jenis**
-        const totalProductTypes = Object.keys(itemCounts).length; // Total jenis produk dalam cart
+        const totalProductTypes = Object.keys(itemCounts).length;
         const landedCostPerType = totalProductTypes > 0 ? totalLandedCost / totalProductTypes : 0;
 
         const landedCostForItems = [];
 
         for (const productId in tempLandedCosts) {
             const productData = tempLandedCosts[productId];
-            const product = products.find((p) => p._id === productId);
+            const product = productsData.find((p) => p._id === productId);
 
-            for (const size in productData.sizes) {
-                const sizeInfo = productData.sizes[size];
+            if (!product) continue;
 
-                // 🔹 Menghitung landed cost berdasarkan berat (berat per jenis / total berat)
+            for (const size in productData.size) {
+                const sizeInfo = productData.size[size];
+
                 const landedCostPerSize = (sizeInfo.weight / totalWeight) * totalLandedCost * sizeInfo.quantity;
 
                 landedCostForItems.push({
                     _id: productId,
-                    name: product.name,
+                    name: product.commonName,
                     size: size,
                     quantity: sizeInfo.quantity,
                     weight: sizeInfo.weight,
@@ -102,63 +153,26 @@ const Cart = () => {
             }
         }
 
-
-        console.log("Total weight = " + totalWeight);
-        console.log("Total Landed Cost = " + totalLandedCost);
-        console.log("Landed Cost Per Item:", landedCostForItems);
+        console.log("🚀 Final Cart Data:", JSON.stringify(tempData, null, 2));
 
         setLandedCostForItem(landedCostForItems);
         setCartData(tempData);
 
-        // **Step 3: Menghitung jumlah box yang dibutuhkan**
         const boxUtilization = Math.ceil(totalVolume / boxVolume);
-        let remainingVolume = totalVolume;
-        const tempBoxes = [];
-
-        for (let i = 0; i < boxUtilization; i++) {
-            const currentBoxVolume = Math.min(boxVolume, remainingVolume);
-            const efficiency = Math.round((currentBoxVolume / boxVolume) * 100);
-
-            let boxVolumeLeft = currentBoxVolume;
-            const itemAllocations = tempData.map(item => {
-                const itemVolume = (item.volume / totalVolume) * currentBoxVolume;
-                const allocatedVolume = Math.min(itemVolume, boxVolumeLeft);
-                boxVolumeLeft -= allocatedVolume;
-                return {
-                    ...item,
-                    allocatedVolume
-                };
-            });
-
-            tempBoxes.push({
-                efficiency,
-                itemAllocations
-            });
-
-            remainingVolume -= currentBoxVolume;
-            if (remainingVolume <= 0) break;
-        }
-
-        setBoxes(tempBoxes);
-        updateBoxesLength(tempBoxes.length);
+        setBoxes(new Array(boxUtilization).fill({ efficiency: 90 }));
+        updateBoxesLength(boxUtilization);
 
         setCitesCultureQuantity(totalCultureQuantity);
         setCitesWildQuantity(totalWildQuantity);
         setWeightOfItems(totalWeight.toFixed(2));
-
-        console.log("Total Quantity Culture in Cart:", totalCultureQuantity);
-        console.log("Total Quantity Wild in Cart:", totalWildQuantity);
-        console.log("Total Weight of Items in Cart:", totalWeight.toFixed(2), "kg");
         setTotalWeightItem(totalWeight);
 
-    }, [cartItems, products, setCitesCultureQuantity, setCitesWildQuantity, setWeightOfItems]);
+    }, [cartItems, productsData]);
+
 
     useEffect(() => {
         console.log("Updated Landed Cost:", JSON.stringify(landedCostForItem, null, 2));
     }, [landedCostForItem]);
-
-
-
 
     return (
         <div className='border-t my-14 px-16'>
@@ -191,62 +205,54 @@ const Cart = () => {
                             </thead>
 
                             <tbody>
-                                {cartData.map((item, index) => {
-                                    const productData = products.find((product) => product._id === item._id);
-
-                                    // Hitung Landed Cost per item
-
-
-                                    console.log(`Total Weight = ${totalWeightItem.toFixed(2)}`)
-                                    console.log(`Weight ${productData.name} ${weightItem.toFixed(2)} Kg`)
-                                    console.log(totalAmountAll)
-                                    console.log(`Landed cost ${productData.name} = ${landedCostForItem.find(lc => lc._id === item._id && lc.size === item.size)?.landedCost}`)
-
-
-                                    return (
-                                        <tr key={index} className="hover:bg-gray-100">
-                                            <td className="px-4 py-2 text-center">
-                                                <div className='flex items-center gap-6 flex-wrap'>
-                                                    <img className='w-16 sm:w-20' src={productData.image[0]} alt='' />
-                                                    <div>
-                                                        <p className='text-xs sm:text-sm font-medium'>{productData.name}</p>
-                                                        <div className='flex items-center gap-5 mt-2'>
-                                                            <p>{currency}{productData.price}</p>
-                                                            <p className='px-2 sm:px-3 sm:py-1 bg-slate-50'>{item.size}</p>
+                                {Object.keys(cartItems).length === 0 ? (
+                                    <tr>
+                                        <td colSpan="5" className="text-center py-4 text-gray-500">
+                                            Your cart is empty
+                                        </td>
+                                    </tr>
+                                ) : (
+                                    Object.entries(cartItems).map(([productId, sizes]) =>
+                                        Object.entries(sizes).map(([size, item], index) => {
+                                            return (
+                                                <tr key={index} className="hover:bg-gray-100">
+                                                    <td className="px-4 py-2 text-center">
+                                                        <div className='flex items-center gap-6 flex-wrap'>
+                                                            <p className='text-xs sm:text-sm font-medium'>{item.commonName}</p>
+                                                            <div className='flex items-center gap-5 mt-2'>
+                                                                <p>{item.appsheetCode}</p>
+                                                                <p className='px-2 sm:px-3 sm:py-1 bg-slate-50'>{size}</p>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className="px-4 py-2 text-center ">
-                                                <input
-                                                    onChange={(e) => e.target.value === '' || e.target.value === '0' ? null : updateQuantity(item._id, item.size, Number(e.target.value))}
-                                                    type='number'
-                                                    min={1}
-                                                    defaultValue={item.quantity}
-                                                    className='border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1 bg-red-50'
-                                                />
-                                            </td>
-
-                                            <td className="px-4 py-2 text-center">
-                                                {currency}
-                                                {landedCostForItem.find(lc => lc._id === item._id && lc.size === item.size)?.landedCost || '0.00'}
-
-                                            </td>
-                                            <td className="px-4 py-2 text-center">
-                                                {currency}
-                                                {landedCostForItem.find(lc => lc._id === item._id && lc.size === item.size)?.COGS || '0.00'}
-                                            </td>
-                                            <td className="px-4 py-2 text-center ">
-                                                <img
-                                                    onClick={() => updateQuantity(item._id, item.size, 0)}
-                                                    className='w-4  sm:w-5 cursor-pointer mx-auto'
-                                                    src={assets.bin_icon}
-                                                    alt='delete icon'
-                                                />
-                                            </td>
-                                        </tr>
-                                    );
-                                })}
+                                                    </td>
+                                                    <td className="px-4 py-2 text-center">
+                                                        <input
+                                                            onChange={(e) => updateQuantity(productId, size, Number(e.target.value))}
+                                                            type='number'
+                                                            min={1}
+                                                            value={item.quantity}
+                                                            className='border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1 bg-red-50'
+                                                        />
+                                                    </td>
+                                                    <td className="px-4 py-2 text-center">
+                                                        {item.coralLocation}
+                                                    </td>
+                                                    <td className="px-4 py-2 text-center">
+                                                        {item.code}
+                                                    </td>
+                                                    <td className="px-4 py-2 text-center">
+                                                        <img
+                                                            onClick={() => updateQuantity(productId, size, 0)}
+                                                            className='w-4 sm:w-5 cursor-pointer mx-auto'
+                                                            src={assets.bin_icon}
+                                                            alt='delete icon'
+                                                        />
+                                                    </td>
+                                                </tr>
+                                            );
+                                        })
+                                    )
+                                )}
                             </tbody>
                             {/* <tfoot>
                                 <tr className="bg-gray-100 font-bold">
